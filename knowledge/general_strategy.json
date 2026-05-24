@@ -1,0 +1,292 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "four_pillars": {
+    "description": "Baalorlord's four fundamental pillars that every successful deck must address. A deck that is weak in any pillar will struggle. Evaluate your deck against these pillars after every card reward and shop visit.",
+
+    "damage_output": {
+      "description": "Your ability to deal damage to enemies. Split into two sub-categories: frontloaded damage and scaling damage. You need BOTH — frontloaded for hallway fights and early turns, scaling for long boss fights.",
+      "frontload": {
+        "description": "Damage you can deal in the first 1-2 turns of combat without any setup. This is your bread and butter for hallway fights and the early turns of elite/boss fights.",
+        "importance": "Critical in Act 1 where you have no scaling yet. Hallway fights should ideally end in 2-3 turns. If fights drag on, you take unnecessary damage that limits your pathing options.",
+        "target": "Aim to deal 30-40+ damage in the first 2 turns by mid-Act 1. By Act 2, you want 50+ frontloaded damage available.",
+        "examples": [
+          "Ironclad: Carnage, Pummel, Uppercut, Headbutt",
+          "Silent: Backstab, Predator, Dash, Poisoned Stab",
+          "Defect: Cold Snap, Ball Lightning, Doom and Gloom, Compile Driver",
+          "Necrobinder: Osty attacks, Doom application cards",
+          "Regent: Sovereign Blade (with Forge stacks), Star-powered attacks"
+        ],
+        "common_mistake": "Ignoring frontload in favor of scaling. A deck full of scaling cards with no frontload will lose 30+ HP in hallway fights before the scaling comes online."
+      },
+      "scaling": {
+        "description": "Damage that grows over the course of a fight. Strength, Poison stacks, Focus + Orbs, Doom accumulation, Forge stacks — anything that makes each subsequent turn deal more damage than the last.",
+        "importance": "Essential for boss fights and tough elites that last 5+ turns. Without scaling, bosses become wars of attrition you will lose. The longer a fight goes, the more scaling matters.",
+        "target": "Have at least one reliable scaling source by the end of Act 1. By Act 2, you want 2+ scaling sources or one very strong one.",
+        "examples": [
+          "Ironclad: Demon Form, Inflame, Spot Weakness, Limit Break",
+          "Silent: Noxious Fumes, Catalyst, Envenom",
+          "Defect: Defragment, Biased Cognition, Capacitor, Echo Form",
+          "Necrobinder: Doom stacking, recurring Souls",
+          "Regent: Star generation engines, Forge accumulation"
+        ],
+        "common_mistake": "Over-investing in scaling without enough block or frontload. A Demon Form is worthless if you die on turn 2."
+      }
+    },
+
+    "cycle_time": {
+      "description": "How quickly you see your important cards again. Cycle time is determined by deck size, draw, and card manipulation. A smaller, tighter deck with good draw sees its power cards every 2 turns instead of every 4.",
+      "ideal_deck_size": "20-25 cards for most builds. Some exhaust-heavy builds can go larger (28-32) because they thin in combat. Some ultra-thin builds work at 15-18 but require specific synergies.",
+      "target_cycle": "See your full deck every ~2 turns. With a 20-card deck and 5-card hand, you see everything in 4 draws (2 turns). Add draw cards and it's even faster.",
+      "why_it_matters": "If your deck has 35 cards and your win condition is 3 specific cards, you might not see them together for 5+ turns. That's 5 turns of taking damage without your engine running.",
+      "tips": [
+        "Skip card rewards more often than you take them — every card you add increases cycle time",
+        "Prioritize draw cards: they effectively reduce your deck size by letting you see more cards per turn",
+        "Remove Strikes and Defends at every opportunity — they are the weakest cards in your deck",
+        "Exhaust cards naturally thin your deck during combat, improving cycle time as the fight progresses",
+        "Innate cards reduce effective cycle time by guaranteeing key cards in opening hand",
+        "Retain cards improve consistency by letting you hold key cards across turns"
+      ],
+      "card_removal_priority": [
+        "Strikes first (they deal less damage than almost any common attack)",
+        "Defends second (they block less than almost any common skill)",
+        "Curses/Status immediately when possible",
+        "Redundant copies of conditional cards"
+      ]
+    },
+
+    "block_density": {
+      "description": "The percentage of your deck that can generate block. You need enough block cards to survive enemy attacks on most turns, but not so many that you can't kill enemies.",
+      "target_percentage": 33,
+      "target_description": "Roughly 1 in 3 cards should generate block. In a 21-card deck, that's ~7 block cards. This ensures you draw at least 1-2 block cards per hand.",
+      "tips": [
+        "Block cards that also do something else (Shrug It Off draws, Dash blocks AND attacks) are premium picks",
+        "Don't neglect block in Act 1 — you need to survive elites and the Act 1 boss",
+        "Strength/scaling builds still need block; you can't just race bosses",
+        "Artifact and Intangible are the best 'block' in the game — they prevent damage entirely",
+        "Calculate how much incoming damage you expect and whether your block density can handle it",
+        "Dexterity increases the value of every block card — it's block scaling"
+      ],
+      "scaling_block": {
+        "description": "Block that grows over time, similar to damage scaling. Dexterity, Metallicize, After Image, Frost Orbs with Focus — these make your block better every turn.",
+        "examples": [
+          "Ironclad: Barricade + Body Slam, Metallicize, Feel No Pain",
+          "Silent: Footwork (Dexterity), After Image, Blur",
+          "Defect: Frost Orbs + Focus, Glacier, Reinforced Body",
+          "Necrobinder: Osty as meat shield, defensive Souls",
+          "Regent: Star-powered block generation"
+        ]
+      }
+    },
+
+    "upgrade_density": {
+      "description": "The percentage of your deck that is upgraded. Upgraded cards are significantly more efficient — they deal more damage, block more, cost less, or gain additional effects. Campfires are your primary upgrade source.",
+      "target_percentage": 50,
+      "target_description": "Aim to have at least half your deck upgraded by Act 2. By Act 3, 60-75% upgraded is ideal. Upgrades are one of the most reliable ways to increase deck power.",
+      "tips": [
+        "Upgrading is almost always better than resting at a campfire if you're above 50% HP",
+        "Prioritize upgrading your most-played cards — cards you see every fight benefit most from upgrades",
+        "Some upgrades are transformative: Bash+ applies 3 Vulnerable, Neutralize+ applies 2 Weak, etc.",
+        "Calculate the total value of an upgrade over an entire run — an upgraded card played 50+ times adds up enormously",
+        "Key upgrades that change card function (add draw, reduce cost, add effects) are highest priority",
+        "Upgrades to 0-cost cards are often very efficient since you always play them"
+      ],
+      "upgrade_priority_framework": [
+        "1. Cards that gain new effects when upgraded (cost reduction, added draw, new mechanics)",
+        "2. Cards you play every single turn (your most consistent damage/block sources)",
+        "3. Scaling cards (making your scaling faster or stronger compounds over a fight)",
+        "4. Cards that go from situational to always-good when upgraded",
+        "5. Cards with minor stat bumps (last priority — +3 damage is less impactful than a new effect)"
+      ]
+    }
+  },
+
+  "card_evaluation": {
+    "description": "How to evaluate card rewards and decide what to take, skip, or remove.",
+
+    "jobs_framework": {
+      "description": "Baalorlord's 'Jobs' framework for card evaluation. Every card should fill a specific job your deck needs. Don't evaluate cards in a vacuum — evaluate them based on what your deck is currently missing.",
+      "jobs": [
+        {
+          "job": "Frontload Damage",
+          "description": "Deal immediate damage without setup",
+          "when_needed": "Always needed in Act 1. Check if your first 2 turns deal enough damage to kill small hallway enemies."
+        },
+        {
+          "job": "Scaling Damage",
+          "description": "Grow damage output over a long fight",
+          "when_needed": "Needed before first elite, critical before first boss. If you have no scaling, prioritize this."
+        },
+        {
+          "job": "Block Generation",
+          "description": "Prevent incoming damage",
+          "when_needed": "Always needed. If less than ~30% of your deck generates block, prioritize block cards."
+        },
+        {
+          "job": "Card Draw",
+          "description": "See more cards per turn, improve consistency",
+          "when_needed": "Needed once deck size exceeds 20 cards. Critical if you have powerful cards you rarely see."
+        },
+        {
+          "job": "AOE Damage",
+          "description": "Handle multiple-enemy encounters efficiently",
+          "when_needed": "Need at least 1 AOE source by mid-Act 1. Multiple enemy fights are common and dangerous."
+        },
+        {
+          "job": "Enemy Debuffs",
+          "description": "Weak, Vulnerable, or other debuffs that reduce enemy effectiveness",
+          "when_needed": "Weak is always valuable (reduces damage by 25%). Vulnerable amplifies your damage by 50%."
+        },
+        {
+          "job": "Deck Manipulation",
+          "description": "Scry, retain, search, or otherwise control what you draw",
+          "when_needed": "Becomes important in Act 2+ as fights become more complex and sequencing matters more."
+        }
+      ],
+      "evaluation_process": [
+        "1. Identify which jobs your deck currently needs most urgently",
+        "2. Evaluate each card reward by which job(s) it fills",
+        "3. Prefer cards that fill multiple jobs simultaneously (e.g., Shrug It Off blocks AND draws)",
+        "4. Skip the reward if no card fills a needed job — adding bloat is worse than skipping",
+        "5. Consider the next 3-5 fights: what do you need to survive RIGHT NOW?"
+      ]
+    },
+
+    "two_cost_cards": {
+      "description": "Baalorlord emphasizes that new players chronically undervalue 2-cost cards. A 2-cost card that does 2 things is often more efficient than playing two 1-cost cards that each do one thing.",
+      "reasoning": "A 2-cost card takes 1 card slot in your hand and 1 draw to see. Two 1-cost cards take 2 slots and 2 draws. The 2-cost card is better for cycle time even if the raw numbers seem similar.",
+      "examples": [
+        "Carnage (2 cost, 20 damage) vs two Strikes (2 cost total, 12 damage) — Carnage wins on damage AND cycle time",
+        "Dash (2 cost, 10 damage + 10 block) replaces a Strike AND a Defend in one card slot",
+        "Doom and Gloom (2 cost, 10 damage + channel Dark orb) provides damage AND orb value in one play"
+      ],
+      "when_to_avoid_two_cost": [
+        "When you have very limited energy (3 energy with no energy relics)",
+        "When the 2-cost card's effect is too situational or conditional",
+        "When you already have too many 2-cost cards and can't play your full hand"
+      ]
+    },
+
+    "skipping_philosophy": {
+      "description": "One of Baalorlord's most important teachings: skipping card rewards is a powerful strategic tool. Most players take too many cards.",
+      "key_principles": [
+        "Every card you add to your deck increases cycle time — make sure it's worth it",
+        "A mediocre card is WORSE than no card because it dilutes your draws",
+        "In Act 2 and Act 3, you should be skipping 40-60% of card rewards",
+        "Ask yourself: 'Does this card make my deck better, or just bigger?'",
+        "The best players skip aggressively and have tight, focused decks",
+        "It's better to have a 20-card deck where every card is good than a 30-card deck with 10 filler cards"
+      ],
+      "when_to_take": [
+        "The card fills an urgent job your deck needs",
+        "The card has exceptional synergy with your existing cards",
+        "You're in Act 1 and need any reasonable damage or block",
+        "The card is a rare/powerful card you'd build around"
+      ],
+      "when_to_skip": [
+        "No card fills an urgent need",
+        "The cards are marginal upgrades over what you already have",
+        "Your deck is already 25+ cards and you don't have exhaust mechanics",
+        "Taking the card would reduce your consistency more than it adds power"
+      ]
+    }
+  },
+
+  "resource_management": {
+    "hp_as_resource": {
+      "description": "Baalorlord's core teaching: HP is a resource to be SPENT, not hoarded. Taking 5 damage in a hallway fight to end it 1 turn faster is often correct because it saves you from taking 10 damage over 2 additional turns.",
+      "key_principles": [
+        "HP is a resource, not a score — spending HP efficiently is a skill",
+        "Taking damage to end fights faster is often correct (less total damage taken)",
+        "Low HP forces bad pathing — maintaining 50%+ HP gives you options",
+        "Resting at campfires is almost always wrong if you're above 50% HP — upgrade instead",
+        "Elite fights are worth the HP investment if you can afford it — the rewards are massive"
+      ],
+      "hp_thresholds": {
+        "comfortable": "70%+ HP — take any fight, hunt elites freely",
+        "moderate": "50-70% HP — still take elites if your deck is strong, otherwise play safe",
+        "danger": "30-50% HP — avoid elites, consider resting at campfires",
+        "critical": "Below 30% HP — rest at every campfire, take safest possible path, use potions liberally"
+      }
+    },
+
+    "potion_usage": {
+      "description": "Baalorlord strongly advocates using potions aggressively, especially on elites. Hoarding potions for the boss is one of the most common mistakes.",
+      "key_principles": [
+        "Use potions on elites — elite rewards (relics, extra cards, gold) are worth more than saving potions",
+        "A potion used to take 0 damage from an elite is better than saving it for a boss where you'd take 10 damage anyway",
+        "Potions are free power — there is no cost to using them except opportunity cost of a better use later",
+        "You will find more potions — don't hoard them",
+        "If you have 3+ potions going into an elite, use at least 1-2",
+        "The only time to save potions is if you're about to fight a boss and your deck genuinely needs the help"
+      ],
+      "potion_priority": [
+        "Use offensive potions (Strength, Fire, Attack potions) on elites to kill them faster",
+        "Use defensive potions (Block, Fairy in a Bottle) when you'd otherwise take lethal or near-lethal damage",
+        "Smoke Bomb is an emergency escape — use it if a fight is going badly and you'd lose 40+ HP",
+        "Entropic Brew / Fruit Juice are best used before tough fights to maximize their value"
+      ]
+    },
+
+    "gold_management": {
+      "description": "Gold is valuable but should be spent strategically. Don't hoard gold — spend it at shops on high-impact purchases.",
+      "key_principles": [
+        "Card removal is almost always worth the gold — removing a Strike or Defend improves every future fight",
+        "Relics from shops can be game-changing — evaluate them against your deck's needs",
+        "Don't buy cards from shops unless they fill a critical need — card rewards are free",
+        "Save 300-400+ gold for a shop visit for maximum value",
+        "Prioritize: Card Removal > Key Relics > Potions > Cards"
+      ],
+      "shop_priority": [
+        "1. Card removal (always buy at least one removal per shop visit)",
+        "2. High-synergy relics that complement your deck",
+        "3. Potions if you're about to fight an elite or boss",
+        "4. Cards only if they fill a critical gap in your deck",
+        "5. Colorless cards if they're premium (Apotheosis, Master of Strategy, etc.)"
+      ]
+    }
+  },
+
+  "act_transitions": {
+    "description": "What your deck should look like at each stage of the run.",
+    "act1_exit": {
+      "deck_size": "15-20 cards",
+      "requirements": [
+        "At least 1 scaling source",
+        "Enough frontload to kill hallway enemies in 2-3 turns",
+        "Some block generation beyond starting Defends",
+        "1-2 card removals completed",
+        "At least 3-4 upgrades"
+      ]
+    },
+    "act2_exit": {
+      "deck_size": "20-25 cards",
+      "requirements": [
+        "Strong scaling that works reliably",
+        "Good block density (~33%)",
+        "AOE capability for multi-enemy fights",
+        "50%+ cards upgraded",
+        "Core synergies established"
+      ]
+    },
+    "act3_entry": {
+      "focus": "Consolidation and optimization",
+      "requirements": [
+        "Deck is mostly complete — skip most card rewards",
+        "Focus on upgrades and card removal",
+        "Prepare specifically for the Act 3 boss",
+        "Ensure you have answers for the toughest fights"
+      ]
+    }
+  },
+
+  "meta_principles": {
+    "adaptability": "Never force a build. Adapt to what the game offers you. The best players build around the cards and relics they find, not the archetype they wanted.",
+    "information_usage": "Use all available information: upcoming enemies, map layout, boss identity, current HP, potion slots. Every decision should incorporate known information.",
+    "risk_assessment": "Every decision involves risk. Calculate expected outcomes: 'If I take this elite path, I gain a relic but might lose 20 HP. Is that worth it given my current state?'",
+    "long_term_thinking": "Don't optimize for the current fight — optimize for the current ACT. A card that's bad now but great for the boss is worth taking if you can survive without it until then.",
+    "practice_mindset": "Every loss is a learning opportunity. Ask 'What could I have done differently?' after every run. The best players constantly self-evaluate."
+  }
+}

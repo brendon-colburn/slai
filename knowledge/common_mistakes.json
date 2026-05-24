@@ -1,0 +1,290 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "mistakes": [
+    {
+      "id": "card_bloat",
+      "name": "Card Bloat",
+      "severity": "high",
+      "frequency": "very_common",
+      "description": "Taking too many cards, resulting in a bloated deck with inconsistent draws. The player adds cards without considering the impact on cycle time and draw consistency. Deck becomes unfocused — the player has many 'okay' cards but rarely sees their best cards when they need them.",
+      "why_it_happens": [
+        "New players feel that more cards = more power, when the opposite is often true",
+        "Fear of skipping — players feel they're 'wasting' a card reward by not taking anything",
+        "Not understanding cycle time — players don't realize that a 35-card deck sees key cards half as often as a 20-card deck",
+        "Taking cards 'just in case' without a specific plan for when they'll be useful",
+        "Evaluating cards in isolation rather than in the context of the whole deck",
+        "Excitement over seemingly powerful cards without considering if they fit the deck's strategy"
+      ],
+      "how_to_fix": [
+        "Before every card reward, ask: 'Does this card make my deck better, or just bigger?'",
+        "Track your deck size — aim for 20-25 cards by end of Act 2",
+        "Skip card rewards more often — skipping 40-60% of rewards in Act 2+ is normal for strong players",
+        "Prioritize card removal at shops to offset cards you've taken",
+        "Use the 'Jobs Framework' — only take cards that fill a specific, unfilled role in your deck",
+        "Review your deck regularly and ask: 'Which cards do I wish I wasn't drawing?'"
+      ],
+      "detection_criteria": {
+        "deck_size_thresholds": {
+          "act1_warning": "More than 22 cards by end of Act 1",
+          "act2_warning": "More than 28 cards by end of Act 2",
+          "act3_warning": "More than 32 cards by end of Act 3"
+        },
+        "behavioral_signs": [
+          "Player takes a card from almost every reward (>80% take rate)",
+          "Player has multiple cards serving the same role (redundant cards)",
+          "Player rarely or never skips card rewards",
+          "Player has cards that were never or rarely played in recent combats",
+          "Deck has both aggressive and defensive scaling that don't synergize"
+        ],
+        "combat_signs": [
+          "Player frequently doesn't draw their key cards when needed",
+          "Fights take longer than necessary because draws are inconsistent",
+          "Player has leftover energy but bad cards to play (hand is full of mediocre options)"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "Point out the deck size relative to the act. Compare their take rate to recommended rates.",
+        "educational": "Explain cycle time: 'Your deck has 30 cards. With a 5-card hand, it takes 6 draws (3 turns) to see your whole deck. If your key combo is 3 cards, you might not see it for 4+ turns.'",
+        "actionable": "Recommend skipping the current card reward unless one card fills a critical need. Suggest card removal at the next shop."
+      }
+    },
+
+    {
+      "id": "forcing_archetypes",
+      "name": "Forcing Archetypes Early",
+      "severity": "high",
+      "frequency": "common",
+      "description": "Committing to a specific build (e.g., 'I'm going Poison Silent' or 'I'm doing Strength Ironclad') before seeing what the game offers. This causes players to pass on strong cards that don't fit their preconceived plan and take weak cards that do.",
+      "why_it_happens": [
+        "Players watch streamers pilot specific archetypes and want to replicate them",
+        "Deck-building games encourage 'theme' thinking — players want a cohesive identity early",
+        "It feels good to have a plan — uncertainty is uncomfortable",
+        "Players remember their best runs with a specific archetype and try to recreate them",
+        "Confusion between 'having a direction' (good) and 'forcing an archetype' (bad)",
+        "Not understanding that strong decks are built from what you're offered, not what you want"
+      ],
+      "how_to_fix": [
+        "Stay flexible through Act 1 — take the best card offered regardless of archetype",
+        "Let your deck's identity emerge from the cards and relics you find",
+        "Evaluate each card reward independently: 'Is this the best card for my deck RIGHT NOW?'",
+        "Don't commit to an archetype until you have 3-4 strong cards in that direction",
+        "Remember that hybrid decks are often stronger than 'pure' archetype decks",
+        "Focus on the Four Pillars (damage, cycle, block, upgrades) rather than archetypes"
+      ],
+      "detection_criteria": {
+        "behavioral_signs": [
+          "Player passes on strong general-purpose cards in favor of weak archetype-specific cards",
+          "Player states their build plan in Act 1 ('I'm going Shiv build')",
+          "Player takes archetype cards that don't work without other archetype pieces they don't have yet",
+          "Player ignores the Four Pillars in favor of archetype synergy",
+          "Player is disappointed by card rewards that don't match their desired archetype"
+        ],
+        "deck_signs": [
+          "Deck has archetype-specific cards but lacks the support cards to make them work",
+          "Deck is missing basic needs (block, frontload damage) because player skipped non-archetype cards",
+          "Deck has clear archetype identity but performs poorly because key pieces are missing"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "Ask the player why they're passing on the strong card. Challenge archetype-based reasoning.",
+        "educational": "Explain adaptability: 'The best STS2 players build around what the game gives them. If the game offers you 3 strong Poison cards, go Poison. If it offers you 3 strong Shiv cards, go Shiv. Don't decide in advance.'",
+        "actionable": "Recommend the strongest card in the current reward regardless of archetype. Point out how it fills a job the deck needs."
+      }
+    },
+
+    {
+      "id": "ignoring_pathing",
+      "name": "Ignoring Pathing Strategy",
+      "severity": "high",
+      "frequency": "common",
+      "description": "Not planning map routes in advance. The player makes node-by-node decisions instead of planning the entire act's path. This leads to suboptimal routes — missing elites when strong, hitting elites when weak, visiting shops with no gold, or skipping campfires before tough fights.",
+      "why_it_happens": [
+        "Players focus on the immediate decision ('left or right?') instead of the big picture",
+        "Map information feels overwhelming — too many variables to process",
+        "Players don't realize they can see the full map and plan ahead",
+        "Reactive play is easier than proactive planning",
+        "Not understanding which node types are most valuable at different points in the run",
+        "Lack of awareness of the Look Ahead Method"
+      ],
+      "how_to_fix": [
+        "Use the Look Ahead Method: plan your entire act path from bottom to top before taking your first step",
+        "Identify the boss first — know what you're building toward",
+        "Count elites, campfires, shops, and question marks on each possible route",
+        "Consider your HP, deck state, and gold when choosing between routes",
+        "Have a backup path if things go wrong (take more damage than expected, etc.)",
+        "Re-evaluate your path at every decision point — adjust if your situation has changed"
+      ],
+      "detection_criteria": {
+        "behavioral_signs": [
+          "Player doesn't examine the full map before making pathing decisions",
+          "Player makes pathing decisions quickly without analysis",
+          "Player hits shops with less than 150 gold",
+          "Player enters elite fights at low HP (below 40%)",
+          "Player skips campfires before tough fights when they need healing or upgrades",
+          "Player doesn't consider the boss when making pathing choices"
+        ],
+        "outcome_signs": [
+          "Player arrives at boss with suboptimal HP or deck state",
+          "Player misses elite opportunities when they were strong enough to fight",
+          "Player visits shops without enough gold for meaningful purchases",
+          "Player reaches campfires with no good upgrade targets (already upgraded key cards earlier)"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "Before the player moves to the next node, suggest they look at the full map and plan their route.",
+        "educational": "Explain the Look Ahead Method step by step. Show how planning ahead leads to better outcomes.",
+        "actionable": "Provide a recommended path for the current act with reasoning for each node."
+      }
+    },
+
+    {
+      "id": "autopilot",
+      "name": "Playing on Autopilot",
+      "severity": "medium",
+      "frequency": "very_common",
+      "description": "Going through the motions without thinking through individual turns. Playing cards in the same order every fight, not considering enemy intent, not doing damage/block math. This leads to suboptimal plays that compound over a run.",
+      "why_it_happens": [
+        "Fights become repetitive and players stop thinking critically",
+        "Players develop habits ('always play Strikes first, then Defends') without evaluating each turn",
+        "Fatigue during long runs — mental energy decreases as the run progresses",
+        "Overconfidence in easy fights — players don't bother optimizing 'simple' encounters",
+        "Not understanding that small optimizations compound over many fights",
+        "Lack of awareness of enemy intent indicators and how to play around them"
+      ],
+      "how_to_fix": [
+        "Check enemy intent EVERY turn before playing any cards",
+        "Do the math: calculate exactly how much damage you need to deal and how much block you need",
+        "Consider card order — some cards benefit from being played before others (Vulnerable before attacks)",
+        "Ask 'What's the worst that can happen this turn?' before committing to plays",
+        "Identify lethal threats — know when the enemy can kill you and plan accordingly",
+        "Take short breaks during long runs to maintain focus"
+      ],
+      "detection_criteria": {
+        "behavioral_signs": [
+          "Player plays cards in the same order every turn regardless of enemy intent",
+          "Player doesn't check enemy intent indicators",
+          "Player doesn't calculate damage/block math for the turn",
+          "Player makes plays quickly without pausing to think",
+          "Player ends turn with unspent energy and playable cards",
+          "Player doesn't adjust strategy based on enemy behavior changes"
+        ],
+        "outcome_signs": [
+          "Player takes unnecessary damage from predictable enemy attacks",
+          "Player over-blocks (wastes block) or under-blocks (takes preventable damage)",
+          "Player kills enemies one turn later than necessary due to suboptimal play order",
+          "Player misses lethal on enemies, extending fights unnecessarily"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "Ask the player to pause and check enemy intent before making plays.",
+        "educational": "Show specific examples of how play order and math optimization would have saved HP or ended fights faster.",
+        "actionable": "Provide a step-by-step analysis of the optimal play for the current turn, showing the reasoning."
+      }
+    },
+
+    {
+      "id": "hoarding_potions",
+      "name": "Hoarding Potions",
+      "severity": "medium",
+      "frequency": "very_common",
+      "description": "Saving potions 'for the boss' instead of using them on elites and tough hallway fights. This is one of Baalorlord's most-discussed mistakes. Potions used on elites often save more HP than they would on the boss, and you'll likely find more potions before the boss anyway.",
+      "why_it_happens": [
+        "Boss fights feel like the 'big' fight, so players save their best resources for them",
+        "Fear of not having potions when they 'really' need them",
+        "Not understanding that elite fights are often harder relative to your deck than boss fights",
+        "Not tracking potion acquisition — players don't realize how frequently potions drop",
+        "Overvaluing the potion itself vs the HP it saves — using a potion to save 15 HP from an elite is massive value",
+        "Treating potions as 'emergency' items rather than 'efficiency' items"
+      ],
+      "how_to_fix": [
+        "Reframe potions as 'free power' — they cost you nothing to use except the opportunity to use them later",
+        "Use offensive potions on elites to kill them faster and take less damage overall",
+        "Use defensive potions to prevent big damage spikes that would force you to rest instead of upgrade",
+        "If you have 3+ potions, use at least 1-2 on the next elite fight",
+        "Only save potions for the boss if you're 2-3 fights away from it AND your deck needs help",
+        "Track your potion acquisition — you find ~3-5 potions per act"
+      ],
+      "detection_criteria": {
+        "behavioral_signs": [
+          "Player has full potion slots for extended periods (5+ fights)",
+          "Player has 3 potions going into an elite fight and uses none",
+          "Player takes significant damage from elites while holding offensive potions",
+          "Player states they're 'saving potions for the boss'",
+          "Player discards potions at fights to make room for new ones (shows they weren't using them)",
+          "Player has defensive potions while low on HP but doesn't use them preemptively"
+        ],
+        "outcome_signs": [
+          "Player arrives at the boss with full potions but has lost significant HP along the way",
+          "Player had to rest at campfires instead of upgrading because they took too much damage from elites they could have used potions on",
+          "Player's deck is weaker than it should be because they skipped elites they could have beaten with potion help"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "Suggest using a specific potion in the current fight. Explain the HP value it would save.",
+        "educational": "Show the math: 'If you use this Strength potion on this elite, you kill it 1 turn faster, saving ~15 HP. That's worth more than saving the potion for a boss where it might save 5 HP.'",
+        "actionable": "Before each elite fight, suggest which potions to use. After elite fights, note how much HP was saved or could have been saved."
+      }
+    },
+
+    {
+      "id": "misunderstanding_card_value",
+      "name": "Misunderstanding Card Value",
+      "severity": "medium",
+      "frequency": "common",
+      "description": "Evaluating cards incorrectly — often dismissing 2-cost cards as 'too expensive,' evaluating cards in a vacuum instead of deck context, or overvaluing cards that are flashy but don't fill a needed role. Also includes overvaluing rares and undervaluing strong commons/uncommons.",
+      "why_it_happens": [
+        "Players compare raw numbers without considering action efficiency (2-cost card = 1 draw, 2 one-cost cards = 2 draws)",
+        "Players evaluate cards in isolation instead of considering deck context and synergies",
+        "Players gravitate toward 'exciting' cards (rares, flashy effects) over 'boring but effective' cards",
+        "Unfamiliarity with which cards are actually strong in practice vs theory",
+        "Not understanding that a card's value depends heavily on what the deck already has",
+        "Overvaluing card rarity — a strong common is often better than a weak rare"
+      ],
+      "how_to_fix": [
+        "Evaluate 2-cost cards by their total effect AND their draw efficiency (1 card slot instead of 2)",
+        "Always evaluate cards in the context of your current deck: 'Does my deck need what this card does?'",
+        "Prefer cards that fill multiple roles (damage + block, damage + draw, block + draw)",
+        "Don't be swayed by rarity — a Shrug It Off (common) is often better than a mediocre rare",
+        "Use the Jobs Framework: identify your deck's needs first, then evaluate which card best fills them",
+        "Consider the card over the entire run — a card you'll play 50 times has 50x its per-play value"
+      ],
+      "detection_criteria": {
+        "behavioral_signs": [
+          "Player consistently skips 2-cost cards in favor of weaker 1-cost alternatives",
+          "Player takes rare cards that don't fit their deck over strong commons/uncommons that do",
+          "Player evaluates cards by raw numbers ('this only does 8 damage') without context",
+          "Player doesn't consider deck needs when choosing cards — takes the 'best card' instead of the 'best card for their deck'",
+          "Player dismisses cards as 'bad' without considering their upgraded versions or synergies"
+        ],
+        "deck_signs": [
+          "Deck has many weak 1-cost cards instead of fewer powerful 2-cost cards",
+          "Deck has flashy rares that don't synergize with the rest of the deck",
+          "Deck is missing strong common/uncommon cards that would shore up weaknesses"
+        ]
+      },
+      "coaching_response": {
+        "immediate": "When a 2-cost card is offered, show the math: total effect per card slot, draw efficiency, and how it compares to playing two 1-cost cards.",
+        "educational": "Explain the 'card slot' concept: 'Every card in your hand takes one draw to get there. A 2-cost card that does the work of two 1-cost cards is effectively giving you a free draw.'",
+        "actionable": "Recommend cards based on deck needs, not card rarity or raw numbers. Show how the recommended card fills a specific job."
+      }
+    }
+  ],
+
+  "meta_detection": {
+    "description": "How the coaching engine should prioritize mistake detection and feedback.",
+    "priority_order": [
+      "card_bloat — check deck size against act thresholds and take rate",
+      "hoarding_potions — check potion slot usage and elite fight behavior",
+      "ignoring_pathing — check if player is using Look Ahead Method",
+      "autopilot — check for enemy intent awareness and play optimization",
+      "forcing_archetypes — check for rigid card selection patterns",
+      "misunderstanding_card_value — check for 2-cost card avoidance and context-free evaluation"
+    ],
+    "feedback_frequency": "Don't overwhelm the player. Focus on 1-2 mistakes per act. Address the most impactful mistake first.",
+    "feedback_tone": "Constructive and educational, never condescending. Frame feedback as 'here's how to improve' rather than 'you did this wrong.'",
+    "positive_reinforcement": "When the player makes a correct decision that avoids a common mistake, acknowledge it. 'Good skip — your deck doesn't need another attack card right now.'"
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "character": "Necrobinder",
+  "color": "Purple",
+
+  "identity": {
+    "description": "The Necrobinder is a dark summoner who fights alongside Osty, an undead companion. The Necrobinder manipulates death itself through Doom (instant kill thresholds), Souls (free cycling cards), and Osty (a companion that tanks and attacks). The Necrobinder's playstyle is uniquely strategic — managing Osty's HP as a secondary defensive resource while stacking Doom to execute enemies.",
+    "playstyle": "Companion-based strategy with death mechanics. The Necrobinder manages three unique resources: Osty (your living shield and attacker), Doom (a debuff that instantly kills enemies when their HP drops below the Doom threshold), and Souls (zero-cost draw-2 cards that exhaust after use). Mastering all three systems simultaneously is the key to Necrobinder success.",
+    "strengths": [
+      "Osty acts as a second health pool — enemies targeting Osty are not damaging you",
+      "Doom bypasses the need to deal the last X damage to enemies — efficiency in combat",
+      "Souls provide free card cycling that naturally thins your deck during combat",
+      "Unique approach to damage — combining direct damage with Doom thresholds for efficient kills",
+      "Strong exhaust synergies through Souls and other exhaust-on-use effects",
+      "Osty can be resummoned — even when Osty dies, the Necrobinder can bring it back"
+    ],
+    "weaknesses": [
+      "Osty management adds complexity — mismanaging Osty can leave you vulnerable",
+      "Doom is a threshold check, not direct damage — enemies must also take regular damage",
+      "Souls exhaust after one use per combat — your free cycling is finite",
+      "Some enemies target you directly, bypassing Osty's tanking benefit",
+      "Requires understanding multiple unique systems simultaneously",
+      "Can struggle against enemies with very high HP that are hard to Doom efficiently"
+    ]
+  },
+
+  "starting_mechanic": {
+    "osty": {
+      "description": "Osty is automatically summoned at the start of every combat. Osty has its own HP pool, can take damage from enemies, and can be commanded to attack or use abilities through specific Necrobinder cards.",
+      "hp_pool": "Osty has a separate HP pool. Enemies may target Osty instead of you.",
+      "auto_summon": "Osty is summoned automatically at the start of each combat — no card or energy cost required.",
+      "death_and_resummon": "If Osty dies during combat, certain cards and effects can resummon it. Some strategies even benefit from Osty dying and being resummoned."
+    }
+  },
+
+  "core_mechanics": {
+    "doom_system": {
+      "description": "Doom is a debuff applied to enemies. When an enemy's current HP is less than or equal to their Doom value at the end of their turn, they are instantly killed. This means you don't need to deal ALL the damage — just enough to push their HP below the Doom threshold.",
+      "how_to_use": [
+        "Apply Doom to enemies through Necrobinder cards",
+        "Deal direct damage to reduce the enemy's HP toward the Doom threshold",
+        "Once enemy HP <= Doom, they die at the end of their turn",
+        "Doom + direct damage is more efficient than direct damage alone",
+        "Example: Enemy has 50 HP. Apply 20 Doom. You only need to deal 31 damage instead of 50."
+      ],
+      "efficiency_calculation": "Doom effectively reduces enemy HP for the purpose of killing them. 20 Doom on a 50 HP enemy means you only need 31 damage to trigger the kill. This saves 19 damage worth of effort.",
+      "vs_high_hp_enemies": "Against very high HP enemies, Doom requires significant investment. Sometimes direct damage is more efficient for enemies over 100 HP unless you can apply 40+ Doom.",
+      "vs_multi_enemies": "Spreading Doom across multiple enemies can be efficient in AOE encounters, but be careful not to spread too thin."
+    },
+
+    "souls_system": {
+      "description": "Souls are unique zero-cost skill cards. When played, they draw 2 cards and then exhaust. They exist in your deck at the start of combat and provide free cycling that naturally thins your deck.",
+      "key_properties": [
+        "0 energy cost — completely free to play",
+        "Draw 2 cards when played",
+        "Exhaust after being played — removed from combat deck",
+        "Reset between combats — full Souls back at start of each fight",
+        "Can be generated during combat through specific effects"
+      ],
+      "strategic_use": [
+        "Play Souls immediately for free cycling — there's almost never a reason to hold them",
+        "Souls thin your deck as they exhaust, improving future draw quality",
+        "Exhaust synergy cards trigger when Souls exhaust",
+        "In long fights, generating additional Souls extends your cycling advantage",
+        "Souls make your opening turns stronger — free draw 2 means seeing more of your deck immediately"
+      ]
+    },
+
+    "osty_management": {
+      "description": "Managing Osty effectively is one of the most important skills for the Necrobinder. Osty serves as a tank, an attacker, and a strategic tool.",
+      "as_tank": [
+        "Enemies that target Osty deal damage to Osty instead of you — free HP preservation",
+        "Monitor which enemies are targeting Osty vs targeting you each turn",
+        "Healing or buffing Osty's HP extends its tanking capability",
+        "A healthy Osty can absorb 2-3 turns of enemy attacks"
+      ],
+      "as_attacker": [
+        "Specific cards command Osty to attack — these attacks don't cost YOUR attack cards",
+        "Osty attacks can be enhanced through buffs and specific Necrobinder effects",
+        "Osty's damage output is supplementary — don't rely on it as your primary damage source",
+        "Some builds empower Osty's attacks significantly, making it a primary damage dealer"
+      ],
+      "death_management": [
+        "When Osty dies, you lose your tank — be prepared to block directly",
+        "Some cards benefit from Osty dying (death triggers, resummon effects)",
+        "Resummoning Osty mid-combat can reset its HP and provide a fresh tank",
+        "Don't panic when Osty dies — adapt your strategy to play more defensively until resummon"
+      ]
+    }
+  },
+
+  "archetypes": {
+    "osty_builds": {
+      "description": "Focus on empowering Osty as both a powerful attacker and a durable tank. Buff Osty's damage and HP, and use Osty-centric cards to command it in combat.",
+      "core_strategy": [
+        "Buff Osty's attack damage through Necrobinder-specific cards",
+        "Increase Osty's HP or provide Osty-specific block to extend its tanking",
+        "Use Osty attack commands frequently to generate free damage",
+        "Resummon cards provide backup if Osty falls",
+        "Balance Osty investment with personal defense"
+      ],
+      "key_cards": [
+        "Cards that command Osty to attack",
+        "Cards that buff Osty's stats (damage, HP)",
+        "Cards that heal or protect Osty",
+        "Cards that resummon Osty after death",
+        "Cards that trigger effects when Osty attacks or takes damage"
+      ],
+      "strengths": [
+        "Osty provides a second character's worth of attacks and HP",
+        "Enemy attacks on Osty are attacks not hitting you",
+        "Osty builds can have both strong offense AND defense through companion management",
+        "Resummon mechanics make Osty builds resilient — Osty can come back from death"
+      ],
+      "weaknesses": [
+        "Requires Osty-specific cards — generic Necrobinder cards may not synergize",
+        "If Osty dies and you can't resummon, you lose a significant portion of your strategy",
+        "Some enemies bypass or ignore Osty, targeting you directly",
+        "Investing heavily in Osty can leave your personal cards underdeveloped"
+      ]
+    },
+
+    "doom_builds": {
+      "description": "Focus on applying massive Doom to enemies and combining it with direct damage to trigger instant kills efficiently. The Doom build is about efficiency — killing enemies with less total damage investment.",
+      "core_strategy": [
+        "Stack Doom quickly through high-Doom-application cards",
+        "Combine Doom with direct damage to push enemies below the kill threshold",
+        "Calculate Doom efficiency: how much Doom vs how much direct damage is optimal",
+        "Use Doom for efficient elite kills — save damage for the kill threshold push",
+        "AOE Doom application can handle multi-enemy encounters efficiently"
+      ],
+      "key_cards": [
+        "Cards that apply large amounts of Doom",
+        "Cards that apply Doom AND deal damage simultaneously",
+        "Cards that scale Doom application over time",
+        "Cards that apply Doom to multiple enemies",
+        "Direct damage cards to complement Doom and push HP below threshold"
+      ],
+      "strengths": [
+        "Very efficient damage — Doom means you deal less total damage to kill enemies",
+        "Strong against moderate-HP enemies where Doom threshold is easily reached",
+        "Doom stacks persist — continued Doom application compounds over turns",
+        "Can handle both single-target and multi-target with appropriate Doom cards"
+      ],
+      "weaknesses": [
+        "Doom alone doesn't kill — you still need direct damage to push HP below Doom",
+        "Very high HP enemies (bosses) require enormous Doom investment",
+        "Doom check is at END of enemy turn — enemies get one more action before dying",
+        "Splitting focus between Doom and direct damage requires careful resource management"
+      ]
+    },
+
+    "soul_builds": {
+      "description": "Focus on generating and using Souls for maximum cycling and exhaust synergy. Play many Souls per turn for free draw, then leverage exhaust triggers from their exhaust. Generate additional Souls during combat to sustain the engine.",
+      "core_strategy": [
+        "Generate additional Souls during combat beyond starting Souls",
+        "Use exhaust triggers (cards that benefit when cards exhaust) with Souls",
+        "Cycle through your deck rapidly by playing Souls for free draw",
+        "Thin your deck aggressively through Soul exhausts for consistent draws",
+        "Pair with cards that benefit from high card throughput (many plays per turn)"
+      ],
+      "key_cards": [
+        "Cards that generate additional Souls during combat",
+        "Cards that trigger effects when cards are exhausted",
+        "Cards that benefit from drawing many cards per turn",
+        "Cards that benefit from playing many cards per turn",
+        "Direct damage and block cards to actually win while cycling"
+      ],
+      "strengths": [
+        "Massive card cycling — see your entire deck very quickly",
+        "Natural deck thinning through exhaust",
+        "Free card plays (0-cost Souls) enable playing many cards per turn",
+        "Exhaust synergies generate value from every Soul played",
+        "Extremely consistent once Soul generation is established"
+      ],
+      "weaknesses": [
+        "Souls are finite without generation effects — base Souls exhaust quickly",
+        "Exhaust payoff cards are needed to capitalize on Soul exhaust",
+        "Can deck out (run out of cards) in very long fights if not careful",
+        "Requires specific cards to generate Souls mid-combat"
+      ]
+    }
+  },
+
+  "card_tier_list": {
+    "tier_s": {
+      "description": "Always take. Top-tier Necrobinder cards.",
+      "cards": [
+        { "name": "Key Doom scaling cards", "why": "High Doom application enables efficient kills against all enemy types" },
+        { "name": "Osty empowerment cards", "why": "Making Osty stronger provides free damage and extended tanking" },
+        { "name": "Soul generation cards", "why": "More Souls = more cycling = more consistency = more exhaust triggers" },
+        { "name": "Key block cards", "why": "Personal defense is still critical — Osty can't tank everything" },
+        { "name": "Osty resummon cards", "why": "Ensures Osty is always available as tank and attacker" }
+      ]
+    },
+    "tier_a": {
+      "description": "Almost always take. Very strong Necrobinder cards.",
+      "cards": [
+        { "name": "Efficient Doom + damage combo cards", "why": "Cards that apply Doom AND deal damage are the most efficient" },
+        { "name": "Osty attack command cards", "why": "Free damage through Osty reduces the load on your own attacks" },
+        { "name": "Card draw beyond Souls", "why": "Additional draw helps find key pieces faster" },
+        { "name": "Exhaust synergy cards", "why": "Capitalize on Soul exhausts and other exhaust effects" },
+        { "name": "Multi-enemy Doom application", "why": "AOE Doom handling for multi-enemy encounters" }
+      ]
+    },
+    "tier_b": {
+      "description": "Good cards for specific builds. Take when they fill a need.",
+      "cards": [
+        { "name": "Direct damage cards", "why": "Needed to push enemies below Doom threshold" },
+        { "name": "Osty healing/protection cards", "why": "Extend Osty's tanking capability" },
+        { "name": "Conditional Doom cards", "why": "Strong when conditions are met, situational otherwise" },
+        { "name": "Moderate block cards", "why": "Fill block density requirements" }
+      ]
+    },
+    "tier_c": {
+      "description": "Situational. Take only when specifically needed.",
+      "cards": [
+        { "name": "Low-impact Doom cards", "why": "Small Doom application may not be worth the card slot" },
+        { "name": "Osty-death-trigger cards", "why": "Situational — only useful when Osty dies, which you usually want to avoid" },
+        { "name": "Niche utility cards", "why": "Fill very specific gaps in rare situations" }
+      ]
+    }
+  },
+
+  "act_by_act_plan": {
+    "act1": {
+      "priorities": [
+        "Learn to manage Osty as a defensive resource — let it tank damage while you deal damage",
+        "Find efficient Doom application cards to start killing enemies efficiently",
+        "Play Souls immediately every combat for free cycling",
+        "Pick up direct damage cards to complement Doom application",
+        "Don't neglect personal block — Osty can't tank everything"
+      ],
+      "card_priorities": "Doom application > Direct damage > Block cards > Soul generation",
+      "elite_readiness": "Osty gives the Necrobinder a natural advantage in early fights — use it. Osty tanking + your damage should handle Act 1 elites.",
+      "boss_preparation": "Ensure you have enough combined damage (direct + Doom) to handle the boss. Osty will likely die in a boss fight — have personal block ready."
+    },
+    "act2": {
+      "priorities": [
+        "Solidify your archetype — Osty-focused, Doom-focused, or Soul-focused",
+        "Add scaling effects that compound over the act",
+        "Improve Doom application efficiency for harder enemies",
+        "Pick up Soul generation if going Soul builds",
+        "Remove Strikes and Defends at shops"
+      ],
+      "card_priorities": "Scaling (Doom or Osty buffs) > Soul generation > Block > Direct damage",
+      "elite_readiness": "Your strategy should be coming together. Use potions to cover gaps.",
+      "boss_preparation": "Ensure your Doom + damage combo can handle high HP bosses within a reasonable number of turns."
+    },
+    "act3": {
+      "priorities": [
+        "Skip most card rewards — your deck should be built",
+        "Upgrade key Doom and Osty cards at campfires",
+        "Remove any remaining filler",
+        "Prepare for the specific Act 3 boss",
+        "Ensure Osty resummon capability for long boss fights"
+      ],
+      "card_priorities": "Only take cards that directly address a specific weakness for the final boss.",
+      "focus": "Optimization. Upgrade your highest-impact cards. Ensure consistency."
+    }
+  },
+
+  "unique_tips": {
+    "osty_as_resource": "Think of Osty as a secondary HP pool. Enemies hitting Osty for 15 damage is 15 HP you didn't lose. This makes the Necrobinder effectively have more HP than other characters.",
+    "doom_math": "Always calculate Doom efficiency. If an enemy has 40 HP and you apply 15 Doom, you only need to deal 26 damage (not 40). That's a 35% damage reduction. Doom is most efficient on moderate-HP enemies.",
+    "souls_immediately": "There is almost never a reason to hold Souls in hand. Play them immediately for free draw 2. The only exception is if you have a specific card that triggers on discard and you want to discard the Soul instead.",
+    "osty_resummon_timing": "Don't resummon Osty if it would die immediately. Wait until enemies are about to attack (check intent) and resummon so Osty absorbs an attack.",
+    "doom_vs_direct_damage": "For enemies with less than 30 HP, direct damage is often more efficient than Doom application. Save Doom for enemies with 40+ HP where the threshold check saves significant effort.",
+    "soul_exhaust_synergy": "Every Soul that exhausts is a free exhaust trigger. If you have exhaust payoff cards (gain block on exhaust, draw on exhaust), Souls become even more powerful."
+  },
+
+  "common_pitfalls": {
+    "ignoring_osty": "Osty is not optional flavor — it's a core strategic resource. Players who ignore Osty management lose a significant defensive advantage.",
+    "doom_without_damage": "Doom alone doesn't kill enemies. You need to deal enough direct damage to push their HP below the Doom threshold. Don't stack Doom without also dealing damage.",
+    "hoarding_souls": "Play Souls immediately. Holding them in hand wastes their free draw benefit and clutters your hand.",
+    "osty_over_investment": "Don't invest so heavily in Osty that your personal cards are weak. If Osty dies in a boss fight (likely), your personal deck needs to finish the job.",
+    "forgetting_doom_timing": "Doom checks at the END of the enemy's turn, not the start. This means the enemy gets one more action before Doom kills them. Plan accordingly.",
+    "neglecting_personal_block": "Osty can't tank every attack. Some enemies always target you directly. Maintain personal block density."
+  }
+}

@@ -1,0 +1,295 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "character": "Defect",
+  "color": "Blue",
+
+  "identity": {
+    "description": "The Defect is a broken robot that manipulates Orbs — Lightning for damage, Frost for block, Dark for burst damage, and Glass for utility. The Defect's core gameplay revolves around channeling orbs into orb slots, gaining passive effects each turn, and evoking orbs for powerful one-time effects. Focus is the universal orb scaling stat that makes all orbs stronger.",
+    "playstyle": "Setup-oriented engine builder. The Defect wants to establish Focus, fill orb slots, and let passive orb effects do the heavy lifting. Once the engine is running, the Defect generates enormous block and damage every turn without playing a single card. The Defect rewards patience and engine-building over raw aggression.",
+    "strengths": [
+      "Passive scaling through orbs — once set up, orbs generate block/damage without card plays",
+      "Focus universally scales ALL orb effects — one stat powers your entire strategy",
+      "Frost orbs provide the best sustained block generation in the game",
+      "Dark orbs can deal enormous burst damage after charging up",
+      "Creative AI and other powers can create a self-sustaining card generation engine"
+    ],
+    "weaknesses": [
+      "Slow to start — needs Focus and orbs in play before generating real value",
+      "Act 1 can be rough — starting Lightning orb provides minimal value without Focus",
+      "Orb slot management is complex — channeling too many orbs can evoke useful ones prematurely",
+      "Vulnerable when setup is disrupted (orb removal, debuffs targeting Focus)",
+      "Many key cards are expensive (2-3 cost Powers) requiring energy management"
+    ]
+  },
+
+  "starting_deck": {
+    "strikes": { "count": 4, "damage": 6, "cost": 1, "note": "Remove ASAP — Defect has better damage options through orbs" },
+    "defends": { "count": 4, "block": 5, "cost": 1, "note": "Remove after getting Frost orb generation" },
+    "zap": { "count": 1, "cost": 1, "effect": "Channel 1 Lightning orb", "note": "Basic orb generation. Upgrade to 0-cost is very good." },
+    "dualcast": { "count": 1, "cost": 1, "effect": "Evoke your rightmost orb twice", "note": "Flexible evoke card. Good with Dark orbs for burst damage." }
+  },
+
+  "starting_relic": {
+    "name": "Cracked Core",
+    "effect": "Channel 1 Lightning orb at the start of each combat",
+    "strategic_value": "Free Lightning orb means you always start with passive damage. With Focus, this becomes meaningful. In early fights, 3 passive damage per turn helps finish enemies.",
+    "tips": [
+      "The free Lightning orb means you start every fight with some passive damage",
+      "Once you get Focus, Cracked Core's Lightning immediately deals more damage per turn",
+      "In Act 1, the passive 3 damage adds up over 3-4 turn fights",
+      "Consider Cracked Core when evaluating Focus — your first Focus point increases the Lightning's damage"
+    ]
+  },
+
+  "archetypes": {
+    "orb_spam": {
+      "description": "Fill all orb slots with orbs (primarily Frost and Lightning) and let passive effects do the work. Expand orb slots with Capacitor and channel orbs rapidly. With enough orbs and Focus, you generate massive passive block and damage every turn.",
+      "core_cards": [
+        "Defragment — gain 1/2 Focus permanently. THE most important card for any orb strategy.",
+        "Capacitor — gain 2/3 orb slots. More slots = more passive effects per turn.",
+        "Glacier — gain 7/10 block, channel 2 Frost orbs. Block + Frost generation in one card.",
+        "Coolheaded — gain 6/9 block, channel 1 Frost orb. Draw 1. Block + Frost + draw.",
+        "Cold Snap — deal 6/9 damage, channel 1 Frost orb. Damage + Frost."
+      ],
+      "support_cards": [
+        "Ball Lightning — 7/10 damage, channel 1 Lightning. Damage + orb.",
+        "Barrage — deal 4 damage per orb channeled. Scales with number of orbs.",
+        "Blizzard — deal 2 damage per Frost orb channeled this combat to ALL enemies. Frost counter AOE.",
+        "Thunder Strike — deal 7 damage per Lightning channeled this combat. Lightning counter finisher.",
+        "Reinforced Body — gain X*5 block (scales with energy). X-cost block card.",
+        "Loop — evoke your rightmost orb at start of turn. Double passive effects from rightmost orb."
+      ],
+      "strengths": [
+        "Enormous passive block/damage once set up — no card plays needed",
+        "Focus scales ALL orbs simultaneously — one buff powers everything",
+        "Very consistent once the engine is running — orbs produce value every turn",
+        "Frost orbs + Focus can make you nearly invincible defensively",
+        "Scales well into late game — more Focus = exponentially more value"
+      ],
+      "weaknesses": [
+        "Needs multiple pieces (Focus + Frost generation + orb slots) to function",
+        "Slow setup — vulnerable in the first 2-3 turns before engine starts",
+        "Orb slot management is tricky — channeling new orbs evokes old ones if full",
+        "Biased Cognition's Focus loss can cripple the engine if not managed"
+      ],
+      "key_relic_synergies": [
+        "Inserter — gain 1 orb slot every 2 turns. Free orb slots over time.",
+        "Data Disk — start combat with 1 Focus. Free scaling from turn 1.",
+        "Gold-Plated Cables — rightmost orb's passive triggers an additional time. Double value from best orb.",
+        "Emotion Chip — evoke orbs when you lose HP from an attack. Defensive evoke triggers."
+      ]
+    },
+
+    "focus_scaling": {
+      "description": "Maximize Focus as quickly as possible to make all orbs overwhelmingly powerful. Even a few orbs with 8+ Focus produce incredible passive effects. This is the 'quality over quantity' approach to orbs.",
+      "core_cards": [
+        "Defragment — +1/2 Focus permanently. Always the highest priority card.",
+        "Biased Cognition — gain 4/5 Focus, lose 1 Focus at end of each turn. Massive Focus burst with downside.",
+        "Consume — remove 1 orb, gain 2/3 Focus. Trade quantity for quality.",
+        "Core Surge — gain 11/15 block + gain 1 Artifact. Artifact blocks Biased Cog's downside!",
+        "Equilibrium — gain 13/16 block, Retain your hand. Block + keep your hand for next turn."
+      ],
+      "support_cards": [
+        "Recycle — exhaust a card, gain energy equal to its cost. Fuel for expensive plays.",
+        "Self Repair — heal 7/10 HP at end of combat. Passive sustain.",
+        "Machine Learning — draw 1 extra card per turn permanently. Passive card advantage.",
+        "Echo Form — first card played each turn is played twice. Double your best card every turn.",
+        "Buffer — prevent the next X instances of HP loss. Damage negation."
+      ],
+      "strengths": [
+        "Extremely powerful once Focus is high — even basic orbs become devastating",
+        "Biased Cognition + Artifact = 4 Focus with no downside",
+        "Fewer orbs needed — Focus does the heavy lifting",
+        "Flexible — works with any orb type combination",
+        "Core Surge provides block AND Artifact in one card"
+      ],
+      "weaknesses": [
+        "Biased Cognition without Artifact is a ticking time bomb — Focus decreases every turn",
+        "Needs to find Defragment and/or Biased Cognition — they're uncommon/rare",
+        "Less resilient than Orb Spam — fewer orbs means less redundancy",
+        "Consume removes orb slots permanently — can't undo it"
+      ],
+      "biased_cognition_management": {
+        "description": "Biased Cognition is the most powerful and most dangerous Focus card. Managing its downside is critical.",
+        "strategies": [
+          "Artifact — each Artifact stack prevents one Focus loss tick. Core Surge gives Artifact.",
+          "Orange Pellets — remove all debuffs by playing an attack, skill, and power in one turn.",
+          "Win fast — if the fight ends before Focus drops to 0, the downside doesn't matter.",
+          "Accept the loss — in some fights, 4 Focus for 4 turns is enough to win even with the decline."
+        ]
+      }
+    },
+
+    "creative_ai": {
+      "description": "Use Creative AI to generate random Power cards each turn, building an unstoppable engine of stacked Powers. Every Power you play makes the next turn stronger. This is a high-variance, high-ceiling strategy.",
+      "core_cards": [
+        "Creative AI — generate 1 random Power card at start of each turn. The engine card.",
+        "Echo Form — first card each turn is played twice. Double your Creative AI output or any Power.",
+        "Heatsinks — draw 1 card whenever you play a Power. Powers replace themselves in hand.",
+        "Machine Learning — draw 1 extra card per turn. More cards = more Power plays.",
+        "Storm — whenever you play a Power, channel 1 Lightning. Powers generate orbs."
+      ],
+      "support_cards": [
+        "Any Focus card — Focus generated by Creative AI or your deck improves your orbs",
+        "Any block card — you need to survive while setting up the engine",
+        "Hologram — return a card from discard to hand. Reuse key cards.",
+        "Seek — search your draw pile for 1/2 cards. Find Creative AI or key pieces."
+      ],
+      "strengths": [
+        "Highest ceiling of any strategy — unlimited Power generation",
+        "Once running, generates incredible value every turn",
+        "Each Power stacks with previous Powers — exponential growth",
+        "Can pivot to any orb strategy based on Powers generated",
+        "Heatsinks + Creative AI = draw a card every turn while getting free Powers"
+      ],
+      "weaknesses": [
+        "High variance — random Powers may not be what you need",
+        "Very slow to set up — Creative AI costs 3 energy",
+        "Vulnerable until the engine starts — no immediate defensive benefit",
+        "Can generate useless Powers in specific matchups",
+        "Punished hard by fights that get worse over time (enemy scaling)"
+      ]
+    }
+  },
+
+  "orb_management_tips": {
+    "description": "Managing orb slots, channeling order, and evoke timing is a core Defect skill.",
+    "slot_management": [
+      "Default 3 orb slots — expand with Capacitor or relics when possible",
+      "When all slots are full, channeling a new orb evokes the LEFTMOST orb",
+      "Put orbs you want to keep (Frost for block, Dark for charging) in rightmost slots",
+      "Put orbs you want to evoke soon (Lightning for immediate damage) in leftmost slots",
+      "Plan your channel order to control which orbs get evoked when"
+    ],
+    "frost_management": [
+      "Frost orbs are your primary defense — prioritize keeping them channeled",
+      "Each Frost orb generates 2 + Focus block passively every turn",
+      "3 Frost orbs with 3 Focus = 15 block per turn automatically",
+      "Don't evoke Frost orbs unnecessarily — their passive block is more valuable over time",
+      "Glacier channels 2 Frost orbs and provides immediate block — excellent card"
+    ],
+    "lightning_management": [
+      "Lightning deals 3 + Focus damage to a random enemy each turn",
+      "Random targeting means Lightning is less reliable in multi-enemy fights",
+      "Electrodynamics makes Lightning hit ALL enemies — transforms Lightning's value",
+      "Lightning evoke deals 8 + Focus damage — useful burst when channeling new orbs forces evoke",
+      "Multiple Lightning orbs provide sustained chip damage that adds up quickly"
+    ],
+    "dark_management": [
+      "Dark orbs charge up (gain 6 + Focus stored damage) every turn",
+      "Evoke Dark orbs when they've charged to high values for massive burst damage",
+      "Dark targets the LOWEST HP enemy — useful for finishing off wounded enemies",
+      "Let Dark orbs charge for 3-4 turns before evoking for best value",
+      "Dualcast on a charged Dark orb deals enormous damage (evoke twice)"
+    ],
+    "evoke_strategy": [
+      "Evoking is powerful but removes the orb — you lose passive effects",
+      "Forced evokes (from channeling when full) should evoke your least valuable orb",
+      "Plan channel order so forced evokes remove Lightning (damage burst) rather than Frost (sustained block)",
+      "Dualcast is best on Dark orbs (huge burst) or Frost orbs (emergency block)"
+    ]
+  },
+
+  "card_tier_list": {
+    "tier_s": {
+      "description": "Always take. Game-defining Defect cards.",
+      "cards": [
+        { "name": "Defragment", "cost": 1, "type": "Power", "why": "+1/2 Focus permanently. THE best Defect card. Focus scales everything." },
+        { "name": "Glacier", "cost": 2, "type": "Skill", "why": "7/10 block + channel 2 Frost. The best Defect block card." },
+        { "name": "Echo Form", "cost": 3, "type": "Power", "why": "Ethereal. First card each turn played twice. Double your best play every turn." },
+        { "name": "Biased Cognition", "cost": 1, "type": "Power", "why": "+4/5 Focus. Lose 1 Focus/turn. Manage downside with Artifact or speed." },
+        { "name": "Electrodynamics", "cost": 2, "type": "Power", "why": "Lightning hits ALL enemies. Channel 2/3 Lightning. Transforms Lightning orbs." }
+      ]
+    },
+    "tier_a": {
+      "description": "Almost always take. Very strong cards.",
+      "cards": [
+        { "name": "Coolheaded", "cost": 1, "type": "Skill", "why": "6/9 block + channel Frost + draw 1. Block, orbs, and cycling in one card." },
+        { "name": "Cold Snap", "cost": 1, "type": "Attack", "why": "6/9 damage + channel Frost. Damage + defensive orb." },
+        { "name": "Ball Lightning", "cost": 1, "type": "Attack", "why": "7/10 damage + channel Lightning. Damage + offensive orb." },
+        { "name": "Core Surge", "cost": 1, "type": "Skill", "why": "11/15 block + gain 1 Artifact. Block + debuff prevention. Amazing with Biased Cog." },
+        { "name": "Capacitor", "cost": 1, "type": "Power", "why": "+2/3 orb slots. More slots = more passive orb effects." },
+        { "name": "Creative AI", "cost": 3, "type": "Power", "why": "Generate 1 Power per turn. Engine card for Power-stacking builds." },
+        { "name": "Buffer", "cost": 2, "type": "Power", "why": "Prevent next 1/2 HP loss. Emergency damage negation." },
+        { "name": "Seek", "cost": 0, "type": "Skill", "why": "0 cost. Search draw pile for 1/2 cards. Find your key piece every time." }
+      ]
+    },
+    "tier_b": {
+      "description": "Good cards for specific strategies.",
+      "cards": [
+        { "name": "Compile Driver", "cost": 1, "type": "Attack", "why": "7/10 damage, draw 1 per unique orb type. Damage + draw." },
+        { "name": "Doom and Gloom", "cost": 2, "type": "Attack", "why": "10/14 damage + channel Dark orb. Damage + burst setup." },
+        { "name": "Consume", "cost": 2, "type": "Skill", "why": "Remove 1 orb, gain 2/3 Focus. Quality over quantity." },
+        { "name": "Hologram", "cost": 1, "type": "Skill", "why": "3/5 block, return a card from discard to hand. Reuse key cards." },
+        { "name": "Self Repair", "cost": 1, "type": "Power", "why": "Heal 7/10 HP at end of combat. Passive sustain." },
+        { "name": "Machine Learning", "cost": 1, "type": "Power", "why": "Draw 1 extra card per turn permanently. Passive card advantage." },
+        { "name": "Loop", "cost": 1, "type": "Power", "why": "Rightmost orb's passive triggers again at start of turn. Double passive value." },
+        { "name": "Storm", "cost": 1, "type": "Power", "why": "Channel 1 Lightning whenever you play a Power. Free orbs from Powers." }
+      ]
+    },
+    "tier_c": {
+      "description": "Situational cards. Take only to fill specific gaps.",
+      "cards": [
+        { "name": "Barrage", "cost": 1, "type": "Attack", "why": "4/7 damage per channeled orb. Scales with orb count." },
+        { "name": "Blizzard", "cost": 1, "type": "Attack", "why": "2/3 damage per Frost channeled this combat, to ALL enemies. Frost-count AOE." },
+        { "name": "Thunder Strike", "cost": 3, "type": "Attack", "why": "7 damage per Lightning channeled this combat. Expensive Lightning finisher." },
+        { "name": "Recycle", "cost": 1, "type": "Skill", "why": "Exhaust 1 card, gain energy = its cost. Energy generation through card sacrifice." },
+        { "name": "Skim", "cost": 1, "type": "Skill", "why": "Draw 3/4 cards. Simple card draw." },
+        { "name": "Reinforced Body", "cost": "X", "type": "Skill", "why": "Gain 7/9 block X times. X-cost block card — scales with energy." },
+        { "name": "Heatsinks", "cost": 1, "type": "Power", "why": "Draw 1 when you play a Power. Good with Creative AI or Power-heavy decks." }
+      ]
+    }
+  },
+
+  "act_by_act_plan": {
+    "act1": {
+      "priorities": [
+        "Find orb-generating attacks (Ball Lightning, Cold Snap) for frontloaded damage + orb value",
+        "Upgrade Zap to 0-cost — free Lightning channel every turn",
+        "Get Defragment if possible — Focus ASAP makes everything better",
+        "Pick up Frost orb generators (Coolheaded, Glacier) for defense",
+        "Remove 1-2 Strikes at shops"
+      ],
+      "card_priorities": "Orb-generating attacks > Focus (Defragment) > Frost block cards > Card draw",
+      "elite_readiness": "Defect can struggle against Act 1 elites without orb infrastructure. Having 2-3 orb cards and an upgrade helps.",
+      "boss_preparation": "You need some Focus or enough orbs to generate meaningful passive effects for the boss fight."
+    },
+    "act2": {
+      "priorities": [
+        "Prioritize Focus cards (Defragment, Biased Cognition, Consume) above almost everything",
+        "Expand orb slots with Capacitor if running Orb Spam",
+        "Add Glacier for strong Frost generation + block",
+        "Look for Core Surge if running Biased Cognition (Artifact prevents Focus loss)",
+        "Remove remaining Strikes and Defends"
+      ],
+      "card_priorities": "Focus scaling > Frost generation > Orb slot expansion > Card draw",
+      "elite_readiness": "With Focus online, your orbs should handle elites. Use potions to survive the setup turns.",
+      "boss_preparation": "Ensure Frost orbs + Focus can generate enough passive block to survive the boss. 3+ Frost with 3+ Focus is very strong."
+    },
+    "act3": {
+      "priorities": [
+        "Skip most card rewards",
+        "Upgrade Focus cards and Frost generators",
+        "Look for Echo Form if offered — doubles your best play every turn",
+        "Remove any remaining filler",
+        "Prepare for specific Act 3 boss mechanics"
+      ],
+      "card_priorities": "Only take cards that dramatically improve your engine or cover a critical weakness.",
+      "focus": "Your engine should be built. Focus on upgrading and optimizing."
+    }
+  },
+
+  "common_pitfalls": {
+    "no_focus": "Orbs without Focus are mediocre. 3 damage/2 block per orb is not enough to win fights. Focus is the highest priority card type for Defect.",
+    "too_many_lightning": "Lightning orbs deal damage but don't protect you. Balance Lightning with Frost for defense.",
+    "ignoring_frost": "Frost orbs are the Defect's primary defense. Without Frost, the Defect takes too much damage in tough fights.",
+    "biased_cog_without_answer": "Biased Cognition is amazing but the Focus loss will eventually kill you. Have Artifact, win fast, or accept the risk.",
+    "channeling_over_evokes": "Don't channel new orbs when your slots are full unless you want to evoke the leftmost orb. Accidental evokes can cost you valuable Frost or charged Dark orbs.",
+    "echo_form_sequencing": "Echo Form doubles the FIRST card played each turn. Make sure your first card is the one you want doubled — don't waste it on a Strike.",
+    "creative_ai_without_defense": "Creative AI costs 3 energy and generates value NEXT turn. You need to survive the turn you play it. Have block cards or potions ready.",
+    "orb_slot_starvation": "3 orb slots is limiting. Capacitor or Inserter (relic) expands your slots and dramatically increases passive value."
+  }
+}

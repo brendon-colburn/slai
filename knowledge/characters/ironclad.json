@@ -1,0 +1,240 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "character": "Ironclad",
+  "color": "Red",
+
+  "identity": {
+    "description": "The Ironclad is an aggressive, front-line warrior who excels at Strength scaling, Exhaust synergies, and self-sustain through HP recovery. The Ironclad's playstyle rewards aggressive play — killing enemies fast and healing the damage taken. The Ironclad punishes enemies who don't die quickly and has the tools to scale damage to absurd heights.",
+    "playstyle": "Aggressive with built-in sustain. The Ironclad wants to hit hard, scale Strength, and use exhaust mechanics to thin the deck and trigger powerful synergies. The starting relic (Burning Blood) encourages taking fights because you heal after every combat.",
+    "strengths": [
+      "Best Strength scaling in the game — can reach very high damage numbers",
+      "Strong exhaust synergies that simultaneously thin the deck and generate value",
+      "Built-in sustain through Burning Blood and HP-recovery cards",
+      "Excellent frontloaded damage — can end hallway fights quickly",
+      "Access to Barricade for infinite block retention"
+    ],
+    "weaknesses": [
+      "Block cards are generally weaker than Silent or Defect — relies on killing fast rather than blocking forever",
+      "Exhaust strategies can run out of cards if not managed carefully",
+      "Vulnerable to fights that punish aggression (enemies that punish attacking, or scale faster than you)",
+      "Some key cards are expensive (2-3 cost) requiring energy management"
+    ]
+  },
+
+  "starting_deck": {
+    "strikes": { "count": 5, "damage": 6, "cost": 1, "note": "Remove these as quickly as possible" },
+    "defends": { "count": 4, "block": 5, "cost": 1, "note": "Remove after Strikes" },
+    "bash": { "count": 1, "damage": 8, "cost": 2, "effect": "Apply 2 Vulnerable", "note": "Upgrade priority — Bash+ applies 3 Vulnerable, massive damage increase" }
+  },
+
+  "starting_relic": {
+    "name": "Burning Blood",
+    "effect": "Heal 6 HP at the end of combat",
+    "strategic_value": "Enables aggressive play. The 6 HP healing means you can take more damage in fights and still be healthy for the next fight. This encourages fighting more enemies and hunting elites.",
+    "tips": [
+      "Burning Blood makes upgrading at campfires more attractive — you have passive healing already",
+      "The 6 HP adds up: over 15 fights in an act, that's 90 HP healed passively",
+      "Don't rely on it exclusively — it won't save you from big hits",
+      "It's most valuable in Act 1 where individual fight damage tends to be lower"
+    ]
+  },
+
+  "archetypes": {
+    "strength_scaling": {
+      "description": "The quintessential Ironclad strategy. Stack Strength through permanent buffs and turn every attack into a devastating blow. Multi-hit attacks become especially powerful with Strength.",
+      "core_cards": [
+        "Demon Form — gain 2/3 Strength per turn. The best Strength scaling card. Once online, every turn you get stronger.",
+        "Inflame — gain 2/3 Strength permanently. Simple, effective, no setup required.",
+        "Spot Weakness — gain 3/4 Strength if enemy intends to attack. Conditional but very efficient.",
+        "Limit Break — double your Strength. Insane with any Strength source. Upgraded, it doesn't exhaust.",
+        "Heavy Blade — deals 14 damage, affected by Strength 3x/5x. The payoff card for Strength builds."
+      ],
+      "support_cards": [
+        "Pummel — multi-hit attack, each hit benefits from Strength",
+        "Sword Boomerang — hits 3/4 random enemies, each hit gets Strength bonus",
+        "Twin Strike — hits twice, double Strength benefit",
+        "Headbutt — damage + puts card on top of draw pile (get Limit Break back quickly)"
+      ],
+      "strengths": [
+        "Damage scales infinitely — each turn your attacks hit harder",
+        "Multi-hit attacks amplify Strength enormously",
+        "Simple to pilot — play Strength cards, then play attacks",
+        "Works with almost any attack card in your deck"
+      ],
+      "weaknesses": [
+        "Slow to start — Demon Form costs 3 energy and takes turns to build up",
+        "Needs block cards to survive while Strength ramps up",
+        "Vulnerable to Artifact enemies who can prevent debuffs that support Strength strategies"
+      ],
+      "key_relic_synergies": [
+        "Vajra — +1 Strength at combat start. Free scaling on every fight.",
+        "Girya — Lift at campfires for +1 Strength permanently. Long-term investment.",
+        "Red Skull — +3 Strength when below 50% HP. Risky but powerful."
+      ]
+    },
+
+    "exhaust_engine": {
+      "description": "Build a deck around exhausting cards to trigger powerful synergies. Dark Embrace draws cards, Feel No Pain generates block, Dead Branch creates free cards. The exhaust engine can thin your deck to just your best cards while generating massive value.",
+      "core_cards": [
+        "Corruption — ALL Skills cost 0 but exhaust after play. The centerpiece of exhaust strategies. With Feel No Pain, every skill you play generates block AND draws cards.",
+        "Dark Embrace — whenever a card is exhausted, draw 1 card. Turns exhaust into card advantage.",
+        "Feel No Pain — whenever a card is exhausted, gain 3/4 block. Turns exhaust into defense.",
+        "Sentinel — gain 5/8 block. When exhausted, gain 2/3 energy. Extra energy fuels big turns.",
+        "Second Wind — exhaust ALL non-attack cards in hand, gain 5/7 block per card exhausted. Massive block burst."
+      ],
+      "support_cards": [
+        "Fiend Fire — exhaust your entire hand, deal 7 damage per card exhausted. Finisher card.",
+        "Burning Pact — exhaust 1 card, draw 2/3 cards. Fuel for the engine.",
+        "True Grit — gain 7/9 block, exhaust a card. Block + exhaust trigger.",
+        "Offering — lose 6 HP, gain 2 energy, draw 3/5 cards. Powerful cycle card.",
+        "Havoc — play the top card of draw pile for free, exhaust it. Free value."
+      ],
+      "strengths": [
+        "Self-thinning deck — as you exhaust cards, remaining draws become more consistent",
+        "Massive card advantage with Dark Embrace",
+        "Enormous block generation with Feel No Pain + Corruption",
+        "Can generate more value per turn than almost any other strategy",
+        "Dead Branch makes the engine self-sustaining by replacing exhausted cards"
+      ],
+      "weaknesses": [
+        "Requires specific pieces to function — Corruption without Feel No Pain can leave you defenseless",
+        "Can exhaust too many cards and run out of options if engine isn't fully assembled",
+        "Expensive to set up — Corruption costs 3, Dark Embrace costs 2",
+        "Fights that are too short don't give the engine time to start"
+      ],
+      "key_relic_synergies": [
+        "Dead Branch — create a random card whenever you exhaust a card. The dream relic for exhaust builds.",
+        "Charon's Ashes — deal 3 damage to ALL enemies whenever you exhaust a card. Free AOE.",
+        "Strange Spoon — 50% chance exhausted cards go to discard instead. Reusable engine pieces."
+      ]
+    },
+
+    "block_engine": {
+      "description": "A defensive Ironclad build centered around Barricade (block doesn't expire between turns) and Body Slam (deal damage equal to your block). Build up massive block over multiple turns, then one-shot enemies with Body Slam.",
+      "core_cards": [
+        "Barricade — your block persists between turns. The key enabler — without Barricade, block resets each turn.",
+        "Body Slam — deal damage equal to your current block. 0 cost. The payoff for accumulating block.",
+        "Shrug It Off — gain 8/11 block, draw 1 card. The best Ironclad block card — block + draw.",
+        "Metallicize — gain 3/4 block at end of every turn permanently. Free block that stacks with Barricade.",
+        "Entrench — double your current block. With Barricade, this gets insane quickly."
+      ],
+      "support_cards": [
+        "Impervious — gain 30/40 block. Huge single-turn block gain.",
+        "Flame Barrier — gain 12/16 block, deal 4 damage when attacked. Block + damage.",
+        "Iron Wave — gain 5/7 block and deal 5/7 damage. Versatile but unexciting.",
+        "Power Through — gain 15/20 block but add Wounds to hand. Big block but clutters hand."
+      ],
+      "strengths": [
+        "Nearly invincible once Barricade is online — block accumulates faster than enemies can damage you",
+        "Body Slam provides scaling damage without any attack cards — your block IS your damage",
+        "Very safe and consistent once set up",
+        "Entrench doubles block exponentially — goes from 30 to 60 to 120 to 240..."
+      ],
+      "weaknesses": [
+        "Barricade costs 3 energy — slow to get online",
+        "Without Barricade, the entire strategy falls apart",
+        "Vulnerable to enemies that remove block or bypass it",
+        "Slow to kill — Block/Body Slam builds take many turns to win"
+      ]
+    }
+  },
+
+  "card_tier_list": {
+    "description": "Ironclad cards ranked by general power level. Context matters — a card's value depends on your deck and situation. This is a general guide.",
+    "tier_s": {
+      "description": "Always take. These cards are powerful in virtually every Ironclad deck.",
+      "cards": [
+        { "name": "Corruption", "cost": 3, "type": "Power", "why": "Enables the entire exhaust archetype. With Feel No Pain, it's the best card in the game." },
+        { "name": "Demon Form", "cost": 3, "type": "Power", "why": "Best Strength scaling. +2/3 Strength per turn is unstoppable in long fights." },
+        { "name": "Dark Embrace", "cost": 2, "type": "Power", "why": "Draw a card on every exhaust. With Corruption, you draw your entire deck." },
+        { "name": "Feel No Pain", "cost": 1, "type": "Power", "why": "3/4 block on every exhaust. With Corruption, every skill you play generates block." },
+        { "name": "Offering", "cost": 0, "type": "Skill", "why": "Lose 6 HP, gain 2 energy, draw 3/5. The best card draw in the game for Ironclad." }
+      ]
+    },
+    "tier_a": {
+      "description": "Almost always take. Extremely strong cards that fit most decks.",
+      "cards": [
+        { "name": "Shrug It Off", "cost": 1, "type": "Skill", "why": "8/11 block + draw 1. The best common block card — block AND cycle." },
+        { "name": "Inflame", "cost": 1, "type": "Power", "why": "+2/3 Strength permanently. Simple and effective in any attack-based deck." },
+        { "name": "Battle Trance", "cost": 0, "type": "Skill", "why": "Draw 3/4 cards, can't draw more this turn. Free card draw for big turns." },
+        { "name": "Carnage", "cost": 2, "type": "Attack", "why": "20/28 damage. Massive frontload for a common card." },
+        { "name": "Impervious", "cost": 2, "type": "Skill", "why": "30/40 block in one card. The biggest single-card block in the game." },
+        { "name": "Barricade", "cost": 3, "type": "Power", "why": "Block persists between turns. Enables the Block/Body Slam archetype." }
+      ]
+    },
+    "tier_b": {
+      "description": "Good cards that fill specific roles. Take when they address a deck need.",
+      "cards": [
+        { "name": "Uppercut", "cost": 2, "type": "Attack", "why": "Deals damage + applies Weak AND Vulnerable. Excellent utility." },
+        { "name": "Pommel Strike", "cost": 1, "type": "Attack", "why": "9/10 damage + draw 1. Damage and cycle in one card." },
+        { "name": "Spot Weakness", "cost": 1, "type": "Skill", "why": "Conditional +3/4 Strength. Great when it works, dead when enemy isn't attacking." },
+        { "name": "Headbutt", "cost": 1, "type": "Attack", "why": "9/12 damage + put a card from discard on top of draw pile. Great for finding key cards." },
+        { "name": "Metallicize", "cost": 1, "type": "Power", "why": "+3/4 block per turn permanently. Passive defense that adds up." },
+        { "name": "Heavy Blade", "cost": 2, "type": "Attack", "why": "14 damage, Strength applies 3x/5x. The Strength payoff card." },
+        { "name": "Body Slam", "cost": 1, "type": "Attack", "why": "0 cost. Deals damage equal to your block. Key card for block builds." },
+        { "name": "Limit Break", "cost": 1, "type": "Skill", "why": "Double your Strength. Exhausts unless upgraded. Absurd with any Strength source." }
+      ]
+    },
+    "tier_c": {
+      "description": "Situational cards. Take only when they specifically fill a gap in your deck.",
+      "cards": [
+        { "name": "Flame Barrier", "cost": 2, "type": "Skill", "why": "Block + retaliation damage. Good against multi-hit enemies." },
+        { "name": "Iron Wave", "cost": 1, "type": "Attack", "why": "5/7 damage + 5/7 block. Versatile but unexciting. Better than Strike/Defend." },
+        { "name": "Fiend Fire", "cost": 2, "type": "Attack", "why": "Exhaust hand, deal 7 damage per card. Finisher for exhaust decks." },
+        { "name": "Whirlwind", "cost": "X", "type": "Attack", "why": "Deal 5 damage to ALL enemies X times. AOE that scales with energy." },
+        { "name": "Clothesline", "cost": 2, "type": "Attack", "why": "12/14 damage + apply 2/3 Weak. Good utility for 2-cost." },
+        { "name": "True Grit", "cost": 1, "type": "Skill", "why": "7/9 block, exhaust 1 card. Block + deck thinning." }
+      ]
+    }
+  },
+
+  "act_by_act_plan": {
+    "act1": {
+      "priorities": [
+        "Get frontloaded damage to kill hallway enemies in 2-3 turns (Carnage, Pommel Strike, Headbutt)",
+        "Find at least one scaling source (Inflame, Demon Form, or Spot Weakness)",
+        "Pick up 1-2 block cards beyond starting Defends (Shrug It Off is premium)",
+        "Upgrade Bash to Bash+ (3 Vulnerable is a massive damage increase)",
+        "Remove 1-2 Strikes at shops"
+      ],
+      "card_priorities": "Attacks > Scaling > Block. You need to kill things before you need to block.",
+      "elite_readiness": "Fight your first elite after picking up 2-3 good cards. Bash+ plus a strong attack is usually enough.",
+      "boss_preparation": "Ensure you have some scaling (even just Inflame) and enough block to survive 5-6 turns."
+    },
+    "act2": {
+      "priorities": [
+        "Solidify your deck's identity — Strength scaling, Exhaust engine, or Block/Body Slam",
+        "Add key Power cards (Demon Form, Corruption, Barricade) if offered",
+        "Improve block density to handle Act 2's harder enemies",
+        "Remove remaining Strikes and Defends",
+        "Upgrade key cards aggressively"
+      ],
+      "card_priorities": "Scaling > Block > Draw. Your deck should have its core strategy by end of Act 2.",
+      "elite_readiness": "Your deck should handle elites comfortably if your strategy is coming together.",
+      "boss_preparation": "Ensure your scaling is online and reliable. Act 2 bosses are significantly harder than Act 1."
+    },
+    "act3": {
+      "priorities": [
+        "Skip most card rewards — your deck is built",
+        "Upgrade remaining key cards at campfires",
+        "Remove any remaining filler cards at shops",
+        "Ensure your deck can handle the Act 3 boss specifically",
+        "Conserve HP for the final boss fight"
+      ],
+      "card_priorities": "Only take cards that directly address a weakness against the final boss.",
+      "focus": "Optimization, not addition. Make your existing cards better, don't add new ones."
+    }
+  },
+
+  "common_pitfalls": {
+    "too_many_powers": "Don't take every Power card. Powers cost energy to play and don't help you survive the turn you play them. 3-4 Powers is usually enough.",
+    "no_frontload": "Demon Form is amazing but does nothing on the turn you play it. Make sure you have attacks that deal immediate damage.",
+    "ignoring_block": "Ironclad has the best attacks but mediocre block. Don't neglect defense — Shrug It Off, Impervious, and True Grit are important.",
+    "exhaust_without_payoff": "Taking Corruption without Feel No Pain or Dark Embrace leaves you without skills to play. Don't start exhausting until you have the payoff pieces.",
+    "overreliance_on_burning_blood": "6 HP per fight is nice but won't save you from 30+ damage elite fights. Don't take extra damage just because you have healing.",
+    "heavy_blade_without_strength": "Heavy Blade is mediocre without Strength. It only becomes powerful with 5+ Strength stacks."
+  }
+}

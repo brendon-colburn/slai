@@ -1,0 +1,276 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "look_ahead_method": {
+    "description": "Baalorlord's fundamental pathing principle: before choosing a path, look at the ENTIRE act map and plan your route from bottom to top. Don't make node-by-node decisions — plan the whole act.",
+    "steps": [
+      "1. Look at the boss node at the top — identify what boss you're facing and what your deck needs to beat it",
+      "2. Identify all elite nodes, campfire nodes, shop nodes, and question mark nodes",
+      "3. Plan a path that hits the right number of elites for your deck strength (usually 2-3 in Act 1)",
+      "4. Ensure you hit at least 1 campfire before each elite if possible",
+      "5. Plan shop visits when you'll have 300+ gold",
+      "6. Prefer paths with more hallway fights early (card rewards to build your deck) and more campfires/shops late (to prepare for the boss)",
+      "7. Have a backup path in mind if you take more damage than expected"
+    ],
+    "key_insight": "The map is deterministic — you can see exactly what's coming. Use this information. Players who path reactively (choosing at each fork) perform significantly worse than those who plan ahead."
+  },
+
+  "campfire_strategy": {
+    "description": "Campfire decisions (rest vs upgrade vs other options) are among the most impactful decisions in any run.",
+    "rest_vs_upgrade": {
+      "general_rule": "Upgrade is almost always correct if you're above 50% HP. The cumulative value of an upgrade over the rest of the run usually exceeds the HP you'd recover.",
+      "rest_when": [
+        "Below 40% HP and you have tough fights ahead (elites, boss)",
+        "You would die to the next fight without healing",
+        "All your key cards are already upgraded",
+        "You have Regal Pillow (rest heals 15 extra HP) making rest more efficient",
+        "The upcoming path is very dangerous and you need the safety margin"
+      ],
+      "upgrade_when": [
+        "Above 50% HP",
+        "You have a high-impact card to upgrade (key scaling card, important block card)",
+        "You're early in the act and the upgrade will pay dividends over many fights",
+        "You have healing from other sources (Burning Blood, Feed, relics)"
+      ]
+    },
+    "upgrade_priority": {
+      "description": "Which card to upgrade at a campfire. Prioritize cards that gain the most from upgrading.",
+      "tier_1_priority": [
+        "Cards that gain new effects (e.g., Bash+ applies 3 Vulnerable instead of 2)",
+        "Cards that reduce cost (2-cost becoming 1-cost is massive)",
+        "Key scaling cards (your primary damage/block engine)",
+        "Cards you play every single combat"
+      ],
+      "tier_2_priority": [
+        "Draw cards (more draw = better consistency)",
+        "Block cards you rely on for survival",
+        "AOE cards before multi-enemy fights"
+      ],
+      "tier_3_priority": [
+        "Minor stat increases (+3 damage, +3 block)",
+        "Situational cards you only play occasionally",
+        "Cards that will be removed soon anyway"
+      ]
+    },
+    "special_campfire_options": {
+      "lift": "Gain 1 Strength permanently. Take this when you have no high-impact upgrade targets. Compounds with multi-hit attacks.",
+      "toke": "Remove a card (from Girya or other sources). Excellent for removing Strikes/Defends.",
+      "dig": "Gain a relic (from Shovel). Always take the relic — relics are permanent power."
+    }
+  },
+
+  "elite_hunting": {
+    "description": "Elites are the primary way to gain relics, which are permanent power increases. Hunting elites aggressively is key to strong runs, but you need to manage risk.",
+    "hp_thresholds": {
+      "act1": {
+        "safe_to_fight": "60%+ HP (48+ HP for most characters)",
+        "risky": "40-60% HP — fight only if your deck is strong or you have potions",
+        "avoid": "Below 40% HP — the relic isn't worth dying"
+      },
+      "act2": {
+        "safe_to_fight": "50%+ HP (40+ HP for most characters)",
+        "risky": "30-50% HP — only with potions and a strong deck",
+        "avoid": "Below 30% HP"
+      },
+      "act3": {
+        "safe_to_fight": "50%+ HP with a well-built deck",
+        "risky": "30-50% HP — consider your deck's matchup against the specific elite",
+        "avoid": "Below 30% HP — focus on reaching the boss healthy"
+      }
+    },
+    "target_elites_per_act": {
+      "act1": "2-3 elites. You need relics to snowball your run. 1 elite is too few, 4 is greedy.",
+      "act2": "2-3 elites. Continue building relic advantage. Act 2 elites are harder but rewards are proportionally better.",
+      "act3": "1-2 elites. Be more selective — you're preparing for the final boss, not building your deck."
+    },
+    "elite_specific_strategies": {
+      "byrdonis": {
+        "description": "Flying enemy that alternates between attacking and buffing. Can stack Strength quickly.",
+        "key_counter": "Kill fast before Strength stacks become overwhelming. Frontloaded damage is king.",
+        "danger_level": "Medium — predictable pattern but punishes slow decks",
+        "tips": [
+          "Apply Weak to reduce its attack damage significantly",
+          "Prioritize damage over block in the first 2 turns",
+          "If it buffs, you have one turn to deal major damage before the buffed attack hits"
+        ]
+      },
+      "entomancer": {
+        "description": "Summons minions that attack independently. Can overwhelm you with multiple damage sources.",
+        "key_counter": "AOE damage to clear minions. Focus the Entomancer itself when minions are dead.",
+        "danger_level": "High — multiple damage sources are hard to block against",
+        "tips": [
+          "AOE is essential — without it, minions will chip you down",
+          "Kill minions first, then focus the Entomancer",
+          "Block is less effective because damage comes from multiple sources",
+          "Potions are very valuable here if you lack AOE"
+        ]
+      },
+      "decimillipede": {
+        "description": "Multi-hitting enemy that benefits from long fights. Applies debuffs and scales over time.",
+        "key_counter": "End the fight quickly. Scaling damage and strong frontload.",
+        "danger_level": "Medium-High — gets worse the longer the fight goes",
+        "tips": [
+          "This is a race — kill it before its scaling overwhelms your block",
+          "Strength and damage scaling are your best friends here",
+          "Artifact can prevent its debuffs from sticking",
+          "Don't try to out-block it long-term; focus on offense"
+        ]
+      },
+      "infested_prism": {
+        "description": "Tanky elite with high HP. May spawn minions or have damage reflection mechanics.",
+        "key_counter": "Sustained damage output and patience. This is a longer fight.",
+        "danger_level": "Medium — not as bursty but punishes low-damage decks",
+        "tips": [
+          "Scaling is very important for this fight due to high enemy HP",
+          "Maintain block consistency throughout the fight",
+          "Poison and other damage-over-time effects are very effective",
+          "Don't rush — this fight rewards steady play"
+        ]
+      }
+    }
+  },
+
+  "shop_timing": {
+    "description": "Shops are valuable for card removal, relics, and potions. Time your shop visits to maximize gold efficiency.",
+    "optimal_timing": {
+      "frequency": "Visit ~1 shop per act. More if you have excess gold, fewer if you're gold-starved.",
+      "when_to_visit": "Late in the act when you've accumulated gold from fights. Aim to have 300-400+ gold when you hit a shop.",
+      "avoid": "Don't visit shops with less than 150 gold — you won't be able to afford anything impactful."
+    },
+    "shop_priorities": {
+      "always_buy": [
+        "Card removal (75-100 gold, increasing per removal) — removing a Strike/Defend improves EVERY future fight",
+        "High-synergy relics that directly complement your deck strategy",
+        "Emergency potions if you're about to fight a tough elite/boss and need help"
+      ],
+      "usually_buy": [
+        "Strong colorless cards (Apotheosis, Master of Strategy, Panacea)",
+        "Key missing pieces for your deck (e.g., AOE if you have none)",
+        "Relics with broad utility (energy relics, draw relics)"
+      ],
+      "sometimes_buy": [
+        "Cards that fill a secondary need",
+        "Potions for the boss fight",
+        "Situational relics"
+      ],
+      "rarely_buy": [
+        "Cards you could get from rewards",
+        "Niche relics with limited application",
+        "Anything when you're low on gold and have more shops ahead"
+      ]
+    },
+    "gold_earning_tips": [
+      "Take gold rewards from fights when you don't need the card or potion",
+      "Question mark events sometimes give gold",
+      "Selling potions at shops if you have excess",
+      "Some relics generate gold passively"
+    ]
+  },
+
+  "boss_preparation": {
+    "description": "Preparing for the act boss is a key part of pathing. You can see which boss you'll face from the start of the act.",
+    "general_approach": [
+      "Check the boss icon at the start of each act",
+      "Counter-draft: pick cards that specifically address the boss's mechanics",
+      "Ensure your deck has both damage scaling and block for the boss fight",
+      "Use the last 2-3 fights before the boss to fine-tune (upgrade, remove cards, use events)"
+    ],
+    "pre_boss_checklist": [
+      "Do I have enough scaling to win a 10+ turn fight?",
+      "Do I have enough block to survive the boss's damage output?",
+      "Do I have an answer for the boss's specific mechanics?",
+      "Am I above 50% HP? If not, should I rest at the next campfire?",
+      "Do I have potions that will help in this specific fight?",
+      "Have I removed enough Strikes/Defends to keep my deck consistent?"
+    ]
+  },
+
+  "act_by_act_guidance": {
+    "act1": {
+      "theme": "Build Your Deck — Establish your foundation",
+      "primary_goal": "Get enough cards to beat the Act 1 boss. Focus on frontloaded damage and basic scaling.",
+      "pathing_priorities": [
+        "Take early hallway fights for card rewards — you need cards to build your deck",
+        "Fight 2-3 elites for relics (relics are permanent power)",
+        "Hit at least 1 campfire for an upgrade before the boss",
+        "Visit a shop if you have 250+ gold (card removal is critical)",
+        "Question marks are fine but hallway fights are often better in Act 1 (guaranteed card rewards)"
+      ],
+      "card_taking": "Take cards somewhat liberally in Act 1. You need to fill jobs (damage, block, scaling). Be pickier as you approach the boss.",
+      "common_act1_mistake": "Being too greedy with elites. If your deck isn't ready for an elite, the relic isn't worth 40+ HP of damage."
+    },
+    "act2": {
+      "theme": "Refine Your Deck — Solidify your strategy",
+      "primary_goal": "Establish your core synergies and scaling. Your deck should have a clear identity by the end of Act 2.",
+      "pathing_priorities": [
+        "Continue fighting elites (2-3) for relics",
+        "Prioritize campfires for upgrades — upgraded cards scale your power significantly",
+        "Shop visits are important for card removal and key relics",
+        "Start being more selective with card rewards — skip anything that doesn't fit your strategy",
+        "Question marks can provide valuable events (card transforms, relics, etc.)"
+      ],
+      "card_taking": "Be much pickier than Act 1. Only take cards that directly strengthen your core strategy or fill a critical weakness.",
+      "common_act2_mistake": "Taking too many cards. Your deck should be 20-25 cards by end of Act 2. Every card you add increases cycle time."
+    },
+    "act3": {
+      "theme": "Consolidate — Prepare for the final boss",
+      "primary_goal": "Optimize your existing deck through upgrades and removals. Skip most card rewards.",
+      "pathing_priorities": [
+        "Fight 1-2 elites if you're healthy and your deck handles them well",
+        "Campfires for upgrades are very valuable — every upgrade matters for the final boss",
+        "Final shop visit for last-chance card removal or critical purchases",
+        "Avoid unnecessary damage — reaching the boss healthy is paramount",
+        "Plan your path to the boss with maximum campfires and minimum risk"
+      ],
+      "card_taking": "Skip 60%+ of card rewards. Your deck is built — focus on making it better, not bigger.",
+      "common_act3_mistake": "Still taking cards. Your deck is nearly complete. Adding more cards dilutes your best cards."
+    }
+  },
+
+  "risk_management": {
+    "description": "How to assess and manage risk during pathing decisions.",
+    "risk_factors": [
+      "Current HP percentage — lower HP = higher risk",
+      "Deck strength — stronger decks can handle riskier paths",
+      "Available potions — potions provide a safety net for tough fights",
+      "Upcoming nodes — know what's coming before you commit to a path",
+      "Act progression — more risk is acceptable early in an act, less acceptable near the boss"
+    ],
+    "risk_mitigation": [
+      "Always have a backup path planned",
+      "Keep potions for emergencies (but don't hoard them — use on elites)",
+      "Rest at campfires when below 40% HP with tough fights ahead",
+      "Take safer paths when your deck has clear weaknesses",
+      "Smoke Bomb potion is an emergency escape from a fight going badly"
+    ],
+    "hp_threshold_guidance": {
+      "above_70": "Play aggressively — hunt elites, take risks, upgrade at campfires",
+      "50_to_70": "Play normally — take elites if your deck is ready, upgrade when safe",
+      "30_to_50": "Play carefully — avoid elites without potions, consider resting",
+      "below_30": "Play defensively — rest at every campfire, take the safest path, use potions liberally"
+    }
+  },
+
+  "question_mark_strategy": {
+    "description": "Question mark nodes (unknown events) can provide card transforms, relics, gold, healing, card removal, or sometimes negative effects.",
+    "when_to_prioritize": [
+      "When you need healing but don't want to waste a campfire resting",
+      "When you're looking for card transforms or unusual options",
+      "When hallway fights aren't giving you useful card rewards",
+      "When you have relics that benefit from events (e.g., Ssserpent Head)"
+    ],
+    "when_to_avoid": [
+      "When you desperately need specific card rewards (hallway fights are more reliable)",
+      "When you can't afford any negative event outcomes",
+      "When you need guaranteed combat encounters for gold or card rewards"
+    ],
+    "tips": [
+      "Many events are beneficial — don't fear question marks",
+      "Some events offer free card removal, which is extremely valuable",
+      "Events that offer max HP increases are almost always worth taking",
+      "Card transform events can turn bad cards into great ones (or vice versa — risk/reward)"
+    ]
+  }
+}

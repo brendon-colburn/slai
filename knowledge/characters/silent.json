@@ -1,0 +1,243 @@
+{
+  "source": "Baalorlord (YouTube, Twitch, Untapped.gg)",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-24",
+
+  "character": "Silent",
+  "color": "Green",
+
+  "identity": {
+    "description": "The Silent is a nimble assassin who excels at Poison damage, Shiv attacks, and the unique Sly/discard mechanic. The Silent has the best defensive tools in the game (Footwork, Blur, After Image, Wraith Form) and multiple distinct ways to scale damage. The Silent rewards careful, patient play — setting up defenses while slowly poisoning or chipping enemies to death.",
+    "playstyle": "Defensive setup into scaling damage. The Silent wants to establish defensive buffs (Footwork, Blur, After Image) early, then kill enemies with Poison stacking, Shiv spam, or Sly-powered discard combos. The starting relic rewards building a deck with a strong opening turn.",
+    "strengths": [
+      "Best defensive scaling in the game — Footwork, After Image, Blur, Wraith Form",
+      "Poison bypasses block and armor — deals damage regardless of enemy defenses",
+      "Sly mechanic creates free card plays from discarding — unique action economy",
+      "Excellent card draw and cycling — Acrobatics, Backflip, Adrenaline",
+      "Shivs provide cheap, numerous attacks that scale with Strength and Accuracy"
+    ],
+    "weaknesses": [
+      "Lower base damage than Ironclad — frontloaded damage can be lacking in Act 1",
+      "Poison is slow — it takes multiple turns to kill tough enemies",
+      "Shiv builds need specific support cards (Accuracy, Kunai, Shuriken) to scale properly",
+      "Starting deck is weaker than Ironclad's — Strikes and Defends have lower base values",
+      "Some strategies require multiple specific pieces to function well"
+    ]
+  },
+
+  "starting_deck": {
+    "strikes": { "count": 5, "damage": 6, "cost": 1, "note": "Remove as quickly as possible — Silent Strikes are the same as Ironclad's" },
+    "defends": { "count": 5, "block": 5, "cost": 1, "note": "Remove after Strikes — slightly more Defends than Ironclad" },
+    "neutralize": { "count": 1, "damage": 3, "cost": 0, "effect": "Apply 1 Weak (2 Weak upgraded)", "note": "0-cost with Weak application. Always play turn 1. Upgrade is high priority — 2 Weak is excellent." },
+    "survivor": { "count": 1, "damage": 0, "cost": 1, "effect": "Gain 8 block, discard 1 card", "note": "Block + discard trigger. Excellent with Sly cards." }
+  },
+
+  "starting_relic": {
+    "name": "Ring of the Snake",
+    "effect": "Draw 2 extra cards on turn 1 of each combat (7 card opening hand instead of 5)",
+    "strategic_value": "A larger opening hand means more options on turn 1. You can play more cards, see more of your deck, and set up faster. This rewards having strong opening plays and synergies.",
+    "tips": [
+      "Plan your turn 1 around having 7 cards — you can play more aggressively",
+      "Innate cards are extra valuable with Ring of the Snake — guaranteed in a larger hand",
+      "Discard effects on turn 1 are powerful — more cards in hand = more discard targets",
+      "The extra draw means you see 7/20 cards on turn 1 (35% of a 20-card deck) — very consistent"
+    ]
+  },
+
+  "archetypes": {
+    "poison": {
+      "description": "Stack Poison on enemies to deal damage at the end of each turn. Poison ticks down by 1 each turn, so higher stacks deal more total damage. Catalyst doubles/triples Poison for burst damage.",
+      "core_cards": [
+        "Deadly Poison — Apply 5/7 Poison. Simple, efficient, core Poison application.",
+        "Noxious Fumes — Apply 2/3 Poison to ALL enemies at start of each turn. Passive Poison scaling that's always good.",
+        "Catalyst — Double/Triple the enemy's Poison. The burst finisher — 20 Poison becomes 60 with upgraded Catalyst.",
+        "Crippling Cloud — Apply 4 Poison + 2 Weak to ALL enemies. AOE Poison + defensive utility.",
+        "Corpse Explosion — When an enemy dies, deal their max HP as damage to ALL enemies. AOE finisher."
+      ],
+      "support_cards": [
+        "Poisoned Stab — 6/8 damage + apply 3/4 Poison. Attack + Poison in one card.",
+        "Envenom — whenever you deal unblocked attack damage, apply 1 Poison. Turns all attacks into Poison sources.",
+        "Bouncing Flask — Apply 3 Poison to random enemies 3/4 times. Multi-target Poison.",
+        "Bane — 7/10 damage. If enemy is Poisoned, deal 7/10 damage again (double hit). Payoff for Poison."
+      ],
+      "strengths": [
+        "Poison bypasses enemy block — it deals damage regardless of defenses",
+        "Noxious Fumes provides passive scaling without needing to draw specific cards",
+        "Catalyst provides enormous burst damage potential (20 -> 60 -> 180 Poison)",
+        "Effective against high-block enemies and bosses with damage reduction",
+        "Doesn't require much energy — Poison cards are mostly 1-cost"
+      ],
+      "weaknesses": [
+        "Slow — Poison takes multiple turns to kill enemies, especially in Act 1",
+        "Weak against multiple enemies without Noxious Fumes or AOE Poison",
+        "Catalyst is all-or-nothing — amazing with high Poison stacks, useless without them",
+        "Enemy Artifact can prevent Poison application"
+      ]
+    },
+
+    "shiv": {
+      "description": "Generate and play numerous Shiv cards (0-cost, 4 damage attacks) each turn. Scale Shiv damage with Accuracy (+damage per Shiv) and Strength. Play many attacks per turn for relic triggers (Kunai, Shuriken, etc.).",
+      "core_cards": [
+        "Blade Dance — add 3/4 Shivs to your hand. The primary Shiv generator.",
+        "Cloak and Dagger — gain 6/8 block, add 1/2 Shivs to hand. Block + Shivs in one card.",
+        "Accuracy — Shivs deal +4/+6 damage. The primary Shiv scaling card.",
+        "Infinite Blades — gain 1 Shiv at start of each turn. Passive Shiv generation.",
+        "Storm of Steel — discard hand, gain 1 Shiv per card discarded. Massive Shiv burst."
+      ],
+      "support_cards": [
+        "A Thousand Cuts — whenever you play a card, deal 1/2 damage to ALL enemies. Turns every Shiv into AOE chip damage.",
+        "After Image — whenever you play a card, gain 1 block. Turns every Shiv into +1 block.",
+        "Finisher — deal 6/8 damage per attack played this turn. Finisher after a Shiv-heavy turn.",
+        "Choke — deal 3/5 damage whenever enemy receives a card (from Shivs entering play). Unique scaling."
+      ],
+      "strengths": [
+        "Huge number of attacks per turn — triggers attack-count relics (Kunai, Shuriken, Fan)",
+        "Shivs are 0-cost — they're free damage and free card plays",
+        "Scales with Accuracy, Strength, AND attack-count synergies simultaneously",
+        "After Image + many card plays = enormous block generation",
+        "Can deal very high total damage per turn with enough Shiv generation"
+      ],
+      "weaknesses": [
+        "Shivs are individually weak (4 damage) without Accuracy or Strength",
+        "Hand clogging — Shivs take up card slots in your hand, reducing options",
+        "Accuracy is essential but not always offered — Shiv builds without Accuracy are weak",
+        "Vulnerable to Time Eater (boss that punishes playing many cards per turn)",
+        "Shivs exhaust after being played — they're one-use"
+      ],
+      "key_relic_synergies": [
+        "Kunai — play 3 attacks, gain +1 Dexterity. Shivs trigger this easily.",
+        "Shuriken — play 3 attacks, gain +1 Strength. Makes Shivs hit harder.",
+        "Fan — play 3 attacks, gain 4 block. Free block from Shiv plays.",
+        "Ornamental Fan — same as Fan for some versions. Stacks with other attack-count relics."
+      ]
+    },
+
+    "sly_discard": {
+      "description": "Build around the Sly mechanic — cards that play themselves for free when discarded. Use discard effects (Acrobatics, Survivor, Gamble) to trigger Sly cards for massive action economy.",
+      "core_cards": [
+        "Cards with Sly keyword — attacks and skills that trigger when discarded from hand",
+        "Acrobatics — draw 3/4, discard 1. The best discard trigger — draw AND trigger Sly.",
+        "Survivor — gain 8/11 block, discard 1. Block AND discard trigger.",
+        "Calculated Gamble — discard hand, draw that many. Mass discard triggers all Sly cards.",
+        "Tactician — discard to gain 1/2 energy. Energy generation from discarding."
+      ],
+      "support_cards": [
+        "Reflex — cannot be played. When discarded, draw 2/3. Pure discard payoff.",
+        "Sneaky Strike — 12/16 damage. Costs 0 if you discarded a card this turn. Free damage with discard.",
+        "Concentrate — discard 3 cards, gain 2 energy. Mass discard with energy gain.",
+        "Tools of the Trade — at start of turn, draw 1 and discard 1. Passive discard trigger every turn."
+      ],
+      "strengths": [
+        "Free card plays — Sly cards don't cost energy when triggered, creating insane action economy",
+        "Massive hand cycling — discard effects draw new cards while Sly cards play themselves",
+        "Combines well with both Poison and Shiv strategies",
+        "Very high ceiling — when the engine is running, you play 8+ cards per turn",
+        "Deck thinning through discard cycling improves consistency"
+      ],
+      "weaknesses": [
+        "Requires both Sly cards AND discard effects — missing either half is bad",
+        "Complex to pilot — sequencing matters enormously",
+        "Can misfire if you don't draw Sly cards and discard effects together",
+        "Calculated Gamble is risky — discarding your entire hand can backfire without Sly cards"
+      ]
+    }
+  },
+
+  "card_tier_list": {
+    "tier_s": {
+      "description": "Always take. Top-tier Silent cards.",
+      "cards": [
+        { "name": "Wraith Form", "cost": 3, "type": "Power", "why": "Gain 2/3 Intangible. All damage reduced to 1 for 2/3 turns. Best defensive card in the game." },
+        { "name": "Adrenaline", "cost": 0, "type": "Skill", "why": "0 cost. Gain 1/2 energy, draw 2/3 cards. Exhaust. Free energy and draw." },
+        { "name": "Catalyst", "cost": 1, "type": "Skill", "why": "Double/Triple enemy Poison. Turns moderate Poison into lethal Poison." },
+        { "name": "Corpse Explosion", "cost": 2, "type": "Power", "why": "When enemy dies, deal their max HP to ALL enemies. AOE chain reaction." },
+        { "name": "Noxious Fumes", "cost": 1, "type": "Power", "why": "2/3 Poison to ALL enemies every turn. Passive scaling that requires no further input." }
+      ]
+    },
+    "tier_a": {
+      "description": "Almost always take. Very strong cards.",
+      "cards": [
+        { "name": "Footwork", "cost": 1, "type": "Power", "why": "+2/3 Dexterity permanently. Scales all your block cards. Multiple copies stack." },
+        { "name": "Acrobatics", "cost": 1, "type": "Skill", "why": "Draw 3/4, discard 1. Excellent cycling and Sly trigger." },
+        { "name": "Backflip", "cost": 1, "type": "Skill", "why": "Gain 5/8 block, draw 2. Block + draw in one card." },
+        { "name": "Deadly Poison", "cost": 1, "type": "Skill", "why": "Apply 5/7 Poison. Simple, reliable Poison application." },
+        { "name": "Dash", "cost": 2, "type": "Attack", "why": "10/13 damage + 10/13 block. Replaces a Strike AND a Defend." },
+        { "name": "After Image", "cost": 1, "type": "Power", "why": "Gain 1 block every time you play a card. Insane with Shiv builds." },
+        { "name": "Leg Sweep", "cost": 2, "type": "Skill", "why": "Apply 2/3 Weak + gain 11/14 block. Defensive powerhouse." },
+        { "name": "Accuracy", "cost": 1, "type": "Power", "why": "+4/+6 Shiv damage. Essential for Shiv builds." }
+      ]
+    },
+    "tier_b": {
+      "description": "Good cards for specific strategies.",
+      "cards": [
+        { "name": "Blade Dance", "cost": 1, "type": "Skill", "why": "Add 3/4 Shivs to hand. Core Shiv generator." },
+        { "name": "Predator", "cost": 2, "type": "Attack", "why": "15/20 damage, draw 2 next turn. Frontload + future card draw." },
+        { "name": "Backstab", "cost": 0, "type": "Attack", "why": "0 cost, 11/15 damage, Innate, Exhaust. Free damage turn 1." },
+        { "name": "Sucker Punch", "cost": 1, "type": "Attack", "why": "7/9 damage + apply 1/2 Weak. Damage + defense in one card." },
+        { "name": "Cloak and Dagger", "cost": 1, "type": "Skill", "why": "6/8 block + add 1/2 Shivs. Block + Shivs." },
+        { "name": "Blur", "cost": 1, "type": "Skill", "why": "Gain 5/8 block. Block doesn't expire next turn. Mini-Barricade for a turn." },
+        { "name": "Malaise", "cost": "X", "type": "Skill", "why": "Apply X Weak + X Strength Down. Scales with energy. Devastating debuff." },
+        { "name": "Tools of the Trade", "cost": 1, "type": "Power", "why": "Draw 1, discard 1 at start of turn. Passive cycling and Sly trigger." }
+      ]
+    },
+    "tier_c": {
+      "description": "Situational. Take only when they fill a specific need.",
+      "cards": [
+        { "name": "Poisoned Stab", "cost": 1, "type": "Attack", "why": "6/8 damage + 3/4 Poison. Jack of both trades, master of neither." },
+        { "name": "Dagger Spray", "cost": 1, "type": "Attack", "why": "4x2/6x2 damage to ALL enemies. Weak AOE but sometimes needed." },
+        { "name": "Bouncing Flask", "cost": 2, "type": "Skill", "why": "Apply 3 Poison randomly 3/4 times. Inconsistent but fills Poison needs." },
+        { "name": "Dodge and Roll", "cost": 1, "type": "Skill", "why": "4/6 block this turn + 4/6 block next turn. Split block is awkward but can be useful." },
+        { "name": "Prepared", "cost": 0, "type": "Skill", "why": "Draw 1/2, discard 1/2. 0-cost cycling and Sly trigger." },
+        { "name": "Envenom", "cost": 2, "type": "Power", "why": "Unblocked attacks apply 1 Poison. Good with Shivs but 2-cost Power is slow." }
+      ]
+    }
+  },
+
+  "act_by_act_plan": {
+    "act1": {
+      "priorities": [
+        "Upgrade Neutralize to apply 2 Weak — significant damage reduction from all enemies",
+        "Find frontloaded damage (Backstab, Predator, Dash) to handle hallway fights",
+        "Pick up Poison sources (Deadly Poison, Noxious Fumes) for scaling",
+        "Get at least 1 good block card beyond Defends (Backflip, Leg Sweep, Dash)",
+        "Remove 1-2 Strikes at shops"
+      ],
+      "card_priorities": "Frontload damage > Poison/Scaling > Block cards > Card draw",
+      "elite_readiness": "Silent is slightly weaker in early Act 1 elites than Ironclad. Neutralize + Survivor help, but you may want an extra card or two before fighting elites.",
+      "boss_preparation": "Ensure you have Poison scaling (Noxious Fumes, Deadly Poison) or enough attacks to deal with the boss over a long fight."
+    },
+    "act2": {
+      "priorities": [
+        "Solidify your build direction — Poison, Shiv, or Sly/Discard",
+        "Add key Powers (Footwork, Noxious Fumes, After Image, Accuracy)",
+        "Improve card draw (Acrobatics, Backflip, Adrenaline)",
+        "Remove remaining Strikes and Defends",
+        "Upgrade scaling cards and key block cards"
+      ],
+      "card_priorities": "Scaling (Poison/Shivs/Sly) > Block/Defense > Card Draw > Frontload",
+      "elite_readiness": "Your deck should handle elites if your strategy is coming together. Use Potions.",
+      "boss_preparation": "Wraith Form is the best boss card in the game — take it if offered. Ensure Poison or damage scaling is reliable."
+    },
+    "act3": {
+      "priorities": [
+        "Skip most card rewards — your deck should be built",
+        "Upgrade remaining key cards",
+        "Remove any filler cards at shops",
+        "Prepare specifically for the Act 3 boss",
+        "If offered Wraith Form and you don't have it, strongly consider taking it"
+      ],
+      "card_priorities": "Only take cards that directly address a specific weakness.",
+      "focus": "Optimization. Catalyst upgrade (double -> triple) is one of the most powerful upgrades in the game if you have Poison."
+    }
+  },
+
+  "common_pitfalls": {
+    "slow_act1": "Silent can struggle in Act 1 without frontloaded damage. Don't ignore attacks in favor of Poison — you need to kill things NOW in hallway fights.",
+    "no_aoe": "Silent has limited AOE options. Without Noxious Fumes, Corpse Explosion, or Dagger Spray, multi-enemy fights are very dangerous.",
+    "shivs_without_accuracy": "Shiv builds without Accuracy or Strength are very weak. 4 damage per Shiv doesn't scale fast enough without buffs.",
+    "too_many_skills": "Silent decks can end up with too many skills and not enough attacks. You still need to deal damage.",
+    "wraith_form_without_plan": "Wraith Form gives Intangible but reduces Dexterity each turn. You need Artifact or a plan to end the fight before Dexterity loss kills your block.",
+    "catalyst_without_poison": "Catalyst is amazing but useless without Poison. Don't take Catalyst if you have no Poison application.",
+    "ignoring_footwork": "Footwork is one of the best cards in the game. +2/3 Dexterity permanently makes every block card significantly better. Don't skip it."
+  }
+}
