@@ -139,6 +139,8 @@ TOOLS = [
     Tool(
         name="get_coaching_tip",
         description=(
+            "[DEPRECATED for Skill use — prefer the CAG knowledge bundle at "
+            "skills/sts2-coach/knowledge.md, which has full strategic context.] "
             "Get a contextual coaching tip from Baalorlord's knowledge base "
             "based on the current game screen (combat, map, reward, shop, rest, event). "
             "Tips are character-aware and situation-specific."
@@ -176,6 +178,9 @@ TOOLS = [
     Tool(
         name="explain_mechanic",
         description=(
+            "[DEPRECATED for Skill use — prefer the CAG knowledge bundle at "
+            "skills/sts2-coach/knowledge.md, which has the same mechanic data "
+            "and more. Kept for non-Skill MCP clients.] "
             "Look up and explain a Slay the Spire 2 mechanic or keyword. "
             "Covers: Sly, Forge, Doom, Stars, Souls, Enchantments, Afflictions, "
             "Orbs, Exhaust, Ethereal, Retain, and more."
@@ -194,6 +199,9 @@ TOOLS = [
     Tool(
         name="get_character_guide",
         description=(
+            "[DEPRECATED for Skill use — prefer the CAG knowledge bundle at "
+            "skills/sts2-coach/knowledge.md, which contains every character guide "
+            "in full. Kept for non-Skill MCP clients.] "
             "Get a comprehensive strategy guide for a specific character "
             "based on Baalorlord's teachings. Covers key archetypes, "
             "important cards, act-by-act plans, and common pitfalls."

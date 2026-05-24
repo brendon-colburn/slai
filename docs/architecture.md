@@ -68,6 +68,33 @@ The original SLAI shipped a web dashboard (~2,800 lines of HTML/CSS/JS). It work
 
 So SLAI doesn't ship a dashboard. The Skill *can* generate one on demand — Claude artifacts give you a fresh radar / cost curve / pile breakdown whenever a question is fundamentally visual. The chart is shaped to the question; the question implies the chart.
 
+## Knowledge: CAG, not RAG
+
+The strategic knowledge base (~37K tokens, the encoded Baalorlord framework + per-character guides + mechanics + mistakes) is delivered to the Skill via **Cache-Augmented Generation (CAG)**, not Retrieval-Augmented Generation (RAG):
+
+- **Source** of truth lives as 9 JSON files under [`knowledge/`](../knowledge/) (easy to diff, easy to edit per-character).
+- A build step ([`tools/build_knowledge.py`](../tools/build_knowledge.py)) renders them into one big markdown bundle at [`skills/sts2-coach/knowledge.md`](../skills/sts2-coach/knowledge.md).
+- The Skill instructs the agent to `Read` that bundle on first message of a session.
+- Anthropic's prompt cache holds the ~37K tokens for the rest of the session, so the cost is paid once.
+
+**Why CAG over RAG?**
+
+| | CAG | RAG |
+|---|---|---|
+| Corpus size vs context window | ~37K tokens in a ~200K window — fits easily with room for live state and conversation | Required if corpus ≫ context |
+| Cross-cutting reasoning | Agent sees the whole picture at once — can correlate ironclad.json with common_mistakes.json without explicit hops | Agent only sees the chunks the retriever picked |
+| Infrastructure | Zero. JSON → markdown → file Read | Vector DB, embeddings, retrieval pipeline |
+| Maintenance | Edit JSON, re-run one script | Re-embed every change, re-index, verify retrieval quality |
+| Token economics | ~37K cached tokens per session (paid once via prompt caching) | ~3-5K per query, paid every query |
+
+For a corpus this small, RAG would be over-engineering — pay more, get less reasoning, gain nothing. The threshold where RAG starts winning is when the corpus genuinely won't fit in the context window. We're nowhere near that.
+
+**What about the Python knowledge_engine?**
+
+The Python MCP server's knowledge-retrieval tools (`explain_mechanic`, `get_character_guide`, `get_coaching_tip`) predate the CAG bundle. They're now **deprecated for Skill use** — the agent answers those questions directly from cached `knowledge.md` instead. The tools are kept around (with `[DEPRECATED]` markers in their descriptions) for non-Skill MCP clients that might want one-shot lookups, but no new code should call them from a Skill.
+
+The MCP server's **analysis** tools (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) are unaffected — they compute deterministic things from live state (pillar scores, card grades, mistake patterns), which is computation, not retrieval. Those are exactly where Python wins over LLM tokens.
+
 ## What we depend on upstream
 
 - STS2MCP's `master_deck` exposure on every screen (contributed as a PR; until merged, users may need a fork).
