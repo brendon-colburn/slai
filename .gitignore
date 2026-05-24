@@ -16,6 +16,9 @@ Thumbs.db
 build/
 dist/
 out/
+bin/
+obj/
+*.user
 
 # Local config that shouldn't be shared
 .claude/settings.local.json

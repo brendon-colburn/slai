@@ -1,48 +1,68 @@
 # SLAI — Slay the Spire 2 Learning with AI
 
-A real-time coaching layer for [Slay the Spire 2](https://store.steampowered.com/app/2868840/Slay_the_Spire_2/). Not a bot — a coach. SLAI reads your live game state and answers strategic questions grounded in **[Baalorlord's](https://www.twitch.tv/baalorlord)** teachings: the 4 Pillars of Deckbuilding, card evaluation, pathing philosophy, and character-specific strategies.
+A real-time coaching system for [Slay the Spire 2](https://store.steampowered.com/app/2868840/Slay_the_Spire_2/). Not a bot — a coach. SLAI reads your live game state and answers strategic questions grounded in **[Baalorlord's](https://www.twitch.tv/baalorlord)** teachings: the 4 Pillars of Deckbuilding, card evaluation, pathing philosophy, and character-specific strategies.
 
 You ask the questions, you make every click. SLAI just makes you better at making those clicks.
 
 ## What you get
 
-- **`/sts2-coach` Skill** for Claude Code / Claude Desktop — ask anything mid-run ("should I take this card?", "how am I doing?", "what's the boss?") and get an answer grounded in your actual deck, HP, gold, floor, and screen state.
-- **Coaching MCP server** (Python) — 10 tools that wrap live STS2MCP data with structured analysis: 4-pillar scoring, card-reward grading (S/A/B/C/D/F), mistake detection, pathing advice.
-- **Knowledge base** (~2,600 lines of structured JSON) — encodes Baalorlord's 4 Pillars framework, character strategies for all 5 characters, common mistakes, pathing philosophy, and STS2 mechanics.
+- **SLAI mod** (C#, `mod/`) — a read-only HTTP observer that runs inside Slay the Spire 2 and exposes live game state on `localhost:15526`. Cannot send game inputs by design.
+- **Coaching MCP server** (Python, `mcp-server/`) — 10 tools that wrap live game data with structured analysis: 4-pillar scoring, card-reward grading (S/A/B/C/D/F), mistake detection, pathing advice.
+- **`/sts2-coach` Skill** (`skills/sts2-coach/`) — drops into Claude Code / Claude Desktop. Triages questions to the right MCP tool and generates inline visual artifacts on demand.
+- **Knowledge base** (~2,600 lines, `knowledge/`) — encodes Baalorlord's 4 Pillars framework, character strategies for all 5 characters, common mistakes, pathing philosophy, and STS2 mechanics.
 
 ## Architecture
 
 ```
 ┌──────────────────────┐      HTTP       ┌──────────────────┐    MCP    ┌──────────────────────┐
-│  STS2 + STS2MCP mod  │ ──────────────► │  SLAI MCP server │ ────────► │  Claude Code /       │
-│  (game-side, .dll)   │  localhost:15526│  (Python, this   │           │  Claude Desktop      │
-│                      │                 │   repo)          │           │  + sts2-coach Skill  │
+│  STS2 + SLAI mod     │ ──────────────► │  SLAI MCP server │ ────────► │  Claude Code /       │
+│  (game-side, .dll)   │  localhost:15526│  (Python)        │           │  Claude Desktop      │
+│                      │                 │                  │           │  + sts2-coach Skill  │
 └──────────────────────┘                 └──────────────────┘           └──────────────────────┘
 ```
 
-SLAI is a *pure read-only client* of STS2MCP. It never plays the game; you do. SLAI only reads your state and gives you advice.
+Everything is read-only end-to-end. The mod exposes state; the Python server adds coaching intelligence; the Skill ties it together with natural language.
 
 ## Prerequisites
 
 1. **Slay the Spire 2** on Steam.
-2. **[STS2MCP](https://github.com/Gennadiyev/STS2MCP)** mod installed — this is what exposes the game's state via HTTP. See its README for install steps. Tested against v0.4.0+.
-3. **Python 3.11+** (3.13 recommended).
+2. **Python 3.11+** (3.13 recommended).
+3. **.NET 9 SDK** (only to build the mod from source — if you grab a release binary, skip this).
 4. **Claude Code** or Claude Desktop — for using the Skill.
 
 ## Install
 
-```bash
-# 1. Clone
-git clone https://github.com/brendoncolburn/slai.git
-cd slai
+### 1. The mod
 
-# 2. Install Python deps
-pip install mcp httpx pydantic
+Either grab a `SLAI.dll` + `SLAI.json` from the [Releases](https://github.com/brendon-colburn/slai/releases) page (once we cut one), or build from source:
 
-# 3. Add SLAI to your Claude Code MCP config (.mcp.json in any project you want to use it from)
+```powershell
+cd mod
+.\build.ps1 -GameDir "C:\Steam\steamapps\common\Slay the Spire 2"
 ```
 
-`.mcp.json` example (Windows; adjust paths):
+Then copy both files into the game's mods directory:
+
+```
+<Slay the Spire 2 install>/mods/
+  ├── SLAI.dll
+  └── SLAI.json     # copy of mod/mod_manifest.json
+```
+
+Launch the game once, go to **Settings → Mods**, enable **SLAI**, accept the consent dialog. Verify the server is up:
+
+```
+curl http://localhost:15526/
+# {"message": "Hello from SLAI v0.1.0", "status": "ok", "role": "read-only-observer", ...}
+```
+
+### 2. The Python MCP server
+
+```bash
+pip install mcp httpx pydantic
+```
+
+Add it to your Claude Code MCP config (`.mcp.json` in any project you want to use SLAI from):
 
 ```json
 {
@@ -55,16 +75,20 @@ pip install mcp httpx pydantic
 }
 ```
 
-The skill at `skills/sts2-coach/SKILL.md` is auto-discovered by Claude Code when placed under `.claude/skills/sts2-coach/` in your project root or your user-level skills directory.
+### 3. The Skill
+
+Copy `skills/sts2-coach/` into your project's `.claude/skills/` directory, or wherever your Claude client looks for skills.
 
 ## Use
 
-1. Launch Slay the Spire 2 with STS2MCP enabled.
-2. Open Claude Code in a directory with SLAI configured (`.mcp.json` + skill present).
+1. Launch STS2 with the SLAI mod enabled.
+2. Open Claude Code in a directory with SLAI configured.
 3. Type `/sts2-coach`.
 4. Ask anything: *"how am I doing?"*, *"should I take Setup Strike?"*, *"path to the boss?"*
 
 The coach pulls your live state and answers with Baalorlord-grounded reasoning. Specific card advice, deck-aware reward grading, HP-aware pathing — never generic.
+
+See [`examples/example-prompts.md`](examples/example-prompts.md) for more.
 
 ## What the Skill knows
 
@@ -78,7 +102,7 @@ The coach pulls your live state and answers with Baalorlord-grounded reasoning. 
 | Mechanic ("what's Doom?") | `explain_mechanic` | Knowledge-base lookup + context |
 | Character guide | `get_character_guide` | Full strategy for ironclad / silent / defect / necrobinder / regent |
 | Free-form | `ask_coach` | Contextual answer using all knowledge |
-| Connection | `check_connection` | Is STS2MCP reachable? |
+| Connection | `check_connection` | Is the mod reachable? |
 
 ## Visual breakdowns
 
@@ -86,16 +110,16 @@ Ask for visuals and Claude will generate them as one-shot artifacts using your l
 
 ## Status
 
-Early. Built mid-run as a coaching tool for one player; published in case others want to use or extend it. The Knowledge base in particular benefits from corrections — if you spot Baalorlord advice that's misrepresented, open an issue or PR.
+Early. Built mid-run as a coaching tool for one player; published in case others want to use or extend it. The knowledge base in particular benefits from corrections — if you spot Baalorlord advice that's misrepresented, open an issue or PR.
 
 ## Acknowledgments
 
 - **Baalorlord** ([Twitch](https://www.twitch.tv/baalorlord) / [YouTube](https://www.youtube.com/@baalorlord)) — the strategic teachings encoded in `knowledge/` paraphrase his publicly-available coaching content. SLAI is unaffiliated with Baalorlord; any misrepresentation is ours, not his.
-- **[STS2MCP](https://github.com/Gennadiyev/STS2MCP)** by Yikun Ji (Kunologist) — the in-game mod that makes any of this possible.
+- **[STS2MCP](https://github.com/Gennadiyev/STS2MCP)** by Yikun Ji (Kunologist) — SLAI's mod (`mod/`) is forked from STS2MCP. The state-observation core (StateBuilder, Helpers, Formatting, Compendium, Wiki, Profile) is theirs; SLAI strips the action/multiplayer/Fast-Mode surfaces and adds coaching-specific fields (e.g. `master_deck` exposed on every screen).
 - **Mega Crit** — for [Slay the Spire 2](https://store.steampowered.com/app/2868840/Slay_the_Spire_2/).
 
-See [ATTRIBUTION.md](ATTRIBUTION.md) for details.
+See [`ATTRIBUTION.md`](ATTRIBUTION.md) for details.
 
 ## License
 
-MIT. See [LICENSE](LICENSE).
+MIT. See [`LICENSE`](LICENSE). The forked mod code retains its original [`mod/LICENSE.STS2MCP`](mod/LICENSE.STS2MCP).

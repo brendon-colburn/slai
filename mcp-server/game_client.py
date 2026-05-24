@@ -1,8 +1,11 @@
 """
-SLAI Game Client - HTTP client for the STS2MCP REST API.
+SLAI Game Client - HTTP client for the SLAI mod's REST API.
 
-Connects to the STS2MCP mod's HTTP server (default: localhost:15526)
+Connects to the SLAI mod's HTTP server (default: localhost:15526)
 to read game state. This is READ-ONLY — SLAI never controls the game.
+
+The mod is forked from STS2MCP by Yikun Ji (MIT); the API surface here
+is the read-only subset we kept after the fork. See ATTRIBUTION.md.
 """
 
 import httpx
@@ -46,8 +49,8 @@ class GameClient:
             self._connected = False
             return {
                 "connected": False,
-                "error": f"Cannot connect to STS2MCP at {self.base_url}: {e}",
-                "hint": "Make sure Slay the Spire 2 is running with the STS2MCP mod enabled.",
+                "error": f"Cannot connect to the SLAI mod at {self.base_url}: {e}",
+                "hint": "Make sure Slay the Spire 2 is running with the SLAI mod enabled (Settings -> Mods).",
             }
         except Exception as e:
             self._connected = False
