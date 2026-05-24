@@ -602,13 +602,38 @@ public static partial class McpMod
             result["room_type"] = currentRoom?.GetType().Name;
         }
 
-        // Common run info
-        result["run"] = new Dictionary<string, object?>
+        // Common run info, including boss identity for the current act so
+        // coaching tools can counter-draft without web search. BossEncounter
+        // throws if the act hasn't finished setup yet, so guard the access.
+        var runInfo = new Dictionary<string, object?>
         {
             ["act"] = runState.CurrentActIndex + 1,
             ["floor"] = runState.TotalFloor,
-            ["ascension"] = runState.AscensionLevel
+            ["ascension"] = runState.AscensionLevel,
         };
+        try
+        {
+            var boss = runState.Act?.BossEncounter;
+            if (boss != null)
+            {
+                runInfo["boss"] = new Dictionary<string, object?>
+                {
+                    ["id"] = boss.Id?.Entry,
+                    ["name"] = SafeGetText(() => boss.Title),
+                };
+            }
+            var boss2 = runState.Act?.SecondBossEncounter;
+            if (boss2 != null)
+            {
+                runInfo["boss_2"] = new Dictionary<string, object?>
+                {
+                    ["id"] = boss2.Id?.Entry,
+                    ["name"] = SafeGetText(() => boss2.Title),
+                };
+            }
+        }
+        catch { /* boss field is informational; skip if act isn't ready */ }
+        result["run"] = runInfo;
 
         // Always include full player data (relics, potions, deck, etc.) on every screen
         var _player = LocalContext.GetMe(runState);
@@ -1265,6 +1290,36 @@ public static partial class McpMod
     /// </summary>
     private static Dictionary<string, object?> BuildCardInfo(CardModel card, PileType pile = PileType.None)
     {
+        // For upgradable, currently-unupgraded cards, attach a preview of the
+        // upgraded version. Lets coaching tools answer "what does +Bash do?"
+        // without web search — the actual upgraded numbers come straight from
+        // the running game.
+        Dictionary<string, object?>? upgradePreview = null;
+        if (!card.IsUpgraded && card.IsUpgradable)
+        {
+            try
+            {
+                var preview = SafeBuildUpgradedCardPreview(card);
+                if (preview != null)
+                {
+                    upgradePreview = new Dictionary<string, object?>
+                    {
+                        ["name"] = SafeGetText(() => preview.Title),
+                        ["cost"] = GetCostDisplay(preview),
+                        ["star_cost"] = GetStarCostDisplay(preview),
+                        ["description"] = SafeGetCardDescription(preview, pile),
+                    };
+                }
+                else
+                {
+                    var desc = SafeGetCardUpgradePreviewDescription(card, pile);
+                    if (!string.IsNullOrEmpty(desc))
+                        upgradePreview = new Dictionary<string, object?> { ["description"] = desc };
+                }
+            }
+            catch { /* preview is informational; skip on failure */ }
+        }
+
         return new Dictionary<string, object?>
         {
             ["id"] = card.Id.Entry,
@@ -1275,6 +1330,7 @@ public static partial class McpMod
             ["description"] = SafeGetCardDescription(card, pile),
             ["rarity"] = card.Rarity.ToString(),
             ["is_upgraded"] = card.IsUpgraded,
+            ["upgrade_preview"] = upgradePreview,
             ["keywords"] = BuildHoverTips(card.HoverTips)
         };
     }
