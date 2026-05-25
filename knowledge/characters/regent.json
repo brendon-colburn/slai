@@ -303,7 +303,7 @@
         "Prioritize Forge campfires over rest/upgrade (each Forge stack is permanent damage on every future Blade swing)",
         "Remove Strikes/Defends aggressively — they don't help the Blade strategy"
       ],
-      "anti_pattern": "Forge builds get crushed by the reworked Doormaker (energy drain) unless you've maximized Sovereign Blade damage per swing. A 1-swing Blade boss-kill is doable; multi-card-per-turn Forge play is not."
+      "anti_pattern": "Forge builds want to play few cards per turn anyway — the Sovereign Blade swing is the main play. This naturally fits the meta against Aeonglass (low cards-per-turn = slow Wither accumulation). See aeonglass_compatibility below."
     },
 
     "heavenly_drill_threshold": {
@@ -326,10 +326,15 @@
       "take_priority": "Top-tier shop pickup for Regent. Often worth taking over a card."
     },
 
-    "doormaker_compatibility": {
-      "description": "Regent is one of the best Doormaker counters in the game.",
-      "why": "Stars decks don't rely on net-positive energy per card. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally avoid the Doormaker energy drain.",
-      "build_for_doormaker": "Either archetype works. Stars: focus on Pale Blue Dot. Forge: maximize per-swing damage so 1-2 swings end fights."
+    "aeonglass_compatibility": {
+      "description": "Regent is one of the best counters to Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) in the game.",
+      "why": "Aeonglass adds a Wither status to your hand every 4 non-status cards played. Stars decks stockpile resources across turns and play few cards per turn. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally generate Withers slowly enough that the fight ends first.",
+      "build_for_aeonglass": [
+        "Stars: focus on Pale Blue Dot for the 5-cards-free turn, then Seven Stars for the finisher",
+        "Forge: maximize per-swing damage so 1-2 Sovereign Blade swings end the fight",
+        "AVOID Pale Blue Dot infinite-style 5+ cards per turn against Aeonglass — generates Withers fast",
+        "If Withers stack: easy to play through on a low-card turn (1 energy each, no other downside on the turn you play them)"
+      ]
     }
   }
 }

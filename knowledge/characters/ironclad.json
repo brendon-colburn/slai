@@ -299,9 +299,15 @@
       "what_to_build_instead": "Big-card decks with Stoke + exhaust payoffs, Perfected Strike + exhaust scaling, or Demon Form + Limit Break Strength scaling. Quality over quantity."
     },
 
-    "doormaker_counter_archetype": {
-      "description": "The reworked Doormaker Act 3 boss drains 1 energy per card played. Ironclad's BIG-CARD decks (Bludgeon, Demon Form, high-cost impact plays) are the natural counter.",
-      "build_for_doormaker": "Thicker deck (30+ cards), high-cost impact cards, fewer cards played per turn — exactly the opposite of an infinite loop."
+    "aeonglass_counter_archetype": {
+      "description": "Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) adds a Wither status to your hand every 4 non-status cards played. Ironclad's BIG-CARD decks naturally play few cards per turn, making them a strong counter.",
+      "build_for_aeonglass": [
+        "Bludgeon, Demon Form, Reaper, Heavy Blade as your core damage — fewer plays per turn",
+        "Stoke recursion is RISKY here — Stoke replaces your hand with random Ironclad cards which can include many cantrips; count those plays against the Wither threshold",
+        "Avoid cycle-heavy Pillage+Hellraiser combos here — they auto-play many cards and rapidly generate Withers",
+        "If Withers stack: 1 energy to play and clear, or 2 damage at end of turn — usually cheaper to play them through during a turn you have spare energy"
+      ],
+      "ironclad_specific_play": "Demon Form + 2-cost big attacks turns the fight into a strength-scaling race. Generate 30+ damage per turn from 2-3 cards, end the fight before Wither pollution becomes lethal."
     }
   }
 }

@@ -1996,25 +1996,53 @@ Boss-specific strategies and threshold algorithms. Every Act 1 and Act 3 boss ha
 - Block to weather turns 1-3 while the buffs stack
 
 
-### The Doormaker (reworked)
+### Aeonglass
 
-**Exam Type:** Anti-infinite check
+**Introduced:** Patch 0.105.0 (May 2026), replaced the original Doormaker which was removed after community pushback.
 
-**Key Mechanic:** Aura: every card you play drains 1 energy. If your deck relies on playing 20 zero-cost cards to deal damage, you will zero out your energy pool instantly.
+**Exam Type:** Deck-pollution / hand-clogging check
 
-**The Rule:** You beat Doormaker by drafting a THICK deck (30+ cards) focused on HIGH-COST, HIGH-IMPACT plays (Bludgeon, Meteor Strike, Reaper, Bombardment). Play 2-3 big cards per turn instead of 10 small cards.
+**Key Mechanic:** Every 4th non-status card you play adds a Wither status card to your hand.
 
-#### What Loses To Doormaker
+#### Wither Details
 
-- 0-cost spam (Claw decks, Anger loops, infinite-draw setups)
-- Cycle-heavy decks that rely on playing many cards per turn
-- Energy-conversion engines that depend on net-positive energy gain per card
+**Card Type:** Status
 
-#### What Beats Doormaker
+**Cost:** 1 energy to play (does nothing)
 
-- Stars/Forge decks (Regent) — energy isn't the primary resource
-- Doom-stack decks (Necrobinder) — you set up Doom, then play few cards while it ticks
-- Big-card Ironclad (Bludgeon, Demon Form scaling) — quality over quantity
+**Behavior:** Retains across turns (stays in hand)
+
+**Penalty:** Deals 2 damage to you at end of turn for each Wither still in hand
+
+**The Rule:** You can't ignore Withers — they stack permanent damage if held. You can't easily play them — each costs 1 energy and does nothing. The fight is a race to deal lethal damage faster than Wither accumulation makes your hand unplayable.
+
+#### What Struggles Against Aeonglass
+
+- 0-cost spam (Claw, Anger loops, Modded chains) — generates Withers fast AND clogs the hand the engine depends on
+- Cycle-heavy decks playing 10+ cards per turn — every 4 cards costs you a Wither; clogs draws quickly
+- Decks with limited burst — long fights mean more accumulated Wither damage and more hand clog
+
+#### What Beats Aeonglass
+
+- Big-card decks (Bludgeon, Demon Form, Reaper, Bombardment) — fewer cards per turn = fewer Withers generated
+- Status-synergy Defect (Iteration draws bonus when you draw status, Compact converts statuses to fuel) — Wither becomes a RESOURCE instead of a curse
+- Doom decks (Necrobinder) — Doom does work while you play few cards
+- Stars/Forge Regent — resource-not-card-count economy, naturally low cards-per-turn
+- Burst archetypes that end the fight before Wither stacks become lethal
+
+#### General Strategy
+
+- Count your non-status cards played per turn — 3 is the safe ceiling, 4 generates a Wither
+- Withers ARE non-status-blocking for the count? No — Withers are status cards, so playing them does NOT progress the next-Wither counter (verify this in-game; treat as confirmed unless your run shows otherwise)
+- If you can spare 1 energy, play a Wither to clear it from hand (avoid the 2-damage end-of-turn tick)
+- Block 2 damage per held Wither in your turn-end block math
+- Avoid card-draw spam — drawing more cards means playing more cards means more Withers
+
+#### Potion Priorities
+
+- Block potions if you can't out-pace Wither damage
+- Burst potions (Strength, Fire) to end the fight before deck pollution wins
+- AVOID Snecko-style potions that increase cards drawn/played
 
 
 ### Test Subject
@@ -3003,11 +3031,18 @@ STS2 deliberately broke most easy Ironclad infinites. Don't try to build the old
 
 **What To Build Instead:** Big-card decks with Stoke + exhaust payoffs, Perfected Strike + exhaust scaling, or Demon Form + Limit Break Strength scaling. Quality over quantity.
 
-### Doormaker Counter Archetype
+### Aeonglass Counter Archetype
 
-The reworked Doormaker Act 3 boss drains 1 energy per card played. Ironclad's BIG-CARD decks (Bludgeon, Demon Form, high-cost impact plays) are the natural counter.
+Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) adds a Wither status to your hand every 4 non-status cards played. Ironclad's BIG-CARD decks naturally play few cards per turn, making them a strong counter.
 
-**Build For Doormaker:** Thicker deck (30+ cards), high-cost impact cards, fewer cards played per turn — exactly the opposite of an infinite loop.
+#### Build For Aeonglass
+
+- Bludgeon, Demon Form, Reaper, Heavy Blade as your core damage — fewer plays per turn
+- Stoke recursion is RISKY here — Stoke replaces your hand with random Ironclad cards which can include many cantrips; count those plays against the Wither threshold
+- Avoid cycle-heavy Pillage+Hellraiser combos here — they auto-play many cards and rapidly generate Withers
+- If Withers stack: 1 energy to play and clear, or 2 damage at end of turn — usually cheaper to play them through during a turn you have spare energy
+
+**Ironclad Specific Play:** Demon Form + 2-cost big attacks turns the fight into a strength-scaling race. Generate 30+ damage per turn from 2-3 cards, end the fight before Wither pollution becomes lethal.
 
 
 ---
@@ -4396,13 +4431,33 @@ Defect's primary scaling vector: Focus + orb slots.
 **Effect:** Massive Focus burst (4 Focus), but loses 1 per turn. Win the fight fast or have Artifact
 
 
-### Doormaker Warning
+### Aeonglass Relationship
 
-Defect's 0-cost spam archetypes (Claw + Hologram + Modded) are DIRECTLY counter-picked by the reworked Doormaker boss.
+Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) adds a Wither status to your hand every 4 non-status cards you play. Defect's situation against Aeonglass is uniquely split based on which archetype you built.
 
-**Why:** Doormaker drains 1 energy per card played. A deck that plays 15+ cards per turn loses all its energy to the aura.
+#### If Youre Running 0 Cost Spam Or High Cycle
 
-**What Still Works Vs Doormaker:** Heavy orb + Focus decks (you channel orbs and end turn, fewer cards played), or pivot to high-cost impact cards (Meteor Strike, Echo Form + big cards)
+**Verdict:** BAD MATCHUP
+
+**Why:** Claw + Hologram + Modded chains push you well past 4 cards per turn. Every Wither clogs your hand (Hologram can't recur it efficiently; it just sits there ticking 2 damage per end-of-turn).
+
+**Pivot:** Either burst the fight before Wither stacks become lethal, OR shift toward orb-and-Focus play (channel orbs, end turn, lower cards-per-turn).
+
+#### If Youre Running Status Archetype
+
+**Verdict:** GOOD MATCHUP — possibly a favored one
+
+**Why:** Iteration draws bonus cards when you draw a status — Wither IS a status. Compact converts statuses to fuel — Wither becomes block/energy. Flack Cannon weaponizes statuses for damage — Wither becomes ammo. Aeonglass is feeding your engine.
+
+**Play Pattern:** Let the Wither generation flow. Use Iteration and Compact actively. Don't fight the mechanic — exploit it.
+
+#### If Youre Running Orb Focus
+
+**Verdict:** NEUTRAL TO FAVORED
+
+**Why:** Channel-heavy turns play few cards. The orbs do the work passively. Withers accumulate slowly enough that you can play through them as 1-energy taxes.
+
+**Play Pattern:** Standard orb + Focus play. Block 2 per held Wither in your turn-end math.
 
 
 ---
@@ -4923,13 +4978,19 @@ Necrobinder Act 1 is HIGH-DANGER without frontloaded AOE. Multi-enemy nodes will
 
 **Without Aoe:** If neither shows up by Act 1 mid-act, you must skip elites entirely and path conservatively until you find AOE.
 
-### Doormaker Compatibility
+### Aeonglass Compatibility
 
-Necrobinder is NATURALLY ANTI-DOORMAKER thanks to Doom pacing.
+Necrobinder is NATURALLY ANTI-AEONGLASS (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) thanks to Doom pacing.
 
-**Why:** Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards. Doormaker drains energy per card; Necrobinder simply plays fewer cards while Doom does the work.
+**Why:** Aeonglass adds a Wither status to your hand every 4 non-status cards played. Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards — naturally low cards-per-turn means slow Wither accumulation.
 
-**Build For Doormaker:** Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup. Avoid Soul-spam playstyles that play 10+ cards per turn.
+#### Build For Aeonglass
+
+- Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup
+- AVOID Soul-spam playstyles that play 10+ cards per turn — those generate Withers faster than the fight ends
+- Use Doom-tick turns to play accumulated Withers (1 energy each, clears them) when your hand isn't otherwise full
+
+**Queen Amalgam Glitch Still Works:** If your Doom build also faces the Queen (the other Act 3 boss in rotation), the Doom-kill-Amalgam-skips-buff-phase glitch still applies. Necrobinder is favored vs both current Act 3 bosses.
 
 
 ---
@@ -5394,7 +5455,7 @@ Sovereign Blade is a 'Retained' signature weapon ALWAYS in your hand. Forging at
 - Prioritize Forge campfires over rest/upgrade (each Forge stack is permanent damage on every future Blade swing)
 - Remove Strikes/Defends aggressively — they don't help the Blade strategy
 
-**Anti Pattern:** Forge builds get crushed by the reworked Doormaker (energy drain) unless you've maximized Sovereign Blade damage per swing. A 1-swing Blade boss-kill is doable; multi-card-per-turn Forge play is not.
+**Anti Pattern:** Forge builds want to play few cards per turn anyway — the Sovereign Blade swing is the main play. This naturally fits the meta against Aeonglass (low cards-per-turn = slow Wither accumulation). See aeonglass_compatibility below.
 
 ### Heavenly Drill Threshold
 
@@ -5424,11 +5485,16 @@ Niche Japanese-meta build. Utilizes colorless cards to summon minions and instan
 
 **Take Priority:** Top-tier shop pickup for Regent. Often worth taking over a card.
 
-### Doormaker Compatibility
+### Aeonglass Compatibility
 
-Regent is one of the best Doormaker counters in the game.
+Regent is one of the best counters to Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) in the game.
 
-**Why:** Stars decks don't rely on net-positive energy per card. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally avoid the Doormaker energy drain.
+**Why:** Aeonglass adds a Wither status to your hand every 4 non-status cards played. Stars decks stockpile resources across turns and play few cards per turn. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally generate Withers slowly enough that the fight ends first.
 
-**Build For Doormaker:** Either archetype works. Stars: focus on Pale Blue Dot. Forge: maximize per-swing damage so 1-2 swings end fights.
+#### Build For Aeonglass
+
+- Stars: focus on Pale Blue Dot for the 5-cards-free turn, then Seven Stars for the finisher
+- Forge: maximize per-swing damage so 1-2 Sovereign Blade swings end the fight
+- AVOID Pale Blue Dot infinite-style 5+ cards per turn against Aeonglass — generates Withers fast
+- If Withers stack: easy to play through on a low-card turn (1 energy each, no other downside on the turn you play them)
 

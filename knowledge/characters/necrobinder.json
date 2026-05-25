@@ -336,10 +336,15 @@
       "without_aoe": "If neither shows up by Act 1 mid-act, you must skip elites entirely and path conservatively until you find AOE."
     },
 
-    "doormaker_compatibility": {
-      "description": "Necrobinder is NATURALLY ANTI-DOORMAKER thanks to Doom pacing.",
-      "why": "Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards. Doormaker drains energy per card; Necrobinder simply plays fewer cards while Doom does the work.",
-      "build_for_doormaker": "Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup. Avoid Soul-spam playstyles that play 10+ cards per turn."
+    "aeonglass_compatibility": {
+      "description": "Necrobinder is NATURALLY ANTI-AEONGLASS (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) thanks to Doom pacing.",
+      "why": "Aeonglass adds a Wither status to your hand every 4 non-status cards played. Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards — naturally low cards-per-turn means slow Wither accumulation.",
+      "build_for_aeonglass": [
+        "Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup",
+        "AVOID Soul-spam playstyles that play 10+ cards per turn — those generate Withers faster than the fight ends",
+        "Use Doom-tick turns to play accumulated Withers (1 energy each, clears them) when your hand isn't otherwise full"
+      ],
+      "queen_amalgam_glitch_still_works": "If your Doom build also faces the Queen (the other Act 3 boss in rotation), the Doom-kill-Amalgam-skips-buff-phase glitch still applies. Necrobinder is favored vs both current Act 3 bosses."
     }
   }
 }

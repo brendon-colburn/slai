@@ -361,10 +361,23 @@
       ]
     },
 
-    "doormaker_warning": {
-      "description": "Defect's 0-cost spam archetypes (Claw + Hologram + Modded) are DIRECTLY counter-picked by the reworked Doormaker boss.",
-      "why": "Doormaker drains 1 energy per card played. A deck that plays 15+ cards per turn loses all its energy to the aura.",
-      "what_still_works_vs_doormaker": "Heavy orb + Focus decks (you channel orbs and end turn, fewer cards played), or pivot to high-cost impact cards (Meteor Strike, Echo Form + big cards)"
+    "aeonglass_relationship": {
+      "description": "Aeonglass (Act 3 boss as of patch 0.105.0, replaced the removed Doormaker) adds a Wither status to your hand every 4 non-status cards you play. Defect's situation against Aeonglass is uniquely split based on which archetype you built.",
+      "if_youre_running_0_cost_spam_or_high_cycle": {
+        "verdict": "BAD MATCHUP",
+        "why": "Claw + Hologram + Modded chains push you well past 4 cards per turn. Every Wither clogs your hand (Hologram can't recur it efficiently; it just sits there ticking 2 damage per end-of-turn).",
+        "pivot": "Either burst the fight before Wither stacks become lethal, OR shift toward orb-and-Focus play (channel orbs, end turn, lower cards-per-turn)."
+      },
+      "if_youre_running_status_archetype": {
+        "verdict": "GOOD MATCHUP — possibly a favored one",
+        "why": "Iteration draws bonus cards when you draw a status — Wither IS a status. Compact converts statuses to fuel — Wither becomes block/energy. Flack Cannon weaponizes statuses for damage — Wither becomes ammo. Aeonglass is feeding your engine.",
+        "play_pattern": "Let the Wither generation flow. Use Iteration and Compact actively. Don't fight the mechanic — exploit it."
+      },
+      "if_youre_running_orb_focus": {
+        "verdict": "NEUTRAL TO FAVORED",
+        "why": "Channel-heavy turns play few cards. The orbs do the work passively. Withers accumulate slowly enough that you can play through them as 1-energy taxes.",
+        "play_pattern": "Standard orb + Focus play. Block 2 per held Wither in your turn-end math."
+      }
     }
   }
 }

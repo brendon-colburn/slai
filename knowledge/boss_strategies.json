@@ -92,19 +92,40 @@
       ]
     },
     {
-      "name": "The Doormaker (reworked)",
-      "exam_type": "Anti-infinite check",
-      "key_mechanic": "Aura: every card you play drains 1 energy. If your deck relies on playing 20 zero-cost cards to deal damage, you will zero out your energy pool instantly.",
-      "the_rule": "You beat Doormaker by drafting a THICK deck (30+ cards) focused on HIGH-COST, HIGH-IMPACT plays (Bludgeon, Meteor Strike, Reaper, Bombardment). Play 2-3 big cards per turn instead of 10 small cards.",
-      "what_loses_to_doormaker": [
-        "0-cost spam (Claw decks, Anger loops, infinite-draw setups)",
-        "Cycle-heavy decks that rely on playing many cards per turn",
-        "Energy-conversion engines that depend on net-positive energy gain per card"
+      "name": "Aeonglass",
+      "introduced": "Patch 0.105.0 (May 2026), replaced the original Doormaker which was removed after community pushback.",
+      "exam_type": "Deck-pollution / hand-clogging check",
+      "key_mechanic": "Every 4th non-status card you play adds a Wither status card to your hand.",
+      "wither_details": {
+        "card_type": "Status",
+        "cost": "1 energy to play (does nothing)",
+        "behavior": "Retains across turns (stays in hand)",
+        "penalty": "Deals 2 damage to you at end of turn for each Wither still in hand"
+      },
+      "the_rule": "You can't ignore Withers — they stack permanent damage if held. You can't easily play them — each costs 1 energy and does nothing. The fight is a race to deal lethal damage faster than Wither accumulation makes your hand unplayable.",
+      "what_struggles_against_aeonglass": [
+        "0-cost spam (Claw, Anger loops, Modded chains) — generates Withers fast AND clogs the hand the engine depends on",
+        "Cycle-heavy decks playing 10+ cards per turn — every 4 cards costs you a Wither; clogs draws quickly",
+        "Decks with limited burst — long fights mean more accumulated Wither damage and more hand clog"
       ],
-      "what_beats_doormaker": [
-        "Stars/Forge decks (Regent) — energy isn't the primary resource",
-        "Doom-stack decks (Necrobinder) — you set up Doom, then play few cards while it ticks",
-        "Big-card Ironclad (Bludgeon, Demon Form scaling) — quality over quantity"
+      "what_beats_aeonglass": [
+        "Big-card decks (Bludgeon, Demon Form, Reaper, Bombardment) — fewer cards per turn = fewer Withers generated",
+        "Status-synergy Defect (Iteration draws bonus when you draw status, Compact converts statuses to fuel) — Wither becomes a RESOURCE instead of a curse",
+        "Doom decks (Necrobinder) — Doom does work while you play few cards",
+        "Stars/Forge Regent — resource-not-card-count economy, naturally low cards-per-turn",
+        "Burst archetypes that end the fight before Wither stacks become lethal"
+      ],
+      "general_strategy": [
+        "Count your non-status cards played per turn — 3 is the safe ceiling, 4 generates a Wither",
+        "Withers ARE non-status-blocking for the count? No — Withers are status cards, so playing them does NOT progress the next-Wither counter (verify this in-game; treat as confirmed unless your run shows otherwise)",
+        "If you can spare 1 energy, play a Wither to clear it from hand (avoid the 2-damage end-of-turn tick)",
+        "Block 2 damage per held Wither in your turn-end block math",
+        "Avoid card-draw spam — drawing more cards means playing more cards means more Withers"
+      ],
+      "potion_priorities": [
+        "Block potions if you can't out-pace Wither damage",
+        "Burst potions (Strength, Fire) to end the fight before deck pollution wins",
+        "AVOID Snecko-style potions that increase cards drawn/played"
       ]
     },
     {
