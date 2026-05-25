@@ -1,6 +1,6 @@
 # Example Prompts
 
-Once you have SLAI installed and `/sts2-coach` loaded in Claude Code, here's what you can ask. The Skill picks the right script automatically — you just talk to it.
+Once you have SLAI installed and the `sts2-coach` skill loaded in your agent (Claude Code, Copilot CLI, Gemini CLI/Antigravity, OpenAI Codex, or any other Skills-compatible agent), here's what you can ask. The Skill picks the right script automatically — you just talk to it. Examples below show Claude Code's `/skill-name` syntax; invocation may differ slightly per agent.
 
 ## Mid-run, asked naturally
 

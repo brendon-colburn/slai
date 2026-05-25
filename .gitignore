@@ -22,3 +22,4 @@ obj/
 
 # Local config that shouldn't be shared
 .claude/settings.local.json
+.claude/skills/

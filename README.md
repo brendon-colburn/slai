@@ -7,15 +7,17 @@ You ask the questions, you make every click. SLAI just makes you better at makin
 ## What you get
 
 - **SLAI mod** (C#, `mod/`) — a read-only HTTP observer that runs inside Slay the Spire 2 and exposes live game state on `localhost:15526`. Cannot send game inputs by design.
-- **`/sts2-coach` Skill** (`skills/sts2-coach/`) — drops into Claude Code / Claude Desktop. Triages questions, shells out to bundled stdlib-only Python scripts for deterministic analysis (4-pillar scoring, card-reward grading S/A/B/C/D/F, mistake detection, pathing context), and generates inline visual artifacts on demand.
+- **`/sts2-coach` Skill** (`skills/sts2-coach/`) — drops into any agent that supports the Anthropic Skills format (built and tested with **Claude Code**; should also work with **Claude Desktop**, **GitHub Copilot CLI**, **Gemini CLI** / **Google Antigravity**, **OpenAI Codex CLI**, and other Skills-compatible agents). Triages questions, shells out to bundled stdlib-only Python scripts for deterministic analysis (4-pillar scoring, card-reward grading S/A/B/C/D/F, mistake detection, pathing context), and generates inline visual artifacts on demand.
 - **Knowledge base** (~2,600 lines, `knowledge/`) — encodes Baalorlord's 4 Pillars framework, character strategies for all 5 characters, common mistakes, pathing philosophy, and STS2 mechanics. Built into a single `knowledge.md` bundle that the Skill loads once per session (CAG, not RAG).
 
 ## Architecture
 
 ```
 ┌──────────────────────┐      HTTP       ┌─────────────────────────────────┐
-│  STS2 + SLAI mod     │ ──────────────► │  Claude Code / Claude Desktop   │
-│  (game-side, .dll)   │  localhost:15526│  + sts2-coach Skill             │
+│  STS2 + SLAI mod     │ ──────────────► │  Any Skills-compatible agent    │
+│  (game-side, .dll)   │  localhost:15526│  (Claude Code, Copilot CLI,     │
+│                      │                 │   Gemini CLI/Antigravity, etc.) │
+│                      │                 │  + sts2-coach Skill             │
 │                      │                 │    └─ scripts/ (Python, stdlib) │
 └──────────────────────┘                 └─────────────────────────────────┘
 ```
@@ -27,7 +29,7 @@ Two layers, read-only end-to-end. The mod exposes state; the Skill loads cached 
 1. **Slay the Spire 2** on Steam.
 2. **Python 3.10+** on `PATH` (the Skill scripts use only the standard library — no `pip install`).
 3. **.NET 9 SDK** (only to build the mod from source — if you grab a release binary, skip this).
-4. **Claude Code** or Claude Desktop — for using the Skill.
+4. **A Skills-compatible AI coding agent** for using the Skill. Primary target is [Claude Code](https://docs.anthropic.com/claude/docs/claude-code); also works with Claude Desktop, GitHub Copilot CLI, Gemini CLI / Google Antigravity, OpenAI Codex CLI, and others that load Anthropic-format skills. The Skill assumes the agent has access to `Read` (to load the knowledge bundle) and `Bash` (to run the analysis scripts) — both standard in the agents above. If your agent uses different tool names, you may need to adjust SKILL.md.
 
 ## Install
 
@@ -62,8 +64,8 @@ Copy `skills/sts2-coach/` into your project's `.claude/skills/` directory (or wh
 ## Use
 
 1. Launch STS2 with the SLAI mod enabled.
-2. Open Claude Code in a directory with the Skill installed.
-3. Type `/sts2-coach`.
+2. Open your Skills-compatible agent (Claude Code, Copilot CLI, Gemini CLI/Antigravity, etc.) in a directory with the Skill installed.
+3. Invoke the skill — typically `/sts2-coach` in Claude Code; other agents may vary.
 4. Ask anything: *"how am I doing?"*, *"should I take Setup Strike?"*, *"path to the boss?"*
 
 The coach pulls your live state and answers with Baalorlord-grounded reasoning. Specific card advice, deck-aware reward grading, HP-aware pathing — never generic.

@@ -4,7 +4,8 @@ SLAI is two layers stacked on a dependency:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│  You (typing in Claude Code / Claude Desktop)            │
+│  You (typing in any Skills-compatible agent —            │
+│  Claude Code, Copilot CLI, Gemini CLI/Antigravity, etc.) │
 │  + sts2-coach Skill loaded                               │
 │    ├─ knowledge.md  (cached strategic knowledge)         │
 │    └─ scripts/      (Python, stdlib only)                │
@@ -45,9 +46,9 @@ The original SLAI shipped a Python MCP server that wrapped the mod's HTTP API an
 | Processes | Just the mod | Mod + MCP server |
 | Tool-list overhead | Each turn the model sees "Bash" once | Each turn the model sees 9–10 MCP tools |
 | Iteration | Edit script, re-run | Edit, reload MCP client, hope it re-registers |
-| Cross-client portability | Wherever Bash runs (Claude Code, Claude Desktop with the right config) | Anything that speaks MCP — broader, but at the cost above |
+| Cross-client portability | Any agent that supports the Anthropic Skills format and can run Bash (Claude Code, Claude Desktop, GitHub Copilot CLI, Gemini CLI / Antigravity, OpenAI Codex CLI, etc.) | Anything that speaks MCP — broader on paper, but every client needs separate config |
 
-For SLAI's actual audience (single player, Claude Code or Claude Desktop, live coaching), the Skill-only model wins on every axis except "abstract MCP-ecosystem portability," which nobody was using.
+For SLAI's actual audience (single player, any Skills-compatible coding agent, live coaching), the Skill-only model wins on every axis except "abstract MCP-ecosystem portability," which nobody was using.
 
 ## Why scripts and not pure-LLM analysis
 
