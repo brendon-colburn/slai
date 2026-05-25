@@ -41,6 +41,7 @@ def main() -> int:
 
     _lib.emit_json(
         {
+            "context": _lib.build_context(state),
             "warnings": warnings,
             "warning_count": len(warnings),
             "common_mistakes_reference": COMMON_MISTAKES,

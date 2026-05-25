@@ -24,7 +24,11 @@ def main() -> int:
         _lib.emit_json(state)
         return 1
 
-    _lib.emit_json(_lib.analyze(state))
+    out = _lib.analyze(state)
+    # Embed a tiny situational context so the agent doesn't need a
+    # separate get_state.py call just to know what screen/HP/boss it's on.
+    out["context"] = _lib.build_context(state)
+    _lib.emit_json(out)
     return 0
 
 

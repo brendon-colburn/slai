@@ -30,9 +30,12 @@ def main() -> int:
         _lib.emit_json(state)
         return 1
 
-    act_raw = state.get("act", 1)
+    # Real paths in SLAI mod state are state.run.act / state.run.floor.
+    # Top-level act/floor are kept as fallbacks for older fixtures.
+    run = state.get("run") if isinstance(state.get("run"), dict) else {}
+    act_raw = run.get("act", state.get("act", 1))
     act = int(act_raw) if isinstance(act_raw, (int, float)) else 1
-    floor_raw = state.get("floor", state.get("current_floor", 1))
+    floor_raw = run.get("floor", state.get("floor", state.get("current_floor", 1)))
     floor = int(floor_raw) if isinstance(floor_raw, (int, float)) else 1
 
     hp, max_hp = _lib.extract_hp(state)
@@ -40,6 +43,7 @@ def main() -> int:
 
     _lib.emit_json(
         {
+            "context": _lib.build_context(state),
             "act": act,
             "floor": floor,
             "current_hp": hp,

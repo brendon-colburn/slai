@@ -124,15 +124,29 @@ def get_game_state(
 
 
 def _extract_deck(game_state: dict[str, Any]) -> list[dict[str, Any]]:
-    """Extract the master deck from a game state object."""
-    deck = game_state.get("deck", [])
-    if not deck:
-        deck = game_state.get("master_deck", [])
-    if not deck and "player" in game_state:
-        deck = game_state["player"].get("deck", [])
-    if not deck and "run" in game_state:
-        deck = game_state["run"].get("deck", [])
-    return deck if isinstance(deck, list) else []
+    """Extract the master deck from a game state object.
+
+    SLAI mod's canonical path is `player.master_deck` (exposed on every screen
+    via our master_deck patch). Older STS2MCP responses use top-level keys
+    instead; we check those as fallbacks for compatibility.
+    """
+    player = game_state.get("player") if isinstance(game_state.get("player"), dict) else {}
+
+    # SLAI mod canonical path
+    if isinstance(player.get("master_deck"), list):
+        return player["master_deck"]
+
+    # Compatibility fallbacks (older STS2MCP shapes / test fixtures)
+    if isinstance(game_state.get("deck"), list):
+        return game_state["deck"]
+    if isinstance(game_state.get("master_deck"), list):
+        return game_state["master_deck"]
+    if isinstance(player.get("deck"), list):
+        return player["deck"]
+    run = game_state.get("run") if isinstance(game_state.get("run"), dict) else {}
+    if isinstance(run.get("deck"), list):
+        return run["deck"]
+    return []
 
 
 def _extract_character(game_state: dict[str, Any]) -> str:
@@ -475,12 +489,21 @@ def evaluate_card_options(
 
 
 def extract_card_rewards(state: dict[str, Any]) -> list[dict[str, Any]]:
-    """Pull the offered card-reward options out of a game state."""
-    return (
-        state.get("card_rewards", [])
-        or state.get("rewards", {}).get("cards", [])
-        or []
-    )
+    """Pull the offered card-reward options out of a game state.
+
+    SLAI mod canonical path is `state.card_reward.cards` (singular). Older
+    code/fixtures used plural `card_rewards` or `rewards.cards`; kept as
+    fallbacks for compatibility.
+    """
+    card_reward = state.get("card_reward")
+    if isinstance(card_reward, dict) and isinstance(card_reward.get("cards"), list):
+        return card_reward["cards"]
+    if isinstance(state.get("card_rewards"), list):
+        return state["card_rewards"]
+    rewards = state.get("rewards")
+    if isinstance(rewards, dict) and isinstance(rewards.get("cards"), list):
+        return rewards["cards"]
+    return []
 
 
 # ─── HP / pathing helpers ────────────────────────────────────────────────────
@@ -552,4 +575,158 @@ def load_state(args) -> dict[str, Any]:
 def emit_json(obj: Any) -> None:
     """Write a JSON object to stdout, defaults stringified for safety."""
     json.dump(obj, sys.stdout, indent=2, default=str)
+
+
+# ─── State projection (token-economy helpers) ────────────────────────────────
+#
+# The mod returns a thick JSON blob that includes the whole master deck,
+# all relics, all potions, plus screen-specific data. Most coaching
+# questions only need a small slice. project_state() lets callers (and
+# the agent, via --fields on get_state.py) ask for exactly what they
+# need; build_context() embeds a tiny situational summary into analysis
+# outputs so the agent doesn't need a separate get_state.py call just to
+# learn what screen it's on.
+
+
+def _player_field(state: dict[str, Any], *keys: str) -> dict[str, Any]:
+    """Pluck a subset of player.* fields if present."""
+    player = state.get("player") if isinstance(state.get("player"), dict) else {}
+    return {k: player[k] for k in keys if k in player}
+
+
+def _run_field(state: dict[str, Any], *keys: str) -> dict[str, Any]:
+    run = state.get("run") if isinstance(state.get("run"), dict) else {}
+    return {k: run[k] for k in keys if k in run}
+
+
+# Map of field-shortcut → (player_keys, run_keys, top_level_keys)
+# Each tuple says what part of the source state contributes to the projection.
+_FIELD_MAP: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {
+    "screen":      ((),                                                       (),                                        ("state_type",)),
+    "hp":          (("hp", "max_hp", "block"),                                (),                                        ()),
+    "gold":        (("gold",),                                                (),                                        ()),
+    "status":      (("status",),                                              (),                                        ()),
+    "relics":      (("relics",),                                              (),                                        ()),
+    "potions":     (("potions", "max_potion_slots"),                          (),                                        ()),
+    "deck":        (("master_deck", "master_deck_count", "character"),        (),                                        ()),
+    "character":   (("character",),                                           (),                                        ()),
+    "energy":      (("energy", "max_energy"),                                 (),                                        ()),
+    "hand":        (("hand",),                                                (),                                        ()),
+    "piles":       (("draw_pile", "discard_pile", "exhaust_pile",
+                     "draw_pile_count", "discard_pile_count",
+                     "exhaust_pile_count"),                                   (),                                        ()),
+    "orbs":        (("orbs", "orb_slots", "orb_empty_slots"),                 (),                                        ()),
+    "pets":        (("pets",),                                                (),                                        ()),
+    "combat":      (("energy", "max_energy", "hand",
+                     "draw_pile", "discard_pile", "exhaust_pile",
+                     "draw_pile_count", "discard_pile_count",
+                     "exhaust_pile_count",
+                     "orbs", "orb_slots", "orb_empty_slots", "pets"),         (),                                        ("battle",)),
+    "floor":       ((),                                                       ("act", "floor", "ascension"),             ()),
+    "boss":        ((),                                                       ("boss", "boss_2"),                        ()),
+    "run":         ((),                                                       ("act", "floor", "ascension",
+                                                                                "boss", "boss_2"),                       ()),
+    "card_reward": ((),                                                       (),                                        ("card_reward",)),
+    "shop":        ((),                                                       (),                                        ("shop",)),
+    "event":       ((),                                                       (),                                        ("event",)),
+    "map":         ((),                                                       (),                                        ("map",)),
+    "rest":        ((),                                                       (),                                        ("rest_site",)),
+    "rewards":     ((),                                                       (),                                        ("rewards",)),
+    # "summary" is the default cheap snapshot for "did anything change?"
+    "summary":     (("character", "hp", "max_hp", "gold"),                    ("act", "floor", "ascension", "boss"),     ("state_type",)),
+}
+
+
+def available_fields() -> list[str]:
+    """List the field shortcuts supported by project_state / --fields."""
+    return sorted(_FIELD_MAP.keys()) + ["all"]
+
+
+def project_state(state: dict[str, Any], field_spec: str) -> dict[str, Any]:
+    """
+    Filter a game-state dict to just the requested fields.
+
+    `field_spec` is a comma-separated list of shortcuts (see available_fields()).
+    "all" returns the whole state unchanged. Unknown shortcuts are ignored
+    silently so the agent can be slightly sloppy without crashing.
+    """
+    if not field_spec or field_spec.strip().lower() == "all":
+        return state
+
+    requested = [f.strip().lower() for f in field_spec.split(",") if f.strip()]
+    if "all" in requested:
+        return state
+
+    out: dict[str, Any] = {}
+    player_keys: set[str] = set()
+    run_keys: set[str] = set()
+    top_keys: set[str] = set()
+
+    for f in requested:
+        if f not in _FIELD_MAP:
+            continue
+        p, r, t = _FIELD_MAP[f]
+        player_keys.update(p)
+        run_keys.update(r)
+        top_keys.update(t)
+
+    # Top-level
+    for k in top_keys:
+        if k in state:
+            out[k] = state[k]
+
+    # Player subset
+    if player_keys:
+        player_subset = _player_field(state, *player_keys)
+        if player_subset:
+            out["player"] = player_subset
+
+    # Run subset
+    if run_keys:
+        run_subset = _run_field(state, *run_keys)
+        if run_subset:
+            out["run"] = run_subset
+
+    return out
+
+
+def build_context(state: dict[str, Any]) -> dict[str, Any]:
+    """
+    Tiny situational summary for embedding inside analysis-script outputs.
+
+    Gives the agent state_type, hp string, gold, floor/act, and boss name
+    so it doesn't need a separate get_state.py call to learn the
+    surrounding situation. ~150-250 bytes regardless of run state.
+    """
+    player = state.get("player") if isinstance(state.get("player"), dict) else {}
+    run = state.get("run") if isinstance(state.get("run"), dict) else {}
+
+    ctx: dict[str, Any] = {
+        "state_type": state.get("state_type"),
+        "character": player.get("character"),
+    }
+
+    hp, max_hp = extract_hp(state)
+    if hp or max_hp:
+        ctx["hp"] = f"{hp}/{max_hp}"
+
+    if "gold" in player:
+        ctx["gold"] = player["gold"]
+
+    floor = run.get("floor")
+    act = run.get("act")
+    if floor is not None and act is not None:
+        ctx["floor"] = f"{floor}/Act {act}"
+    elif floor is not None:
+        ctx["floor"] = floor
+
+    boss = run.get("boss")
+    if isinstance(boss, dict):
+        ctx["boss"] = boss.get("name") or boss.get("id")
+    boss_2 = run.get("boss_2")
+    if isinstance(boss_2, dict):
+        ctx["boss_2"] = boss_2.get("name") or boss_2.get("id")
+
+    # Drop nulls so the agent doesn't see noise
+    return {k: v for k, v in ctx.items() if v is not None}
     sys.stdout.write("\n")

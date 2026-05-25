@@ -25,18 +25,31 @@ Invoke scripts with their path relative to this skill's folder — e.g. `python 
 
 ## Triage by question type
 
-| User asks about… | Script to run first | Then |
+**Prefer ONE script call per question, not two.** The analysis scripts (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) include a `context` block in their output with screen / HP / gold / floor / boss — you don't need a separate `get_state.py` call just to know the situation. The old "survey first, then analyze" pattern wastes tokens and adds latency.
+
+| User asks about… | Script to run | Then |
 |---|---|---|
-| Anything vague ("how am I doing?", "what now?") | `scripts/get_state.py` followed by `scripts/analyze_deck.py` | Read screen + pillar scores, then answer based on the screen type |
+| Anything vague ("how am I doing?", "what now?") | `scripts/analyze_deck.py` (its `context` covers screen/HP/floor) | Read pillar scores + screen, answer based on the screen type |
 | Their deck | `scripts/analyze_deck.py` | Speak in terms of the 4 pillars, name specific cards |
 | A card reward | `scripts/evaluate_card_reward.py` | Grade each option (S/A/B/C/D/F) with reasoning |
 | The map / next room | `scripts/suggest_map_path.py` | Factor HP%, deck strength, distance to next campfire (pull pathing principles from cached `knowledge.md`) |
 | Mistakes / what they're doing wrong | `scripts/check_mistakes.py` | Surface only real warnings, don't manufacture concerns |
+| Combat-specific ("what should I play this turn?") | `scripts/get_state.py --fields combat,hp` | You need hand/draw/discard/enemies and HP — analysis scripts don't carry combat-pile contents |
+| Shop inventory ("what's at this shop?") | `scripts/get_state.py --fields shop,gold` | The deck is unchanged at shops; only fetch shop + gold |
+| Just "did anything change?" between turns | `scripts/get_state.py --fields summary` | Tiny payload (~150 bytes): screen, HP, gold, floor, boss |
 | A mechanic ("what's Sly?", "how does Doom work?") | *None — answer from cached `knowledge.md`* | Cross-reference the player's current run if relevant |
 | A character's playstyle | *None — answer from cached `knowledge.md`* | Focus on the archetypes/cards relevant to their current state |
 | Anything else strategic | *None — answer from cached `knowledge.md`* | Combine the knowledge with whatever live state is relevant |
 
 If a script's JSON includes `"error"` or `"connected": false`, run `scripts/check_connection.py` to confirm the mod is up; if it isn't, tell the player to launch the game with the SLAI mod enabled — don't just give generic advice.
+
+## Token economy: don't re-fetch what you already know
+
+The mod returns a thick state blob (full master_deck, all relics, all potions, all combat piles). Re-fetching it every turn is expensive in tokens and latency. Three rules:
+
+1. **The master_deck doesn't change** unless the player just finished a combat (picked a card), bought from a shop, or completed an event that adds/removes cards. If your previous turn already had the deck and none of those happened, you still have the right deck — don't re-fetch it.
+2. **Use `--fields` on `get_state.py`** when you only need a slice. Examples: `--fields summary` for "what's changed", `--fields hp,gold,screen` for a quick poll, `--fields card_reward` at a reward screen, `--fields combat` mid-fight. Run `get_state.py --list-fields` to see all shortcuts.
+3. **Skip `get_state.py` entirely** when an analysis script will do. They include the `context` block that gives you screen/HP/floor/boss for free.
 
 ## Hard rules
 
@@ -82,7 +95,7 @@ Don't use headers, bold, or emoji unless the user asks for them. Keep responses 
 
 User: "what should I take here?"
 
-You (after running `python scripts/get_state.py` then `python scripts/evaluate_card_reward.py`):
+You (after running `python scripts/evaluate_card_reward.py` — one script, the `context` block tells you it's a card_reward screen, the player's at 80/80 HP on Floor 4):
 
 > Take Setup Strike. Your deck is 6 Strikes / 4 Defends — Setup Strike's +2 Strength on play makes every Strike hit harder, and you have no scaling yet. Pommel Strike is fine but redundant with your existing Strikes. Skip Inflame at 11/30 cycle time — it's a dead draw in 3-turn fights and Act 1 elites die before scaling matters.
 >
