@@ -18,6 +18,7 @@ dist/
 out/
 bin/
 obj/
+release-staging/
 *.user
 
 # Local config that shouldn't be shared
