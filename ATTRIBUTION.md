@@ -28,7 +28,7 @@ The C# mod in [`mod/`](mod/) is forked from **[STS2MCP](https://github.com/Genna
 - `McpMod.Actions.cs` — all "play the game" endpoints (combat_play_card, rewards_pick_card, shop_purchase, menu_select, etc.)
 - `McpMod.MultiplayerActions.cs` / `McpMod.MultiplayerState.cs` — multiplayer surface
 - `McpMod.SettingsUI.cs` — Fast Mode UI (automation-related)
-- `mcp/` (Python wrapper) — SLAI has its own coaching-specific Python MCP server
+- `mcp/` (Python wrapper) — SLAI's Skill talks to the mod directly via stdlib HTTP from `skills/sts2-coach/scripts/`; no separate MCP server
 - All POST handlers — SLAI is read-only by design and refuses non-GET requests
 
 **What's added:**

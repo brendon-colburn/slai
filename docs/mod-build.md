@@ -77,7 +77,7 @@ SLAI listens on the same port as STS2MCP (15526). You can't run both at once. If
 1. Disable STS2MCP in **Settings → Mods**, OR
 2. Delete `STS2_MCP.dll` and `STS2_MCP.json` from `<game>/mods/`.
 
-If you want them to coexist (for example, you also use STS2MCP for AI agents that play the game), edit `mod/McpMod.cs` to change `DefaultPort` to e.g. 15527 and rebuild. Then update the Python MCP server's [`game_client.py`](../mcp-server/game_client.py) `DEFAULT_PORT` to match.
+If you want them to coexist (for example, you also use STS2MCP for AI agents that play the game), edit `mod/McpMod.cs` to change `DefaultPort` to e.g. 15527 and rebuild. Then run the Skill's scripts with `--port 15527` (all scripts in [`skills/sts2-coach/scripts/`](../skills/sts2-coach/scripts/) accept `--host` and `--port`).
 
 ## Troubleshooting
 
