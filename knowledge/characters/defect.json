@@ -291,5 +291,80 @@
     "echo_form_sequencing": "Echo Form doubles the FIRST card played each turn. Make sure your first card is the one you want doubled — don't waste it on a Strike.",
     "creative_ai_without_defense": "Creative AI costs 3 energy and generates value NEXT turn. You need to survive the turn you play it. Have block cards or potions ready.",
     "orb_slot_starvation": "3 orb slots is limiting. Capacitor or Inserter (relic) expands your slots and dramatically increases passive value."
+  },
+
+  "advanced_synergies_and_reworks": {
+    "description": "Grandmaster-level Defect knowledge: the new Glass Orb, the Status archetype, Hologram engine recursion, and Voltaic's exponential scaling.",
+
+    "glass_orb": {
+      "description": "New STS2 orb type. Defect's premier AOE option.",
+      "passive": "Deals 4 damage to all enemies, decreasing by 1 each turn (4 → 3 → 2 → 1 → 0)",
+      "evoke": "Instantly deals 8 damage to every enemy",
+      "tier": "S-tier for AOE coverage. Solves Defect's classic weakness vs multi-enemy fights.",
+      "best_combos": "Capacitor + Glass Orb spam for ramping AOE. All For One to recur the channel cards."
+    },
+
+    "status_archetype": {
+      "description": "STS2 introduces a new Defect archetype that intentionally GENERATES status cards (Voids, Burns) and then exploits them. Status cards used to be pure downside; now they're a resource.",
+      "generators": [
+        {"name": "Turbo", "effect": "Generates a Void status, grants energy"},
+        {"name": "Overclock", "effect": "Generates a Burn status, draws cards"}
+      ],
+      "exploiters": [
+        {"name": "Iteration", "effect": "Draw 2 cards the first time you draw a status each turn"},
+        {"name": "Compact", "effect": "Converts a status into fuel (block/energy/other)"},
+        {"name": "Flack Cannon", "effect": "Weaponizes statuses for massive damage"}
+      ],
+      "build_pattern": "Turbo + Overclock generate statuses → Iteration draws them and triggers bonus draw → Compact converts them to value → Flack Cannon detonates them for damage. Multiple feedback loops on a single turn."
+    },
+
+    "hologram_engine": {
+      "card": "Hologram",
+      "tier": "Best common in Defect's pool",
+      "upgraded_effect": "Retains the exhaust removal, allowing you to infinitely recur 0-cost cards",
+      "the_engine": "Hologram brings a card back from the discard to your hand. Upgraded Hologram does NOT exhaust itself. Pair with 0-cost cards (Claw, Charge Battery, Modded) and you can play the same card repeatedly each turn.",
+      "best_recursion_targets": [
+        "Charge Battery (0-cost block + energy refund)",
+        "Voltaic (exponential scaling, see below)",
+        "Modded (0-cost, draw, +orb slot, +1 cost next play)"
+      ]
+    },
+
+    "modded_card": {
+      "card": "Modded",
+      "tier": "S-tier 0-cost skill",
+      "effect": "0-cost, gain 1 orb slot, draw 1 card (upgraded: draw 2). Increases its OWN cost by 1 for future plays.",
+      "why_top_tier": "First play is free value (orb slot + draw). Subsequent plays cost more, but Hologram resets the recursion. The orb slot is permanent for the fight — stacking Modded plays gives you 6-8 orb slots.",
+      "game_breaking_combo": "Modded + Hologram + All For One = effectively infinite orb slots and draw on turn 1"
+    },
+
+    "voltaic_exponential": {
+      "card": "Voltaic",
+      "stats": "3-cost rare. Channels lightning orbs equal to the amount of lightning ALREADY channeled this combat.",
+      "upgraded": "No longer exhausts (huge upgrade)",
+      "the_math": "Start of combat: channel 3 lightning manually. Play Voltaic: channels 3 more (total 6). Play Voltaic again: channels 6 more (total 12). Play Voltaic third time: channels 12 more (total 24).",
+      "boss_killer": "One-card boss-killer when combined with Hologram (recur Voltaic). 24+ lightning orbs evoke for massive damage."
+    },
+
+    "feral_claw_hologram_loop": {
+      "description": "Claw is drastically improved in STS2 — base damage and scaling are higher than STS1.",
+      "the_combo": "Feral (new power): the first 0-cost attack played each turn returns to your hand. Combined with Hologram (recurs 0-cost cards from discard), you can play the same Claw repeatedly, growing it each play.",
+      "result": "Single-card scaling engine. Claw value compounds turn over turn with Feral, and you can play it multiple times per turn with Hologram."
+    },
+
+    "defragment_capacitor_focus_scaling": {
+      "description": "Defect's primary scaling vector: Focus + orb slots.",
+      "cards": [
+        {"name": "Defragment", "effect": "Gain 1 Focus permanently. Compounds every turn (Focus adds damage/block/effects to every orb)"},
+        {"name": "Capacitor", "effect": "Gain orb slots. More slots = more passive damage/block per turn from orbs"},
+        {"name": "Biased Cognition", "effect": "Massive Focus burst (4 Focus), but loses 1 per turn. Win the fight fast or have Artifact"}
+      ]
+    },
+
+    "doormaker_warning": {
+      "description": "Defect's 0-cost spam archetypes (Claw + Hologram + Modded) are DIRECTLY counter-picked by the reworked Doormaker boss.",
+      "why": "Doormaker drains 1 energy per card played. A deck that plays 15+ cards per turn loses all its energy to the aura.",
+      "what_still_works_vs_doormaker": "Heavy orb + Focus decks (you channel orbs and end turn, fewer cards played), or pivot to high-cost impact cards (Meteor Strike, Echo Form + big cards)"
+    }
   }
 }

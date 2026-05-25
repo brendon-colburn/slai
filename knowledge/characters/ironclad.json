@@ -236,5 +236,72 @@
     "exhaust_without_payoff": "Taking Corruption without Feel No Pain or Dark Embrace leaves you without skills to play. Don't start exhausting until you have the payoff pieces.",
     "overreliance_on_burning_blood": "6 HP per fight is nice but won't save you from 30+ damage elite fights. Don't take extra damage just because you have healing.",
     "heavy_blade_without_strength": "Heavy Blade is mediocre without Strength. It only becomes powerful with 5+ Strength stacks."
+  },
+
+  "advanced_synergies_and_reworks": {
+    "description": "Grandmaster-level Ironclad knowledge: cards reworked in STS2, current top combos, and anti-pattern warnings.",
+
+    "stoke_the_dead_branch_card": {
+      "card": "Stoke",
+      "rework": "Exhausts your ENTIRE hand and replaces every card with a random Ironclad card (upgraded versions if Stoke itself is upgraded). Stoke does NOT exhaust itself.",
+      "why_top_tier": "Functions like the Dead Branch relic baked into a card. Pair with Feel No Pain and Dark Embrace and you generate massive block/draw every time you play it. Self-recurring because Stoke doesn't exhaust.",
+      "best_partners": ["Feel No Pain", "Dark Embrace", "Corruption", "Second Wind"]
+    },
+
+    "perfected_strike_exhaust_safety": {
+      "card": "Perfected Strike",
+      "rework": "Now counts Strike cards in your EXHAUST pile, not just your deck.",
+      "implication": "You can safely exhaust your starter Strikes (via Corruption, True Grit, Headbutt, etc.) WITHOUT losing your late-game Perfected Strike damage scaling. This was the main weakness of Perfected Strike builds in STS1.",
+      "build_pattern": "Take Perfected Strike + heavy exhaust → exhaust all 5 starter Strikes through combat → Perfected Strike now hits for huge numbers AND your deck is thin"
+    },
+
+    "pillage_hellraiser_perfected_strike_combo": {
+      "cards": ["Pillage", "Hellraiser", "Perfected Strike"],
+      "the_combo": "Hellraiser auto-plays any Strike card the moment it's drawn. Pillage draws cards until you hit a non-attack. If you thin your deck of skills/powers, Pillage will draw your entire deck of Perfected Strikes and auto-play all of them via Hellraiser.",
+      "result": "Game-ending damage in a single play, particularly devastating against single-target bosses",
+      "deck_requirements": ["Thin skills/powers", "Multiple Perfected Strikes", "Hellraiser power online", "Pillage in hand"]
+    },
+
+    "dominate_strength_scaling": {
+      "card": "Dominate",
+      "rework": "Now scales your Strength directly based on the enemy's Vulnerable stacks",
+      "implication": "Dominate is now the premier Strength-generation tool for Ironclad. Pair with Vulnerable-application cards (Bash, Sword Boomerang, Inflame) to ramp Strength faster than any other character",
+      "synergy": "Bash applies 2 Vulnerable → Dominate grants +2 Strength. Bash+ + Dominate stacks Strength at a brutal rate."
+    },
+
+    "cruelty_vulnerable_amplifier": {
+      "card": "Cruelty",
+      "effect": "Massively multiplies damage dealt to Vulnerable enemies",
+      "build_pattern": "Vulnerable application + Cruelty + raw attacks = boss-killer combo. Especially strong vs single-target Act 3 bosses."
+    },
+
+    "defensive_anchors": {
+      "colossus": {
+        "effect": "50% damage reduction from Vulnerable enemies",
+        "tier": "S-tier defensive monolith",
+        "synergy": "Compounds with all your Vulnerable application — every Bash, Sword Boomerang, etc. doubles your effective HP for that fight"
+      },
+      "unmovable": {
+        "effect": "Doubles the FIRST block gained each turn",
+        "tier": "S-tier defensive monolith",
+        "best_with": "Single big-block cards (Iron Wave, Shrug It Off) rather than many small blocks. Order block cards so the biggest hits first."
+      }
+    },
+
+    "infinite_loops_are_dead": {
+      "description": "STS2 deliberately broke most easy Ironclad infinites. Don't try to build the old STS1 loops.",
+      "broken_loops": [
+        "Expect a Fight — now explicitly prevents gaining additional energy on the turn it's played. No more 0-cost energy infinites.",
+        "Bloodletting — rebalanced to prevent loop exploits",
+        "Spite — reworked: now hits multiple times if you LOSE HP, not draws cards (no more draw-loop spite)",
+        "Forgotten Ritual — exhausts after a single use, no more Power-loop"
+      ],
+      "what_to_build_instead": "Big-card decks with Stoke + exhaust payoffs, Perfected Strike + exhaust scaling, or Demon Form + Limit Break Strength scaling. Quality over quantity."
+    },
+
+    "doormaker_counter_archetype": {
+      "description": "The reworked Doormaker Act 3 boss drains 1 energy per card played. Ironclad's BIG-CARD decks (Bludgeon, Demon Form, high-cost impact plays) are the natural counter.",
+      "build_for_doormaker": "Thicker deck (30+ cards), high-cost impact cards, fewer cards played per turn — exactly the opposite of an infinite loop."
+    }
   }
 }

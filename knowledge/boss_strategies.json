@@ -1,0 +1,138 @@
+{
+  "source": "Baalorlord / Jorbs / community grandmaster guides + beta branch notes",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-25",
+
+  "description": "Boss-specific strategies and threshold algorithms. Every Act 1 and Act 3 boss has a 'final exam' shape — a specific mechanical check your deck must pass. Pathing should always start by identifying the boss (top of the map) and building backward.",
+
+  "act_1_bosses": [
+    {
+      "name": "Ceremonial Beast",
+      "id": "CEREMONIAL_BEAST_BOSS",
+      "exam_type": "Damage + sustain check",
+      "key_mechanics": [
+        "High HP, moderate scaling",
+        "Apply early pressure that punishes slow decks"
+      ],
+      "build_requirements": [
+        "Frontload damage to threaten kill pressure early",
+        "At least one scaling source for the back half",
+        "Block density ~33% — bleeds you out if you skimp"
+      ],
+      "preferred_potions": "Block potion, Strength potion, Fire potion"
+    },
+    {
+      "name": "Waterfall Giant",
+      "exam_type": "Strict damage race",
+      "key_mechanics": [
+        "Builds 'Steam Eruption' every turn",
+        "On death, explodes for damage proportional to accumulated Steam",
+        "If you don't burst him down, the death explosion wipes your HP bar"
+      ],
+      "build_requirements": [
+        "Either burst him down before steam stacks become lethal, OR",
+        "Have enough block to survive the death explosion (Intangible, massive single-turn block, or potions)"
+      ],
+      "do_not": "Drag the fight out. Every turn makes the death explosion bigger.",
+      "preferred_potions": "Fire Potion, Strength Potion, Smoke Bomb as panic-button"
+    },
+    {
+      "name": "Kin Priest",
+      "exam_type": "Multi-enemy AOE check",
+      "key_mechanics": [
+        "Multiple enemies, priest buffs the others",
+        "Killing minions removes the buff source",
+        "Without AOE you take damage from every minion every turn"
+      ],
+      "build_requirements": [
+        "AOE damage card (Cleave, Whirlwind, Thunderclap, Glass Orb evoke)",
+        "Targeted priest-kill burst, OR sustained AOE to clear the wave"
+      ]
+    },
+    {
+      "name": "Lagavulin Matriarch",
+      "exam_type": "Patience + debuff resistance",
+      "key_mechanics": [
+        "Sleeps for the opening turns, takes massive damage during sleep",
+        "When awake, stacks debuffs on you",
+        "Artifact removes one debuff stack (useful counter)"
+      ],
+      "strategy": "Burst as much damage as possible while she's sleeping. Save Vulnerable potions and high-damage cards for the sleep window. Wake her up only after dealing 25%+ of her HP.",
+      "preferred_potions": "Strength + Fire + Liquid Bronze (Artifact stacks)"
+    }
+  ],
+
+  "act_2_bosses": [
+    {
+      "name": "Generic mid-act boss notes",
+      "principle": "Act 2 bosses test your scaling. If your deck still relies on starter Strikes for damage at the end of Act 2, you will lose. Verify scaling is online before the boss floor.",
+      "common_threats": [
+        "Heavy single-turn damage spikes (need block)",
+        "Buff stacking that snowballs (need to interrupt with kill pressure or Weak)",
+        "Multi-phase or summon mechanics (need AOE)"
+      ]
+    }
+  ],
+
+  "act_3_bosses": [
+    {
+      "name": "The Queen",
+      "exam_type": "Pacing check + ordered targeting",
+      "turn_by_turn": {
+        "turn_1": "Shackles you (reduces strength)",
+        "turn_2": "Weakens you",
+        "turn_3": "Begins buffing the Amalgam (torch head) with Strength, gives herself 20 block per turn"
+      },
+      "the_rule": "Unless your deck has enough frontloaded damage to smash through 20 block AND deal massive HP damage every turn, you MUST target the Amalgam first. Killing the Amalgam resets her strength buffs.",
+      "the_exploit": "If you kill the Amalgam using delayed Doom damage (Necrobinder), the game skips the Queen's first self-buff phase entirely, granting you massive momentum.",
+      "build_requirements": [
+        "Burst potential to kill the Amalgam quickly",
+        "Strength sources that survive the Shackles debuff",
+        "Block to weather turns 1-3 while the buffs stack"
+      ]
+    },
+    {
+      "name": "The Doormaker (reworked)",
+      "exam_type": "Anti-infinite check",
+      "key_mechanic": "Aura: every card you play drains 1 energy. If your deck relies on playing 20 zero-cost cards to deal damage, you will zero out your energy pool instantly.",
+      "the_rule": "You beat Doormaker by drafting a THICK deck (30+ cards) focused on HIGH-COST, HIGH-IMPACT plays (Bludgeon, Meteor Strike, Reaper, Bombardment). Play 2-3 big cards per turn instead of 10 small cards.",
+      "what_loses_to_doormaker": [
+        "0-cost spam (Claw decks, Anger loops, infinite-draw setups)",
+        "Cycle-heavy decks that rely on playing many cards per turn",
+        "Energy-conversion engines that depend on net-positive energy gain per card"
+      ],
+      "what_beats_doormaker": [
+        "Stars/Forge decks (Regent) — energy isn't the primary resource",
+        "Doom-stack decks (Necrobinder) — you set up Doom, then play few cards while it ticks",
+        "Big-card Ironclad (Bludgeon, Demon Form scaling) — quality over quantity"
+      ]
+    },
+    {
+      "name": "Test Subject",
+      "exam_type": "Multi-phase damage race",
+      "tier": "Currently considered the deadliest boss on the beta branch",
+      "phases": {
+        "phase_1": "Brutal damage check, scales out of control if you're too slow",
+        "phase_2": "Strictly increases the number of attacks the boss executes every single turn — must end fast",
+        "phase_3": "Horrific multi-attack phase where blocks alone won't save you"
+      },
+      "the_rule": "Save your burst potions (Duplication, Energy potions, Strength stack) EXCLUSIVELY to bypass Phase 2 quickly. If you enter Phase 3 without a burst plan, you lose.",
+      "build_requirements": [
+        "Massive burst potential (50+ damage in a single turn)",
+        "Hoarded potions specifically reserved for this fight",
+        "Block scaling that survives multi-hit phases (Frost orbs + Focus, Footwork stacking, Metallicize)"
+      ]
+    }
+  ],
+
+  "pathing_implication": {
+    "description": "Pathing decisions should reference the boss. The skill should pull `run.boss` from the live state and reference this knowledge base section.",
+    "pre_boss_priorities": [
+      "Hit a campfire on the floor immediately before the boss (heal or upgrade)",
+      "Stock potions appropriate to the boss type (AOE for multi-enemy, burst for damage race, block for steam-eruption)",
+      "Skip card rewards 2-3 floors before the boss unless they specifically counter the boss",
+      "Do NOT engage elites on the floor immediately before the boss unless your HP is full"
+    ],
+    "boss_counter_drafting": "When you see the act boss at run start, every card draft should ask: 'Does this help me beat THIS boss?' A great card that doesn't help vs your specific boss is worth less than a mediocre card that does."
+  }
+}

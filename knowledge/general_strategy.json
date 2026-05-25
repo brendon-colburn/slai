@@ -40,6 +40,17 @@
       "description": "How quickly you see your important cards again. Cycle time is determined by deck size, draw, and card manipulation. A smaller, tighter deck with good draw sees its power cards every 2 turns instead of every 4.",
       "ideal_deck_size": "20-25 cards for most builds. Some exhaust-heavy builds can go larger (28-32) because they thin in combat. Some ultra-thin builds work at 15-18 but require specific synergies.",
       "target_cycle": "See your full deck every ~2 turns. With a 20-card deck and 5-card hand, you see everything in 4 draws (2 turns). Add draw cards and it's even faster.",
+      "calculation_formula": {
+        "formula": "cycle_time_in_turns = (total_deck_size - net_extra_draw_per_turn) / cards_drawn_per_turn",
+        "default_cards_drawn_per_turn": 5,
+        "examples": {
+          "10_card_starter": "10 / 5 = 2-turn cycle time",
+          "20_card_deck_no_extra_draw": "20 / 5 = 4-turn cycle time",
+          "20_card_deck_with_2_draw_powers": "(20 - 4) / 5 = 3.2-turn cycle time",
+          "30_card_deck_no_draw": "30 / 5 = 6-turn cycle time (DANGER — your scaling card might appear only once in a 6-turn fight)"
+        },
+        "key_insight": "Cantrips (cards that draw exactly 1 card, like Quick Slash) are CYCLE-NEUTRAL — they replace themselves. Cards that draw 2+ are cycle-POSITIVE — they shrink effective deck size every play."
+      },
       "why_it_matters": "If your deck has 35 cards and your win condition is 3 specific cards, you might not see them together for 5+ turns. That's 5 turns of taking damage without your engine running.",
       "tips": [
         "Skip card rewards more often than you take them — every card you add increases cycle time",
@@ -61,6 +72,14 @@
       "description": "The percentage of your deck that can generate block. You need enough block cards to survive enemy attacks on most turns, but not so many that you can't kill enemies.",
       "target_percentage": 33,
       "target_description": "Roughly 1 in 3 cards should generate block. In a 21-card deck, that's ~7 block cards. This ensures you draw at least 1-2 block cards per hand.",
+      "the_33_percent_math": {
+        "starter_deck_baseline": "Starter decks typically sit at 40-50% block density (4 Defends out of 10 cards = 40%)",
+        "target": "Exactly 33% block density (e.g., 10 block cards in a 30-card deck)",
+        "why_exactly_33": "At 33%, you have an 89.1% chance to draw AT LEAST 1 block card per turn, and a 55.1% chance to draw 2 or more. That's enough block coverage without clogging your hand on turns the enemy is BUFFING (and you don't need block).",
+        "above_33_diminishing_returns": "Above ~40%, you start drawing too many block cards on turns when block is wasted. Your damage suffers without proportional defense gain.",
+        "below_33_risky": "Below 25%, you'll have block-less hands often enough that one bad shuffle gets you killed.",
+        "card_draw_lets_you_lower_target": "Higher card draw engines (like Defect's Hologram or Silent's Storm of Steel) let you lower overall Block Density safely, because larger effective hand sizes naturally guarantee defensive options."
+      },
       "tips": [
         "Block cards that also do something else (Shrug It Off draws, Dash blocks AND attacks) are premium picks",
         "Don't neglect block in Act 1 — you need to survive elites and the Act 1 boss",

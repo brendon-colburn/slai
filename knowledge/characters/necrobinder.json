@@ -279,5 +279,67 @@
     "osty_over_investment": "Don't invest so heavily in Osty that your personal cards are weak. If Osty dies in a boss fight (likely), your personal deck needs to finish the job.",
     "forgetting_doom_timing": "Doom checks at the END of the enemy's turn, not the start. This means the enemy gets one more action before Doom kills them. Plan accordingly.",
     "neglecting_personal_block": "Osty can't tank every attack. Some enemies always target you directly. Maintain personal block density."
+  },
+
+  "advanced_synergies_and_reworks": {
+    "description": "Grandmaster-level Necrobinder knowledge: the Osty fallacy, Borrowed Time enabling, and Doom pacing.",
+
+    "the_osty_fallacy": {
+      "description": "Treating Osty (your minion) as a Barricade — i.e., stacking Max HP via Summon cards as your primary defense — is a common trap that loses runs.",
+      "why_its_wrong": "Summon cards are mathematically energy-inefficient for pure blocking. The energy you spend on Summons could have generated more raw damage prevention via traditional block cards.",
+      "the_correction": "Defend Osty with traditional block cards (Defy, Delay, Grave Warden), then USE Osty as a damage redirect for attacks Osty can soak (single-target attacks that wouldn't kill Osty in one hit).",
+      "key_block_cards_for_osty": [
+        {"name": "Defy", "effect": "Block + applies Weak. Ethereal (must play turn drawn or it's wasted).", "value": "Best Necrobinder defensive card — block AND debuff in one"},
+        {"name": "Delay", "effect": "Block + next-turn energy", "value": "Defensive cycle-time enabler. Trades a turn of block for a future big-energy turn."},
+        {"name": "Grave Warden", "effect": "Direct Osty protection", "value": "Specifically blocks Osty when it would die"}
+      ]
+    },
+
+    "borrowed_time_rework": {
+      "card": "Borrowed Time",
+      "old_behavior": "Enabled various infinite combos with Capture Spirit",
+      "new_behavior": "Grants 4 energy immediately (upgraded: 6), but ALL CARDS COST 1 MORE for the rest of the turn",
+      "why_still_strong": "The downside is the feature. Play Borrowed Time, then drop massive high-cost impact cards in a single turn that you couldn't otherwise afford.",
+      "best_partners": [
+        {"name": "Reap", "value": "Massive single-card payoff that justifies the +1 cost"},
+        {"name": "Durge", "value": "Now exhausts after a single use. The +1 cost still leaves Durge playable, and Borrowed Time enables it."},
+        {"name": "Dance Macabre", "value": "Grants massive block whenever you play a card costing 2 or more. Borrowed Time turns every card into 2+ cost, so Dance Macabre triggers on EVERY play that turn."}
+      ],
+      "anti_combo": "Borrowed Time + Dance Macabre is the new Necrobinder big-turn pattern: Borrowed Time first, then drop a hand full of cards (now all cost 2+), Dance Macabre triggers stack massive block while you deal heavy damage."
+    },
+
+    "doom_mechanic_deep_dive": {
+      "description": "Doom is the Necrobinder's signature DELAYED, BACKLOADED damage type. Doom checks at the END of the enemy's turn — once their Doom stacks ≥ remaining HP, they instantly die.",
+      "key_doom_cards": [
+        {"name": "Negative Pulse", "effect": "Applies AOE Doom + grants Block", "value": "S-tier early-game card. Provides damage scaling AND defense in one card. Take in Act 1."},
+        {"name": "Deathbringer", "effect": "Applies AOE Doom + Weak", "value": "Doom for damage, Weak for damage prevention. Premium AOE."}
+      ],
+      "doom_pacing": "Doom is delayed — the enemy gets ONE more action after Doom reaches lethal threshold (Doom triggers at end of enemy turn). Plan for this; don't assume Doom kills before the enemy's next attack.",
+      "doom_kills_queen_amalgam": "Pro tip: Using Doom to kill the Queen's Amalgam (Act 3 boss) skips her first self-buff phase entirely due to a known game glitch. Massive momentum swing if you can engineer it."
+    },
+
+    "souls_archetype": {
+      "description": "Souls are 0-cost cards that draw cards but are delayed (don't apply effects immediately). Mass-Souls decks turn into massive card-draw engines.",
+      "key_cards": [
+        {"name": "Severance", "effect": "Mass-generates Souls"},
+        {"name": "Durge", "effect": "Generates Souls AND deals damage. Now exhausts after one use (rework)"}
+      ],
+      "play_pattern": "Generate Souls early in combat → play them all on a single burst turn → massive draw fuels a big finisher (Reap, Dance Macabre setup, Borrowed Time + impact card)"
+    },
+
+    "early_game_aoe_priority": {
+      "description": "Necrobinder Act 1 is HIGH-DANGER without frontloaded AOE. Multi-enemy nodes will kill you.",
+      "must_draft": [
+        "Negative Pulse — AOE Doom + Block (top priority Act 1 draft)",
+        "Deathbringer — AOE Doom + Weak (high priority Act 1 draft)"
+      ],
+      "without_aoe": "If neither shows up by Act 1 mid-act, you must skip elites entirely and path conservatively until you find AOE."
+    },
+
+    "doormaker_compatibility": {
+      "description": "Necrobinder is NATURALLY ANTI-DOORMAKER thanks to Doom pacing.",
+      "why": "Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards. Doormaker drains energy per card; Necrobinder simply plays fewer cards while Doom does the work.",
+      "build_for_doormaker": "Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup. Avoid Soul-spam playstyles that play 10+ cards per turn."
+    }
   }
 }

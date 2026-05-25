@@ -3,6 +3,51 @@
   "version": "STS2_Early_Access_2025",
   "last_updated": "2025-05-24",
 
+  "hard_pool_vs_easy_pool": {
+    "description": "STS2 splits hallway fights into two pools — 'easy' and 'hard'. The first encounters of each act are guaranteed easy; later hallway encounters can be hard. Elite players ruthlessly exploit this.",
+    "guarantees": {
+      "act_1": "First THREE hallway combats are guaranteed easy pool",
+      "act_2": "First TWO hallway combats are guaranteed easy pool",
+      "act_3": "First TWO hallway combats are guaranteed easy pool"
+    },
+    "why_it_matters": [
+      "Easy pool fights cost ~5 HP on average; hard pool fights cost ~10-15 HP and can rival elites",
+      "Farm the easy pool first for cards, gold, and a rest site — THEN tackle elites or question marks",
+      "Minimize hard pool hallway combats before your first rest site each act"
+    ],
+    "pathing_implication": "Plan paths that hit the guaranteed easy fights early, then chain into a campfire or shop, THEN engage elites or hard hallways. Going 'shop → elite → elite → boss' with no easy farming is a quick death."
+  },
+
+  "bonfires_over_elites": {
+    "description": "Unlike STS1, BONFIRES (campfires) are king in STS2. Relics from elites are powerful, but upgrades often equal a direct extra energy or massive HP preservation, making bonfires statistically more valuable than risky elite fights.",
+    "the_math": [
+      "An elite costs ~15-25 HP and grants 1 relic (variable value) + 1 card + ~60-100 gold",
+      "A campfire costs 0 HP and grants either ~30% HP recovery OR a permanent upgrade (typically +3 damage, +3 block, or a transformative effect)",
+      "Over a 25-card deck, one upgrade on a frequently-played card outvalues most relics"
+    ],
+    "when_elites_beat_bonfires": [
+      "Your deck specifically needs the relic class (energy relics, draw relics, scaling relics)",
+      "You're above 70% HP and below the act's elite count target (2-3 in Act 1)",
+      "The elite is one your deck specifically counters (avoid Desa Millipede with pure burst, etc.)"
+    ],
+    "when_bonfires_beat_elites": [
+      "You have any key card that needs upgrading and HP > 50%",
+      "Your deck is mid-strength (no breakaway scaling, no boss relic) — extra power matters more than another relic",
+      "It's late in the act and your elite count is met"
+    ]
+  },
+
+  "shop_discipline": {
+    "description": "See economy.json for shop strategy in detail. Pathing-relevant rules below.",
+    "shop_pathing_rules": [
+      "Aim for exactly ONE shop per act",
+      "Visit a second shop ONLY if you have 400+ gold and a clear high-value purchase in mind",
+      "Visit shops LATE in the act after farming gold from hallway fights",
+      "Never path through a shop when broke — it wastes a node that could have generated power",
+      "Never end an act with 200+ unspent gold — that's a sign you under-spent at the shop"
+    ]
+  },
+
   "look_ahead_method": {
     "description": "Baalorlord's fundamental pathing principle: before choosing a path, look at the ENTIRE act map and plan your route from bottom to top. Don't make node-by-node decisions — plan the whole act.",
     "steps": [

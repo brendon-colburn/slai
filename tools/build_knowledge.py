@@ -28,10 +28,22 @@ METADATA_KEYS = {"source", "version", "last_updated"}
 # Ordering of top-level files in the bundle. Files not listed get appended
 # alphabetically.
 FILE_ORDER = [
+    # Core framework — load this first so all later references make sense
     "general_strategy.json",
     "pathing_strategy.json",
-    "common_mistakes.json",
+    # Per-turn / per-fight micro-decisions
+    "combat_micro.json",
+    # Economy + meta layer
+    "economy.json",
+    # Reference material (cards/relics/mechanics that interact with everything else)
     "mechanics.json",
+    "enchantments.json",
+    "ancients.json",
+    # Specific encounters — should reference everything above
+    "elite_strategies.json",
+    "boss_strategies.json",
+    # Anti-patterns last so they reinforce what to NOT do after teaching what to do
+    "common_mistakes.json",
 ]
 CHARACTER_ORDER = [
     "ironclad.json",

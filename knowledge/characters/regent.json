@@ -272,5 +272,64 @@
     "dual_generation_cards": "Cards that generate both Stars and Forge are the most efficient cards in the Regent's kit. They should always be high priority picks.",
     "sovereign_blade_scaling": "Sovereign Blade is the Regent's version of Heavy Blade for Ironclad. It requires setup (Forge instead of Strength) but can deal comparable or higher damage.",
     "star_spending_timing": "The best time to spend Stars is when you have a clear advantage — Star spending effects often provide burst power that ends fights or turns the tide."
+  },
+
+  "advanced_synergies_and_reworks": {
+    "description": "Grandmaster-level Regent knowledge: the Stars-vs-Forge rule, key card thresholds, and the Pale Blue Dot infinite.",
+
+    "never_mix_stars_and_forge": {
+      "description": "THE most important Regent rule. Stars decks and Forge decks should NEVER be mixed in the same run. The resources don't synergize, and split decks underperform either pure archetype.",
+      "why": "Stars cards consume Stars. Forge cards consume Forge. Cards that generate one resource don't generate the other. A 50/50 split deck has half-resourced cards across both engines and wins fewer fights than a pure 100% Stars or 100% Forge deck.",
+      "decision_point": "Commit to one archetype by mid-Act 1 based on what the game offers. If you see strong Star generators early, go Stars. If you see early Forge accumulators, go Forge. Don't try to hedge."
+    },
+
+    "stars_archetype_s_tier": {
+      "description": "Stars persist across turns AND across combats, allowing massive stockpiling. Stars decks can support 25+ cards comfortably because cycle time matters less when you're patient.",
+      "key_cards": [
+        {"name": "Big Bang", "effect": "0-cost. Generates Stars + cycles your deck efficiently.", "value": "The Stars deck's bread-and-butter cantrip. Always take."},
+        {"name": "Seven Stars", "effect": "Deals 49 AoE damage for 7 stars", "value": "Boss-killer finisher. The whole archetype builds toward this card."},
+        {"name": "Pale Blue Dot", "effect": "Power: the 5th card you play each turn is free — ignores both energy AND Star costs", "value": "Breaks the entire resource limitation. Combine with massive Star-cost cards (Bombardment, Seven Stars) to bypass Star costs entirely. Effectively an infinite if you can reliably play 5+ cards per turn."}
+      ],
+      "scaling_relics": "Orbit (passive energy scaling — refunds 1 energy for every 4 energy spent). Compounds with Stars-deck's tendency to play many small cards."
+    },
+
+    "forge_archetype_b_plus_tier": {
+      "description": "Sovereign Blade is a 'Retained' signature weapon ALWAYS in your hand. Forging at campfires permanently upgrades the blade's damage.",
+      "key_cards": [
+        {"name": "Sovereign Blade", "effect": "Permanent hand-card. Damage scales with Forge stacks. Forge bonuses persist across the run.", "value": "The whole archetype's win condition."}
+      ],
+      "build_rules": [
+        "Keep the deck EXTREMELY lean (under 20 cards) to ensure you have energy each turn to swing the blade",
+        "Prioritize Forge campfires over rest/upgrade (each Forge stack is permanent damage on every future Blade swing)",
+        "Remove Strikes/Defends aggressively — they don't help the Blade strategy"
+      ],
+      "anti_pattern": "Forge builds get crushed by the reworked Doormaker (energy drain) unless you've maximized Sovereign Blade damage per swing. A 1-swing Blade boss-kill is doable; multi-card-per-turn Forge play is not."
+    },
+
+    "heavenly_drill_threshold": {
+      "card": "Heavenly Drill",
+      "the_rule": "NEVER play Heavenly Drill below 4 Stars",
+      "the_math": "The card pierces enemies by hitting X times. Above 4 Stars, the hit count DOUBLES. At 4 stars, it strikes 8 times for a base of 64 damage. At 3 stars, it strikes only 3 times for ~24 damage.",
+      "play_decision": "If you have 3 stars and Heavenly Drill in hand, hold it. Generate one more Star (any source) and play it next turn for nearly 3x the damage."
+    },
+
+    "minion_sacrifice_b_tier": {
+      "description": "Niche Japanese-meta build. Utilizes colorless cards to summon minions and instantly sacrifice them for burst value.",
+      "tier": "B-tier — works in specific drafts, not a default plan",
+      "when_to_pivot": "Only if you see multiple summon-sacrifice colorless cards in early shops/rewards"
+    },
+
+    "ripple_basin_synergy": {
+      "relic": "Ripple Basin",
+      "effect": "Grants block if you play NO attacks during your turn",
+      "why_strong_for_regent": "Regent often has turns where they ONLY generate Stars or pass to scale Sovereign Blade — no attacks played. Ripple Basin gives free block on those turns. Perfect synergy with the 'wait and stockpile' Stars playstyle.",
+      "take_priority": "Top-tier shop pickup for Regent. Often worth taking over a card."
+    },
+
+    "doormaker_compatibility": {
+      "description": "Regent is one of the best Doormaker counters in the game.",
+      "why": "Stars decks don't rely on net-positive energy per card. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally avoid the Doormaker energy drain.",
+      "build_for_doormaker": "Either archetype works. Stars: focus on Pale Blue Dot. Forge: maximize per-swing damage so 1-2 swings end fights."
+    }
   }
 }

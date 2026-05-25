@@ -1,0 +1,129 @@
+{
+  "source": "Baalorlord / Jorbs / community grandmaster guides",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-25",
+
+  "description": "Per-turn micro-decisions in combat. The macro stuff (pillars, pathing, drafting) is half the game; the other half is making the right play sequence every turn. This file is the grandmaster's mental checklist.",
+
+  "turn_1_checklist": {
+    "description": "Before playing a single card on turn 1, the grandmaster runs through this five-step mental checklist. Slowing down here saves more HP across the run than any other habit.",
+    "steps": [
+      {
+        "step": 1,
+        "name": "Check the draw pile",
+        "what": "Open the draw pile view. Identify what you'll likely draw next turn. Are there key cards (scaling powers, AOE, big block) you should plan to play?",
+        "why": "Determines whether you should save energy this turn for a bigger play next turn, or spend everything now."
+      },
+      {
+        "step": 2,
+        "name": "Check enemy intent",
+        "what": "Read every enemy's intent icon. Multi-hits, debuffs, buff intents, sleep, charging — each shapes your play differently.",
+        "key_signals": [
+          "Multi-hit (2x or 3x attack) → block matters more than usual; Weak or Vulnerable scales further",
+          "Debuff intent → consider Artifact stacks or rushing the kill",
+          "Self-buff intent → kill the enemy NOW before the buff lands",
+          "Sleep / charging → burst window, hit hard before they wake"
+        ]
+      },
+      {
+        "step": 3,
+        "name": "Check for lethal",
+        "what": "Can the fight end THIS TURN? If yes, dump everything. Lethal turns are free of incoming damage.",
+        "math": "Sum: hand damage + relic procs + status effects + potion damage. If >= total enemy HP minus their block, you win."
+      },
+      {
+        "step": 4,
+        "name": "Determine block needs",
+        "what": "How much HP are you willing to trade to end the fight a turn earlier? Trading 5 HP to skip a turn of incoming 15 damage is correct. Trading 15 HP to skip a 5-damage turn is wrong.",
+        "principle": "HP is a resource. Calculate the EXCHANGE RATE per turn."
+      },
+      {
+        "step": 5,
+        "name": "Check the Relic Bar",
+        "what": "Hover relics with conditional triggers — are you about to proc one?",
+        "examples": [
+          "Pen Nib — the 10th attack deals 2x damage; line it up with your biggest hit",
+          "Incense Burner — counts turns to a free Intangible; plan around when it triggers",
+          "Letter Opener — every 3rd skill deals AOE damage; count your skills",
+          "Sundial — every 3 shuffles grants energy; plan toward shuffles when energy-starved",
+          "Velvet Choker — caps cards-played per turn at 6; budget your play count"
+        ]
+      }
+    ]
+  },
+
+  "play_order_principles": {
+    "description": "The order you play cards matters as much as which cards you play. A wrong order can waste 10+ damage per turn.",
+    "rules": [
+      "Apply debuffs (Vulnerable, Weak) BEFORE the attacks that benefit from them",
+      "Buff yourself (Strength, Dexterity) BEFORE multi-hit attacks (each hit gets the bonus)",
+      "Draw cards EARLY in the turn to maximize the cards available for spending",
+      "Block cards LAST if you have unspent energy — block is for the upcoming turn, attacks consume energy NOW",
+      "Power cards turn 1 if affordable — they compound across all subsequent turns",
+      "Save situational cards (Body Slam, Reaper) until conditions are met (block accumulated, attack count hit)"
+    ],
+    "common_errors": [
+      "Playing Bash AFTER Strike (Bash applies Vulnerable; Strike should hit the vulnerable target)",
+      "Playing Strength buffs after multi-hit attacks — wasted buff",
+      "Playing block early in the turn and then having unspent energy at end (block carries to next turn anyway)",
+      "Drawing cards last when an early draw could have unlocked more plays"
+    ]
+  },
+
+  "energy_conservation": {
+    "description": "Sometimes the best play is to end the turn with unspent energy. The cards you'd play would do less than the cards you'll draw next turn could do.",
+    "when_to_save_energy": [
+      "You have 1-2 energy left and only mediocre 1-cost cards in hand, with a known 2-cost impact card likely to draw next turn",
+      "You're playing Regent and you don't have enough stars yet for a big Heavenly Drill or Seven Stars",
+      "You have a 0-cost win-condition card in your discard pile and you'll shuffle this turn"
+    ],
+    "when_to_spend_everything": [
+      "Lethal is reachable (always)",
+      "Enemy has a big incoming attack and you need maximum block",
+      "You have a scaling power you should play (compounds over time)",
+      "End-of-turn effects trigger that benefit from emptied hand or zero energy"
+    ]
+  },
+
+  "the_draw_pile_anti_rule": {
+    "description": "The mod exposes draw_pile contents but NOT draw order. Looking at the draw pile tells you what's available; it does NOT tell you what comes next.",
+    "what_you_can_say": [
+      "'You have Bash+ left in the deck — keep it in mind for the next reshuffle'",
+      "'1 in 5 chance of drawing Demon Form on the next card'",
+      "'Your scaling card hasn't been played yet'",
+      "'The exhaust pile shows Strike was burned — your Perfected Strike still counts it'"
+    ],
+    "what_you_must_NOT_say": [
+      "'Bash+ is on top, so play Pommel Strike to grab it' (Pommel pulls a RANDOM next card)",
+      "'You'll draw Demon Form next turn' (deck order is not deterministic at this granularity)",
+      "'Play Vicious next, it'll grab Bash+' (Vicious is explicitly random)",
+      "'Hidden Gem will pull your X card' (Hidden Gem is random)"
+    ],
+    "why": "STS2 randomizes the draw order on every shuffle. Some card effects ('draw 1', 'draw until non-Attack') trigger random draws from the current deck. Predicting specific cards from these effects is a confident claim about an outcome you can't verify."
+  },
+
+  "lethal_recognition": {
+    "description": "Recognizing lethal a turn early is the difference between taking 0 damage and taking 15 damage.",
+    "checklist": [
+      "Add up base damage in hand (sum of all attack values)",
+      "Add Strength stacks × number of attacks (Strength applies per hit)",
+      "Add Vulnerable multiplier (1.5x to all attacks if enemy is vulnerable)",
+      "Add Weak multiplier (multiply your damage by 0.75 if YOU are weak)",
+      "Add static damage sources (Pen Nib proc, potion damage, relic damage)",
+      "Subtract enemy block",
+      "Account for sequencing — if you can apply Vulnerable first, you ALSO multiply subsequent attacks"
+    ],
+    "calculator_example": "Hand: 2 Strikes (6 each = 12), 1 Bash (8 + Vulnerable). Strength: 2. Strikes become 8 each = 16. Bash hits 10. Apply Bash first (8+2=10 damage, 2 Vulnerable). Then Strikes 8 + 8 = 16 × 1.5 = 24. Total: 10 + 24 = 34 damage. If enemy has 32 HP and 0 block: LETHAL."
+  },
+
+  "potion_decisions_in_combat": {
+    "description": "Potions are free power. The only cost is opportunity (saving for a better moment).",
+    "rules": [
+      "Defensive potions (Block, Fairy) — use the moment you'd take >10 damage you can't otherwise block",
+      "Offensive potions (Strength, Fire, Steel) — use on elites and boss phases where burst matters",
+      "Utility potions (Smoke Bomb, Snecko Skull) — read the situation; Smoke Bomb is panic-button only",
+      "Draw potions (Cultist, Liquid Memory) — use turn 1 of long fights to set up scaling fast",
+      "Use a potion if it saves more HP than the next potion you'd find on average (~5-8 HP)"
+    ]
+  }
+}

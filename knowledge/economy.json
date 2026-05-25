@@ -1,0 +1,93 @@
+{
+  "source": "Baalorlord / Jorbs / community grandmaster guides",
+  "version": "STS2_Early_Access_2025",
+  "last_updated": "2025-05-25",
+
+  "description": "Gold economy and shop strategy in STS2. The economy meta shifts dramatically on Ascension 6+ due to the Inflation modifier — strategies that work at A0-A5 actively fail at A6+. This file covers both regimes.",
+
+  "ascension_6_inflation": {
+    "description": "On Ascension 6 and higher, the 'Inflation' modifier replaces the older 'less rest sites' modifier. Inflation specifically targets the shop economy: card removals start at 100 gold (up from 75), and each subsequent removal costs +50 gold (instead of +25).",
+    "removal_cost_table": {
+      "removal_1": "100 gold",
+      "removal_2": "150 gold",
+      "removal_3": "200 gold",
+      "removal_4": "250 gold",
+      "removal_5": "300 gold",
+      "first_five_total": "1000 gold (vs ~625 at A0-A5)"
+    },
+    "strategic_implications": [
+      "The 10-card ultra-thin starter-removal strategy is DEAD at A6+ — you simply can't afford that many removals",
+      "Decks shift from 'thin and infinite' to 'thick and value-dense' (30-40 cards)",
+      "Each draft pick matters more because you can't easily delete mediocre cards later",
+      "Skip aggressively in early acts — adding bloat you can't remove is a permanent burden",
+      "Gold-generating relics and events become disproportionately strong"
+    ],
+    "deck_targets_a6_plus": {
+      "act_1_exit": "18-22 cards (not 15-20)",
+      "act_2_exit": "25-32 cards (not 20-25)",
+      "act_3_entry": "Often 30+ cards — value density matters more than thinness"
+    }
+  },
+
+  "shop_discipline": {
+    "description": "Shops are limited resources. You want maximum value per visit, which means batching gold and arriving with a clear shopping list.",
+    "core_rules": [
+      "Aim for exactly 1 shop visit per Act — visiting zero wastes accumulated gold; visiting multiple wastes nodes that could have generated power",
+      "Only visit a second shop in an act if you have 400+ gold AND a specific high-value purchase in mind",
+      "Visit shops LATE in the act after farming gold from hallway fights, events, and elite drops",
+      "Arrive with at least 250 gold for meaningful purchases (removal + 1 relic, or 2 cards, or a key potion stockpile)"
+    ],
+    "purchase_priority_ranking": [
+      "1. Card removal (always at least 1 per shop, 2 if you can afford and have specific Strikes/Defends to delete)",
+      "2. Relics with strong synergy to your existing deck (re-evaluate every shop — a relic that was bad in Act 1 may be great in Act 2)",
+      "3. Specific potions for the next elite/boss (Strength, Block, Smoke Bomb if you're fragile)",
+      "4. Cards ONLY if they fill a critical job your deck is missing — never buy 'good' cards just because they're available",
+      "5. Colorless cards if premium (Apotheosis, Master of Strategy, etc.) — these break archetype lock"
+    ],
+    "skipping_a_shop": "Sometimes the right move is to walk through a shop and buy nothing. If everything is overpriced or doesn't fit your build, save the gold for the next act's shop."
+  },
+
+  "foul_potion_trick": {
+    "description": "Foul Potions ('throw at enemy: lose all gold') seem like trash. They're not — they're a Merchant interaction.",
+    "the_trick": "When you have a Foul Potion, you can throw it AT the Merchant NPC during a shop visit. He gives you 100 gold per Foul Potion thrown.",
+    "implication": "Foul Potions are effectively 100-gold tokens that consume a potion slot. Always pick them up if you have a free slot, and dump them at the next shop.",
+    "interaction_with_File_Holster": "If you took the File Holster Ancient blessing (extra potion slot), Foul Potions become even more attractive — that extra slot can be a temporary gold-holding container."
+  },
+
+  "gold_generation": {
+    "primary_sources": [
+      "Hallway fight rewards (15-40 gold per fight depending on act)",
+      "Elite fight rewards (50-100+ gold per elite)",
+      "Shop merchant 'sell' option on duplicate relics or unwanted potions",
+      "Gold-rewarding events ('Living Wall', 'Pleasure Spirits', etc.)",
+      "Foul Potion → merchant trick (100 gold each)"
+    ],
+    "compounding_relics": [
+      "Bloody Idol — heal 5 HP every time you receive 100+ gold (effective sustain from gold)",
+      "Smiling Mask — every merchant has 50% off the first removal (massive A6+ value)",
+      "Membership Card — 50% off all shop items",
+      "Old Coin — instant +300 gold at pickup",
+      "Maw Bank — +12 gold every floor up to a cap"
+    ],
+    "gold_dump_targets": [
+      "Card removal (always)",
+      "Key archetype-defining card from the shop pool",
+      "Relics that compound (energy, draw, scaling)",
+      "Potions before a tough elite or the act boss"
+    ]
+  },
+
+  "value_per_node_framework": {
+    "description": "Every map node has an implicit gold/HP/power value. Pathing is about maximizing total expected value across the act.",
+    "approximate_node_values": {
+      "easy_hallway": "+25 gold, ~5 HP, 1 card or potion drop",
+      "hard_hallway": "+30 gold, ~10 HP cost, 1 card or potion drop",
+      "elite": "+60-100 gold, ~15-25 HP cost, 1 card + 1 relic (huge value if survivable)",
+      "campfire": "+0 gold, restore ~30% HP OR upgrade a card (often higher value than a relic)",
+      "shop": "Variable gold spent, potential huge value depending on inventory",
+      "event": "Highly variable — read carefully, some are amazing, some are traps",
+      "treasure_chest_act_1": "+1 relic (chest skip optional)"
+    },
+    "rule_of_thumb": "An elite is worth ~1.5 hallway fights of value but ~2-3 hallway fights of HP cost. Take elites when your deck is strong and your HP is above 60%."
+  }
+}

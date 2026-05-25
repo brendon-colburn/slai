@@ -239,5 +239,83 @@
     "wraith_form_without_plan": "Wraith Form gives Intangible but reduces Dexterity each turn. You need Artifact or a plan to end the fight before Dexterity loss kills your block.",
     "catalyst_without_poison": "Catalyst is amazing but useless without Poison. Don't take Catalyst if you have no Poison application.",
     "ignoring_footwork": "Footwork is one of the best cards in the game. +2/3 Dexterity permanently makes every block card significantly better. Don't skip it."
+  },
+
+  "advanced_synergies_and_reworks": {
+    "description": "Grandmaster-level Silent knowledge: the new Sly mechanic, reworked Prepare, Outbreak boss-killing, and the Phantom Blades Shiv combo.",
+
+    "sly_mechanic": {
+      "description": "Sly is a new STS2 keyword. Cards with Sly trigger their effects FOR FREE when discarded — not when played. This unlocks a draw/discard engine archetype.",
+      "key_sly_cards": [
+        {"name": "Reflex", "sly_effect": "Draw 2 cards when discarded"},
+        {"name": "Tactician", "sly_effect": "Gain 1 energy when discarded"}
+      ],
+      "the_engine": "Combine Sly cards with discard-trigger cards. Discarding Reflex draws 2; discarding Tactician gains 1 energy. Stack discard triggers and you generate massive positive energy and draw, enabling near-infinite combo turns.",
+      "discard_enablers": ["Acrobatics", "Calculated Gamble", "Prepare (see rework below)"]
+    },
+
+    "prepare_rework": {
+      "card": "Prepare",
+      "old_behavior": "Discarded cards for various effects",
+      "new_behavior": "Discard 2 cards. Gain 2 energy next turn (upgraded: 3 energy)",
+      "synergy": "Pairs PERFECTLY with Sly cards. Discarding Reflex (Sly: draw 2) and Tactician (Sly: gain 1 energy) negates the discard cost entirely AND gives you the Prepare bonus.",
+      "warning": "Without Sly cards, Prepare is mediocre — you're paying 2 cards for 2-3 energy. Only take Prepare if you have Sly enablers in your deck."
+    },
+
+    "corrosive_wave_outbreak_combo": {
+      "description": "The premier Silent boss-killing combo. Massive AOE poison + AOE damage that scales with draw.",
+      "cards": [
+        {
+          "name": "Corrosive Wave",
+          "effect": "Apply 2 Poison (upgraded 3) to ALL enemies every time you draw a card",
+          "value": "On a turn where you draw 5 cards, you apply 10-15 poison to every enemy"
+        },
+        {
+          "name": "Outbreak",
+          "effect": "Power: deal 11 AoE damage every 3rd time poison is applied",
+          "trigger": "Stacks with Corrosive Wave — drawing a hand of 5 cards triggers AOE poison 5 times, detonating Outbreak 1+ times for board-wipe damage"
+        }
+      ],
+      "boss_killer": "Setup turn: play Corrosive Wave + Outbreak. Subsequent turns: just draw cards (any draw card, even cantrips) and the combo auto-detonates. Trivializes multi-enemy boss phases."
+    },
+
+    "piercing_whale_the_full_block": {
+      "card": "Piercing Whale",
+      "effect": "1-cost exhaust skill that applies -6 Strength to ALL enemies for one turn",
+      "value": "Effectively full-blocks multi-hit elites and bosses (like the Entomancer) entirely on its own. Single-card answer to many of the worst encounters in the game.",
+      "best_against": "Multi-hit attackers (Entomancer, Lagavulin Matriarch awake), high-strength bosses (-6 strength can negate damage entirely on small attacks)"
+    },
+
+    "phantom_blades_shiv_retain": {
+      "card": "Phantom Blades",
+      "effect": "Gives Shivs Retain AND bonus damage",
+      "implication": "Transforms the Shiv archetype from a cycle-heavy gimmick into a sustained damage engine. Shivs no longer disappear at end of turn — they hold for big multi-Shiv burst turns.",
+      "build_pattern": "Blade Dance + Accuracy + Phantom Blades → Shivs scale with Accuracy AND retain across turns → ramping multi-hit damage"
+    },
+
+    "shadow_meld_doubles_block": {
+      "card": "Shadow Meld",
+      "effect": "Doubles all Block gained in a turn",
+      "value": "Lets the Silent multiply her block — unique block-scaling effect. Combined with Footwork's permanent Dexterity, Shadow Meld turns mediocre block cards into massive defensive plays for one turn.",
+      "use_case": "Save for the elite/boss turn where you face a single huge attack (Lagavulin's awake hit, Waterfall Giant's steam eruption)"
+    },
+
+    "grand_finale_buff": {
+      "card": "Grand Finale",
+      "stats": "Deals 60 AoE damage (upgraded 75)",
+      "skill_check": "Only damages if your draw pile is EMPTY when you play it",
+      "build_pattern": "Heavy draw + Sly engine to empty the draw pile → play Grand Finale on the same turn for board-wipe damage",
+      "tier": "Ultimate skill-check card. Win condition for players who can perfectly cycle their deck."
+    },
+
+    "poison_priority_cards": {
+      "description": "The Silent's best boss-killing tools all involve poison.",
+      "top_tier": [
+        {"name": "Bouncing Flask", "effect": "Apply poison to enemies repeatedly via bouncing projectile"},
+        {"name": "Corrosive Wave", "effect": "AOE poison on every card drawn — see combo above"},
+        {"name": "Bubble Bubble", "effect": "Massive poison stack application"},
+        {"name": "Accelerant", "effect": "Triggers existing poison multiple times — new Catalyst replacement. Pair with stacked poison sources for instant boss kills."}
+      ]
+    }
   }
 }

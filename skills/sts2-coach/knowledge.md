@@ -63,6 +63,24 @@ How quickly you see your important cards again. Cycle time is determined by deck
 
 **Target Cycle:** See your full deck every ~2 turns. With a 20-card deck and 5-card hand, you see everything in 4 draws (2 turns). Add draw cards and it's even faster.
 
+#### Calculation Formula
+
+**Formula:** cycle_time_in_turns = (total_deck_size - net_extra_draw_per_turn) / cards_drawn_per_turn
+
+**Default Cards Drawn Per Turn:** 5
+
+##### Examples
+
+**10 Card Starter:** 10 / 5 = 2-turn cycle time
+
+**20 Card Deck No Extra Draw:** 20 / 5 = 4-turn cycle time
+
+**20 Card Deck With 2 Draw Powers:** (20 - 4) / 5 = 3.2-turn cycle time
+
+**30 Card Deck No Draw:** 30 / 5 = 6-turn cycle time (DANGER — your scaling card might appear only once in a 6-turn fight)
+
+**Key Insight:** Cantrips (cards that draw exactly 1 card, like Quick Slash) are CYCLE-NEUTRAL — they replace themselves. Cards that draw 2+ are cycle-POSITIVE — they shrink effective deck size every play.
+
 **Why It Matters:** If your deck has 35 cards and your win condition is 3 specific cards, you might not see them together for 5+ turns. That's 5 turns of taking damage without your engine running.
 
 #### Tips
@@ -88,6 +106,20 @@ The percentage of your deck that can generate block. You need enough block cards
 **Target Percentage:** 33
 
 **Target Description:** Roughly 1 in 3 cards should generate block. In a 21-card deck, that's ~7 block cards. This ensures you draw at least 1-2 block cards per hand.
+
+#### The 33 Percent Math
+
+**Starter Deck Baseline:** Starter decks typically sit at 40-50% block density (4 Defends out of 10 cards = 40%)
+
+**Target:** Exactly 33% block density (e.g., 10 block cards in a 30-card deck)
+
+**Why Exactly 33:** At 33%, you have an 89.1% chance to draw AT LEAST 1 block card per turn, and a 55.1% chance to draw 2 or more. That's enough block coverage without clogging your hand on turns the enemy is BUFFING (and you don't need block).
+
+**Above 33 Diminishing Returns:** Above ~40%, you start drawing too many block cards on turns when block is wasted. Your damage suffers without proportional defense gain.
+
+**Below 33 Risky:** Below 25%, you'll have block-less hands often enough that one bad shuffle gets you killed.
+
+**Card Draw Lets You Lower Target:** Higher card draw engines (like Defect's Hologram or Silent's Storm of Steel) let you lower overall Block Density safely, because larger effective hand sizes naturally guarantee defensive options.
 
 #### Tips
 
@@ -366,6 +398,60 @@ What your deck should look like at each stage of the run.
 ---
 
 # Pathing Strategy
+
+## Hard Pool Vs Easy Pool
+
+STS2 splits hallway fights into two pools — 'easy' and 'hard'. The first encounters of each act are guaranteed easy; later hallway encounters can be hard. Elite players ruthlessly exploit this.
+
+### Guarantees
+
+**Act 1:** First THREE hallway combats are guaranteed easy pool
+
+**Act 2:** First TWO hallway combats are guaranteed easy pool
+
+**Act 3:** First TWO hallway combats are guaranteed easy pool
+
+### Why It Matters
+
+- Easy pool fights cost ~5 HP on average; hard pool fights cost ~10-15 HP and can rival elites
+- Farm the easy pool first for cards, gold, and a rest site — THEN tackle elites or question marks
+- Minimize hard pool hallway combats before your first rest site each act
+
+**Pathing Implication:** Plan paths that hit the guaranteed easy fights early, then chain into a campfire or shop, THEN engage elites or hard hallways. Going 'shop → elite → elite → boss' with no easy farming is a quick death.
+
+## Bonfires Over Elites
+
+Unlike STS1, BONFIRES (campfires) are king in STS2. Relics from elites are powerful, but upgrades often equal a direct extra energy or massive HP preservation, making bonfires statistically more valuable than risky elite fights.
+
+### The Math
+
+- An elite costs ~15-25 HP and grants 1 relic (variable value) + 1 card + ~60-100 gold
+- A campfire costs 0 HP and grants either ~30% HP recovery OR a permanent upgrade (typically +3 damage, +3 block, or a transformative effect)
+- Over a 25-card deck, one upgrade on a frequently-played card outvalues most relics
+
+### When Elites Beat Bonfires
+
+- Your deck specifically needs the relic class (energy relics, draw relics, scaling relics)
+- You're above 70% HP and below the act's elite count target (2-3 in Act 1)
+- The elite is one your deck specifically counters (avoid Desa Millipede with pure burst, etc.)
+
+### When Bonfires Beat Elites
+
+- You have any key card that needs upgrading and HP > 50%
+- Your deck is mid-strength (no breakaway scaling, no boss relic) — extra power matters more than another relic
+- It's late in the act and your elite count is met
+
+## Shop Discipline
+
+See economy.json for shop strategy in detail. Pathing-relevant rules below.
+
+### Shop Pathing Rules
+
+- Aim for exactly ONE shop per act
+- Visit a second shop ONLY if you have 400+ gold and a clear high-value purchase in mind
+- Visit shops LATE in the act after farming gold from hallway fights
+- Never path through a shop when broke — it wastes a node that could have generated power
+- Never end an act with 200+ unspent gold — that's a sign you under-spent at the shop
 
 ## Look Ahead Method
 
@@ -714,347 +800,275 @@ Question mark nodes (unknown events) can provide card transforms, relics, gold, 
 
 ---
 
-# Common Mistakes
+# Combat Micro
 
-## Mistakes
+Per-turn micro-decisions in combat. The macro stuff (pillars, pathing, drafting) is half the game; the other half is making the right play sequence every turn. This file is the grandmaster's mental checklist.
 
-### Card Bloat
+## Turn 1 Checklist
 
-Taking too many cards, resulting in a bloated deck with inconsistent draws. The player adds cards without considering the impact on cycle time and draw consistency. Deck becomes unfocused — the player has many 'okay' cards but rarely sees their best cards when they need them.
+Before playing a single card on turn 1, the grandmaster runs through this five-step mental checklist. Slowing down here saves more HP across the run than any other habit.
 
-**Severity:** high
+### Steps
 
-**Frequency:** very_common
+#### Check the draw pile
 
-#### Why It Happens
+**Step:** 1
 
-- New players feel that more cards = more power, when the opposite is often true
-- Fear of skipping — players feel they're 'wasting' a card reward by not taking anything
-- Not understanding cycle time — players don't realize that a 35-card deck sees key cards half as often as a 20-card deck
-- Taking cards 'just in case' without a specific plan for when they'll be useful
-- Evaluating cards in isolation rather than in the context of the whole deck
-- Excitement over seemingly powerful cards without considering if they fit the deck's strategy
+**What:** Open the draw pile view. Identify what you'll likely draw next turn. Are there key cards (scaling powers, AOE, big block) you should plan to play?
 
-#### How To Fix
+**Why:** Determines whether you should save energy this turn for a bigger play next turn, or spend everything now.
 
-- Before every card reward, ask: 'Does this card make my deck better, or just bigger?'
-- Track your deck size — aim for 20-25 cards by end of Act 2
-- Skip card rewards more often — skipping 40-60% of rewards in Act 2+ is normal for strong players
-- Prioritize card removal at shops to offset cards you've taken
-- Use the 'Jobs Framework' — only take cards that fill a specific, unfilled role in your deck
-- Review your deck regularly and ask: 'Which cards do I wish I wasn't drawing?'
 
-#### Detection Criteria
+#### Check enemy intent
 
-##### Deck Size Thresholds
+**Step:** 2
 
-**Act1 Warning:** More than 22 cards by end of Act 1
+**What:** Read every enemy's intent icon. Multi-hits, debuffs, buff intents, sleep, charging — each shapes your play differently.
 
-**Act2 Warning:** More than 28 cards by end of Act 2
+##### Key Signals
 
-**Act3 Warning:** More than 32 cards by end of Act 3
+- Multi-hit (2x or 3x attack) → block matters more than usual; Weak or Vulnerable scales further
+- Debuff intent → consider Artifact stacks or rushing the kill
+- Self-buff intent → kill the enemy NOW before the buff lands
+- Sleep / charging → burst window, hit hard before they wake
 
-##### Behavioral Signs
 
-- Player takes a card from almost every reward (>80% take rate)
-- Player has multiple cards serving the same role (redundant cards)
-- Player rarely or never skips card rewards
-- Player has cards that were never or rarely played in recent combats
-- Deck has both aggressive and defensive scaling that don't synergize
+#### Check for lethal
 
-##### Combat Signs
+**Step:** 3
 
-- Player frequently doesn't draw their key cards when needed
-- Fights take longer than necessary because draws are inconsistent
-- Player has leftover energy but bad cards to play (hand is full of mediocre options)
+**What:** Can the fight end THIS TURN? If yes, dump everything. Lethal turns are free of incoming damage.
 
-#### Coaching Response
+**Math:** Sum: hand damage + relic procs + status effects + potion damage. If >= total enemy HP minus their block, you win.
 
-**Immediate:** Point out the deck size relative to the act. Compare their take rate to recommended rates.
 
-**Educational:** Explain cycle time: 'Your deck has 30 cards. With a 5-card hand, it takes 6 draws (3 turns) to see your whole deck. If your key combo is 3 cards, you might not see it for 4+ turns.'
+#### Determine block needs
 
-**Actionable:** Recommend skipping the current card reward unless one card fills a critical need. Suggest card removal at the next shop.
+**Step:** 4
 
+**What:** How much HP are you willing to trade to end the fight a turn earlier? Trading 5 HP to skip a turn of incoming 15 damage is correct. Trading 15 HP to skip a 5-damage turn is wrong.
 
-### Forcing Archetypes Early
+**Principle:** HP is a resource. Calculate the EXCHANGE RATE per turn.
 
-Committing to a specific build (e.g., 'I'm going Poison Silent' or 'I'm doing Strength Ironclad') before seeing what the game offers. This causes players to pass on strong cards that don't fit their preconceived plan and take weak cards that do.
 
-**Severity:** high
+#### Check the Relic Bar
 
-**Frequency:** common
+**Step:** 5
 
-#### Why It Happens
+**What:** Hover relics with conditional triggers — are you about to proc one?
 
-- Players watch streamers pilot specific archetypes and want to replicate them
-- Deck-building games encourage 'theme' thinking — players want a cohesive identity early
-- It feels good to have a plan — uncertainty is uncomfortable
-- Players remember their best runs with a specific archetype and try to recreate them
-- Confusion between 'having a direction' (good) and 'forcing an archetype' (bad)
-- Not understanding that strong decks are built from what you're offered, not what you want
+##### Examples
 
-#### How To Fix
+- Pen Nib — the 10th attack deals 2x damage; line it up with your biggest hit
+- Incense Burner — counts turns to a free Intangible; plan around when it triggers
+- Letter Opener — every 3rd skill deals AOE damage; count your skills
+- Sundial — every 3 shuffles grants energy; plan toward shuffles when energy-starved
+- Velvet Choker — caps cards-played per turn at 6; budget your play count
 
-- Stay flexible through Act 1 — take the best card offered regardless of archetype
-- Let your deck's identity emerge from the cards and relics you find
-- Evaluate each card reward independently: 'Is this the best card for my deck RIGHT NOW?'
-- Don't commit to an archetype until you have 3-4 strong cards in that direction
-- Remember that hybrid decks are often stronger than 'pure' archetype decks
-- Focus on the Four Pillars (damage, cycle, block, upgrades) rather than archetypes
 
-#### Detection Criteria
+## Play Order Principles
 
-##### Behavioral Signs
+The order you play cards matters as much as which cards you play. A wrong order can waste 10+ damage per turn.
 
-- Player passes on strong general-purpose cards in favor of weak archetype-specific cards
-- Player states their build plan in Act 1 ('I'm going Shiv build')
-- Player takes archetype cards that don't work without other archetype pieces they don't have yet
-- Player ignores the Four Pillars in favor of archetype synergy
-- Player is disappointed by card rewards that don't match their desired archetype
+### Rules
 
-##### Deck Signs
+- Apply debuffs (Vulnerable, Weak) BEFORE the attacks that benefit from them
+- Buff yourself (Strength, Dexterity) BEFORE multi-hit attacks (each hit gets the bonus)
+- Draw cards EARLY in the turn to maximize the cards available for spending
+- Block cards LAST if you have unspent energy — block is for the upcoming turn, attacks consume energy NOW
+- Power cards turn 1 if affordable — they compound across all subsequent turns
+- Save situational cards (Body Slam, Reaper) until conditions are met (block accumulated, attack count hit)
 
-- Deck has archetype-specific cards but lacks the support cards to make them work
-- Deck is missing basic needs (block, frontload damage) because player skipped non-archetype cards
-- Deck has clear archetype identity but performs poorly because key pieces are missing
+### Common Errors
 
-#### Coaching Response
+- Playing Bash AFTER Strike (Bash applies Vulnerable; Strike should hit the vulnerable target)
+- Playing Strength buffs after multi-hit attacks — wasted buff
+- Playing block early in the turn and then having unspent energy at end (block carries to next turn anyway)
+- Drawing cards last when an early draw could have unlocked more plays
 
-**Immediate:** Ask the player why they're passing on the strong card. Challenge archetype-based reasoning.
+## Energy Conservation
 
-**Educational:** Explain adaptability: 'The best STS2 players build around what the game gives them. If the game offers you 3 strong Poison cards, go Poison. If it offers you 3 strong Shiv cards, go Shiv. Don't decide in advance.'
+Sometimes the best play is to end the turn with unspent energy. The cards you'd play would do less than the cards you'll draw next turn could do.
 
-**Actionable:** Recommend the strongest card in the current reward regardless of archetype. Point out how it fills a job the deck needs.
+### When To Save Energy
 
+- You have 1-2 energy left and only mediocre 1-cost cards in hand, with a known 2-cost impact card likely to draw next turn
+- You're playing Regent and you don't have enough stars yet for a big Heavenly Drill or Seven Stars
+- You have a 0-cost win-condition card in your discard pile and you'll shuffle this turn
 
-### Ignoring Pathing Strategy
+### When To Spend Everything
 
-Not planning map routes in advance. The player makes node-by-node decisions instead of planning the entire act's path. This leads to suboptimal routes — missing elites when strong, hitting elites when weak, visiting shops with no gold, or skipping campfires before tough fights.
+- Lethal is reachable (always)
+- Enemy has a big incoming attack and you need maximum block
+- You have a scaling power you should play (compounds over time)
+- End-of-turn effects trigger that benefit from emptied hand or zero energy
 
-**Severity:** high
+## The Draw Pile Anti Rule
 
-**Frequency:** common
+The mod exposes draw_pile contents but NOT draw order. Looking at the draw pile tells you what's available; it does NOT tell you what comes next.
 
-#### Why It Happens
+### What You Can Say
 
-- Players focus on the immediate decision ('left or right?') instead of the big picture
-- Map information feels overwhelming — too many variables to process
-- Players don't realize they can see the full map and plan ahead
-- Reactive play is easier than proactive planning
-- Not understanding which node types are most valuable at different points in the run
-- Lack of awareness of the Look Ahead Method
+- 'You have Bash+ left in the deck — keep it in mind for the next reshuffle'
+- '1 in 5 chance of drawing Demon Form on the next card'
+- 'Your scaling card hasn't been played yet'
+- 'The exhaust pile shows Strike was burned — your Perfected Strike still counts it'
 
-#### How To Fix
+### What You Must Not Say
 
-- Use the Look Ahead Method: plan your entire act path from bottom to top before taking your first step
-- Identify the boss first — know what you're building toward
-- Count elites, campfires, shops, and question marks on each possible route
-- Consider your HP, deck state, and gold when choosing between routes
-- Have a backup path if things go wrong (take more damage than expected, etc.)
-- Re-evaluate your path at every decision point — adjust if your situation has changed
+- 'Bash+ is on top, so play Pommel Strike to grab it' (Pommel pulls a RANDOM next card)
+- 'You'll draw Demon Form next turn' (deck order is not deterministic at this granularity)
+- 'Play Vicious next, it'll grab Bash+' (Vicious is explicitly random)
+- 'Hidden Gem will pull your X card' (Hidden Gem is random)
 
-#### Detection Criteria
+**Why:** STS2 randomizes the draw order on every shuffle. Some card effects ('draw 1', 'draw until non-Attack') trigger random draws from the current deck. Predicting specific cards from these effects is a confident claim about an outcome you can't verify.
 
-##### Behavioral Signs
+## Lethal Recognition
 
-- Player doesn't examine the full map before making pathing decisions
-- Player makes pathing decisions quickly without analysis
-- Player hits shops with less than 150 gold
-- Player enters elite fights at low HP (below 40%)
-- Player skips campfires before tough fights when they need healing or upgrades
-- Player doesn't consider the boss when making pathing choices
+Recognizing lethal a turn early is the difference between taking 0 damage and taking 15 damage.
 
-##### Outcome Signs
+### Checklist
 
-- Player arrives at boss with suboptimal HP or deck state
-- Player misses elite opportunities when they were strong enough to fight
-- Player visits shops without enough gold for meaningful purchases
-- Player reaches campfires with no good upgrade targets (already upgraded key cards earlier)
+- Add up base damage in hand (sum of all attack values)
+- Add Strength stacks × number of attacks (Strength applies per hit)
+- Add Vulnerable multiplier (1.5x to all attacks if enemy is vulnerable)
+- Add Weak multiplier (multiply your damage by 0.75 if YOU are weak)
+- Add static damage sources (Pen Nib proc, potion damage, relic damage)
+- Subtract enemy block
+- Account for sequencing — if you can apply Vulnerable first, you ALSO multiply subsequent attacks
 
-#### Coaching Response
+**Calculator Example:** Hand: 2 Strikes (6 each = 12), 1 Bash (8 + Vulnerable). Strength: 2. Strikes become 8 each = 16. Bash hits 10. Apply Bash first (8+2=10 damage, 2 Vulnerable). Then Strikes 8 + 8 = 16 × 1.5 = 24. Total: 10 + 24 = 34 damage. If enemy has 32 HP and 0 block: LETHAL.
 
-**Immediate:** Before the player moves to the next node, suggest they look at the full map and plan their route.
+## Potion Decisions In Combat
 
-**Educational:** Explain the Look Ahead Method step by step. Show how planning ahead leads to better outcomes.
+Potions are free power. The only cost is opportunity (saving for a better moment).
 
-**Actionable:** Provide a recommended path for the current act with reasoning for each node.
+### Rules
 
+- Defensive potions (Block, Fairy) — use the moment you'd take >10 damage you can't otherwise block
+- Offensive potions (Strength, Fire, Steel) — use on elites and boss phases where burst matters
+- Utility potions (Smoke Bomb, Snecko Skull) — read the situation; Smoke Bomb is panic-button only
+- Draw potions (Cultist, Liquid Memory) — use turn 1 of long fights to set up scaling fast
+- Use a potion if it saves more HP than the next potion you'd find on average (~5-8 HP)
 
-### Playing on Autopilot
 
-Going through the motions without thinking through individual turns. Playing cards in the same order every fight, not considering enemy intent, not doing damage/block math. This leads to suboptimal plays that compound over a run.
+---
 
-**Severity:** medium
+# Economy
 
-**Frequency:** very_common
+Gold economy and shop strategy in STS2. The economy meta shifts dramatically on Ascension 6+ due to the Inflation modifier — strategies that work at A0-A5 actively fail at A6+. This file covers both regimes.
 
-#### Why It Happens
+## Ascension 6 Inflation
 
-- Fights become repetitive and players stop thinking critically
-- Players develop habits ('always play Strikes first, then Defends') without evaluating each turn
-- Fatigue during long runs — mental energy decreases as the run progresses
-- Overconfidence in easy fights — players don't bother optimizing 'simple' encounters
-- Not understanding that small optimizations compound over many fights
-- Lack of awareness of enemy intent indicators and how to play around them
+On Ascension 6 and higher, the 'Inflation' modifier replaces the older 'less rest sites' modifier. Inflation specifically targets the shop economy: card removals start at 100 gold (up from 75), and each subsequent removal costs +50 gold (instead of +25).
 
-#### How To Fix
+### Removal Cost Table
 
-- Check enemy intent EVERY turn before playing any cards
-- Do the math: calculate exactly how much damage you need to deal and how much block you need
-- Consider card order — some cards benefit from being played before others (Vulnerable before attacks)
-- Ask 'What's the worst that can happen this turn?' before committing to plays
-- Identify lethal threats — know when the enemy can kill you and plan accordingly
-- Take short breaks during long runs to maintain focus
+**Removal 1:** 100 gold
 
-#### Detection Criteria
+**Removal 2:** 150 gold
 
-##### Behavioral Signs
+**Removal 3:** 200 gold
 
-- Player plays cards in the same order every turn regardless of enemy intent
-- Player doesn't check enemy intent indicators
-- Player doesn't calculate damage/block math for the turn
-- Player makes plays quickly without pausing to think
-- Player ends turn with unspent energy and playable cards
-- Player doesn't adjust strategy based on enemy behavior changes
+**Removal 4:** 250 gold
 
-##### Outcome Signs
+**Removal 5:** 300 gold
 
-- Player takes unnecessary damage from predictable enemy attacks
-- Player over-blocks (wastes block) or under-blocks (takes preventable damage)
-- Player kills enemies one turn later than necessary due to suboptimal play order
-- Player misses lethal on enemies, extending fights unnecessarily
+**First Five Total:** 1000 gold (vs ~625 at A0-A5)
 
-#### Coaching Response
+### Strategic Implications
 
-**Immediate:** Ask the player to pause and check enemy intent before making plays.
+- The 10-card ultra-thin starter-removal strategy is DEAD at A6+ — you simply can't afford that many removals
+- Decks shift from 'thin and infinite' to 'thick and value-dense' (30-40 cards)
+- Each draft pick matters more because you can't easily delete mediocre cards later
+- Skip aggressively in early acts — adding bloat you can't remove is a permanent burden
+- Gold-generating relics and events become disproportionately strong
 
-**Educational:** Show specific examples of how play order and math optimization would have saved HP or ended fights faster.
+### Deck Targets A6 Plus
 
-**Actionable:** Provide a step-by-step analysis of the optimal play for the current turn, showing the reasoning.
+**Act 1 Exit:** 18-22 cards (not 15-20)
 
+**Act 2 Exit:** 25-32 cards (not 20-25)
 
-### Hoarding Potions
+**Act 3 Entry:** Often 30+ cards — value density matters more than thinness
 
-Saving potions 'for the boss' instead of using them on elites and tough hallway fights. This is one of Baalorlord's most-discussed mistakes. Potions used on elites often save more HP than they would on the boss, and you'll likely find more potions before the boss anyway.
+## Shop Discipline
 
-**Severity:** medium
+Shops are limited resources. You want maximum value per visit, which means batching gold and arriving with a clear shopping list.
 
-**Frequency:** very_common
+### Core Rules
 
-#### Why It Happens
+- Aim for exactly 1 shop visit per Act — visiting zero wastes accumulated gold; visiting multiple wastes nodes that could have generated power
+- Only visit a second shop in an act if you have 400+ gold AND a specific high-value purchase in mind
+- Visit shops LATE in the act after farming gold from hallway fights, events, and elite drops
+- Arrive with at least 250 gold for meaningful purchases (removal + 1 relic, or 2 cards, or a key potion stockpile)
 
-- Boss fights feel like the 'big' fight, so players save their best resources for them
-- Fear of not having potions when they 'really' need them
-- Not understanding that elite fights are often harder relative to your deck than boss fights
-- Not tracking potion acquisition — players don't realize how frequently potions drop
-- Overvaluing the potion itself vs the HP it saves — using a potion to save 15 HP from an elite is massive value
-- Treating potions as 'emergency' items rather than 'efficiency' items
+### Purchase Priority Ranking
 
-#### How To Fix
+- 1. Card removal (always at least 1 per shop, 2 if you can afford and have specific Strikes/Defends to delete)
+- 2. Relics with strong synergy to your existing deck (re-evaluate every shop — a relic that was bad in Act 1 may be great in Act 2)
+- 3. Specific potions for the next elite/boss (Strength, Block, Smoke Bomb if you're fragile)
+- 4. Cards ONLY if they fill a critical job your deck is missing — never buy 'good' cards just because they're available
+- 5. Colorless cards if premium (Apotheosis, Master of Strategy, etc.) — these break archetype lock
 
-- Reframe potions as 'free power' — they cost you nothing to use except the opportunity to use them later
-- Use offensive potions on elites to kill them faster and take less damage overall
-- Use defensive potions to prevent big damage spikes that would force you to rest instead of upgrade
-- If you have 3+ potions, use at least 1-2 on the next elite fight
-- Only save potions for the boss if you're 2-3 fights away from it AND your deck needs help
-- Track your potion acquisition — you find ~3-5 potions per act
+**Skipping A Shop:** Sometimes the right move is to walk through a shop and buy nothing. If everything is overpriced or doesn't fit your build, save the gold for the next act's shop.
 
-#### Detection Criteria
+## Foul Potion Trick
 
-##### Behavioral Signs
+Foul Potions ('throw at enemy: lose all gold') seem like trash. They're not — they're a Merchant interaction.
 
-- Player has full potion slots for extended periods (5+ fights)
-- Player has 3 potions going into an elite fight and uses none
-- Player takes significant damage from elites while holding offensive potions
-- Player states they're 'saving potions for the boss'
-- Player discards potions at fights to make room for new ones (shows they weren't using them)
-- Player has defensive potions while low on HP but doesn't use them preemptively
+**The Trick:** When you have a Foul Potion, you can throw it AT the Merchant NPC during a shop visit. He gives you 100 gold per Foul Potion thrown.
 
-##### Outcome Signs
+**Implication:** Foul Potions are effectively 100-gold tokens that consume a potion slot. Always pick them up if you have a free slot, and dump them at the next shop.
 
-- Player arrives at the boss with full potions but has lost significant HP along the way
-- Player had to rest at campfires instead of upgrading because they took too much damage from elites they could have used potions on
-- Player's deck is weaker than it should be because they skipped elites they could have beaten with potion help
+**Interaction With File Holster:** If you took the File Holster Ancient blessing (extra potion slot), Foul Potions become even more attractive — that extra slot can be a temporary gold-holding container.
 
-#### Coaching Response
+## Gold Generation
 
-**Immediate:** Suggest using a specific potion in the current fight. Explain the HP value it would save.
+### Primary Sources
 
-**Educational:** Show the math: 'If you use this Strength potion on this elite, you kill it 1 turn faster, saving ~15 HP. That's worth more than saving the potion for a boss where it might save 5 HP.'
+- Hallway fight rewards (15-40 gold per fight depending on act)
+- Elite fight rewards (50-100+ gold per elite)
+- Shop merchant 'sell' option on duplicate relics or unwanted potions
+- Gold-rewarding events ('Living Wall', 'Pleasure Spirits', etc.)
+- Foul Potion → merchant trick (100 gold each)
 
-**Actionable:** Before each elite fight, suggest which potions to use. After elite fights, note how much HP was saved or could have been saved.
+### Compounding Relics
 
+- Bloody Idol — heal 5 HP every time you receive 100+ gold (effective sustain from gold)
+- Smiling Mask — every merchant has 50% off the first removal (massive A6+ value)
+- Membership Card — 50% off all shop items
+- Old Coin — instant +300 gold at pickup
+- Maw Bank — +12 gold every floor up to a cap
 
-### Misunderstanding Card Value
+### Gold Dump Targets
 
-Evaluating cards incorrectly — often dismissing 2-cost cards as 'too expensive,' evaluating cards in a vacuum instead of deck context, or overvaluing cards that are flashy but don't fill a needed role. Also includes overvaluing rares and undervaluing strong commons/uncommons.
+- Card removal (always)
+- Key archetype-defining card from the shop pool
+- Relics that compound (energy, draw, scaling)
+- Potions before a tough elite or the act boss
 
-**Severity:** medium
+## Value Per Node Framework
 
-**Frequency:** common
+Every map node has an implicit gold/HP/power value. Pathing is about maximizing total expected value across the act.
 
-#### Why It Happens
+### Approximate Node Values
 
-- Players compare raw numbers without considering action efficiency (2-cost card = 1 draw, 2 one-cost cards = 2 draws)
-- Players evaluate cards in isolation instead of considering deck context and synergies
-- Players gravitate toward 'exciting' cards (rares, flashy effects) over 'boring but effective' cards
-- Unfamiliarity with which cards are actually strong in practice vs theory
-- Not understanding that a card's value depends heavily on what the deck already has
-- Overvaluing card rarity — a strong common is often better than a weak rare
+**Easy Hallway:** +25 gold, ~5 HP, 1 card or potion drop
 
-#### How To Fix
+**Hard Hallway:** +30 gold, ~10 HP cost, 1 card or potion drop
 
-- Evaluate 2-cost cards by their total effect AND their draw efficiency (1 card slot instead of 2)
-- Always evaluate cards in the context of your current deck: 'Does my deck need what this card does?'
-- Prefer cards that fill multiple roles (damage + block, damage + draw, block + draw)
-- Don't be swayed by rarity — a Shrug It Off (common) is often better than a mediocre rare
-- Use the Jobs Framework: identify your deck's needs first, then evaluate which card best fills them
-- Consider the card over the entire run — a card you'll play 50 times has 50x its per-play value
+**Elite:** +60-100 gold, ~15-25 HP cost, 1 card + 1 relic (huge value if survivable)
 
-#### Detection Criteria
+**Campfire:** +0 gold, restore ~30% HP OR upgrade a card (often higher value than a relic)
 
-##### Behavioral Signs
+**Shop:** Variable gold spent, potential huge value depending on inventory
 
-- Player consistently skips 2-cost cards in favor of weaker 1-cost alternatives
-- Player takes rare cards that don't fit their deck over strong commons/uncommons that do
-- Player evaluates cards by raw numbers ('this only does 8 damage') without context
-- Player doesn't consider deck needs when choosing cards — takes the 'best card' instead of the 'best card for their deck'
-- Player dismisses cards as 'bad' without considering their upgraded versions or synergies
+**Event:** Highly variable — read carefully, some are amazing, some are traps
 
-##### Deck Signs
+**Treasure Chest Act 1:** +1 relic (chest skip optional)
 
-- Deck has many weak 1-cost cards instead of fewer powerful 2-cost cards
-- Deck has flashy rares that don't synergize with the rest of the deck
-- Deck is missing strong common/uncommon cards that would shore up weaknesses
-
-#### Coaching Response
-
-**Immediate:** When a 2-cost card is offered, show the math: total effect per card slot, draw efficiency, and how it compares to playing two 1-cost cards.
-
-**Educational:** Explain the 'card slot' concept: 'Every card in your hand takes one draw to get there. A 2-cost card that does the work of two 1-cost cards is effectively giving you a free draw.'
-
-**Actionable:** Recommend cards based on deck needs, not card rarity or raw numbers. Show how the recommended card fills a specific job.
-
-
-## Meta Detection
-
-How the coaching engine should prioritize mistake detection and feedback.
-
-### Priority Order
-
-- card_bloat — check deck size against act thresholds and take rate
-- hoarding_potions — check potion slot usage and elite fight behavior
-- ignoring_pathing — check if player is using Look Ahead Method
-- autopilot — check for enemy intent awareness and play optimization
-- forcing_archetypes — check for rigid card selection patterns
-- misunderstanding_card_value — check for 2-cost card avoidance and context-free evaluation
-
-**Feedback Frequency:** Don't overwhelm the player. Focus on 1-2 mistakes per act. Address the most impactful mistake first.
-
-**Feedback Tone:** Constructive and educational, never condescending. Frame feedback as 'here's how to improve' rather than 'you did this wrong.'
-
-**Positive Reinforcement:** When the player makes a correct decision that avoids a common mistake, acknowledge it. 'Good skip — your deck doesn't need another attack card right now.'
+**Rule Of Thumb:** An elite is worth ~1.5 hallway fights of value but ~2-3 hallway fights of HP cost. Take elites when your deck is strong and your HP is above 60%.
 
 
 ---
@@ -1572,6 +1586,821 @@ A debuff that reduces your block from block cards by 25%. When applied to you, y
 
 ---
 
+# Enchantments
+
+STS2 introduces Enchantments — permanent modifiers added to cards at specific events. Enchantments break standard card evaluation because they bolt scaling and utility onto cards you already own. Always check what enchantments are available before taking a 'mediocre' card; an enchantment can turn a filler card into a build-around.
+
+## Core Enchantments
+
+### Sharp
+
+**Effect:** Adds flat damage to a card's attack
+
+**Best Targets:** High-frequency attacks (Strike, Pommel Strike, Twin Strike) — flat damage scales linearly with how often you play the card
+
+**Trap:** Don't apply Sharp to a card you rarely see; the value lives in repetition
+
+
+### Nimble
+
+**Effect:** Adds flat block to a card
+
+**Best Targets:** Block cards you play every turn (Defend, Iron Wave, Footwork) or block-generating attacks like Body Slam setups
+
+**Trap:** Adding block to a card that already does block well is less efficient than adding it to a card with no block component (it makes a Strike defensive)
+
+
+### Inky
+
+**Effect:** Card applies Weak (often 1 stack) when played
+
+**Best Targets:** Cards played turn 1 or early in fights so the Weak is up before the enemy's big swing
+
+**Value:** Weak reduces enemy damage by 25%. Applying it via a card you'd play anyway is pure value — no opportunity cost
+
+
+### Replay
+
+**Effect:** The first time you play this card each combat, play it again
+
+**Best Targets:** Powerful one-time effects (Bash, Carnage, Demon Form, scaling powers, single-target burst)
+
+**Trap:** Don't waste Replay on cycle-cantrip cards; the effect is biggest on high-impact one-shots
+
+
+### Swift
+
+**Effect:** Reduces a card's cost by 1 (typically the first time played per combat)
+
+**Best Targets:** Expensive impact cards (Carnage, Demon Form, Bludgeon) so the first play is cheap
+
+**Value:** Effectively an energy refund on a card you already wanted
+
+
+## Anger Exploit
+
+Because enchantments apply their rules at the bottom of a card's text box, Anger creates a copy of itself BEFORE applying 'first-time played' enchantment modifiers like Swift or Replay. The newly generated copy retains a pristine, un-triggered version of that enchantment. This lets you infinitely proc 'one-time' enchantments by repeatedly playing Anger and triggering Replay/Swift on every copy.
+
+**Why It Works:** Anger duplicates itself on play. The duplicate is a fresh card instance, which means it still has its 'first time this combat' enchantment available. Each play creates a new copy with a fresh Replay/Swift trigger.
+
+### Best With
+
+- Anger + Replay — every Anger doubles itself, every copy plays itself twice
+- Anger + Swift — every Anger costs 0 the first time, so all the duplicates are 0-cost first plays
+
+**Status Note:** MegaCrit may patch this; it's currently a known exploit. If you're playing for fun, exploit it. If you're chasing a 'pure' run, avoid.
+
+## Evaluation Framework
+
+### When Enchanting Is High Value
+
+- You have a card you'd play every turn (Strike, Defend, Iron Wave) — flat enchantments scale with frequency
+- You have an expensive impact card you want to play more (Carnage, Demon Form) — Swift or Replay multiplies its value
+- You have a card with a great effect but weak numbers — Sharp/Nimble fixes the numbers
+
+### When Enchanting Is Low Value
+
+- The card is already going to be removed (don't enchant Strikes you plan to delete)
+- The card is conditional and rarely good (Body Slam without block setup, Reaper without enough attacks)
+- You already have multiple copies and the enchantment only buffs one
+
+**Interaction With 4 Pillars:** Treat enchantments as a fifth pillar of deck improvement, alongside damage/cycle/block/upgrades. An enchantment on the right card can produce more value than a new card or an upgrade.
+
+
+---
+
+# Ancients
+
+Ancients are the STS2 equivalent of STS1's Neow. At the start of every run, the Ancient offers a choice of blessings — usually some combination of a free relic/card, a temporary buff, and a trade-off (curse, locked deck slot, max HP loss). Strong opening blessings can win the run on their own; bad ones can dig you into a hole you can't climb out of.
+
+## Tier S Blessings
+
+### Pale's Wing
+
+**Effect:** At the end of each combat, you may sacrifice the card reward to receive a relic instead
+
+**Why Top Tier:** Lets you bypass risky elites entirely while still gaining relic power. Stacks compounding value over the run — every hallway fight becomes a potential relic.
+
+**Build Impact:** Take fewer cards by default (the sacrifice option lets you skip and still gain). Path more aggressively toward gold/shops because you don't need elite-relic farming.
+
+
+### Talisman
+
+**Effect:** Permanently upgrade one Strike and one Defend in your starting deck
+
+**Why Top Tier:** Zero downside. Two free upgrades is a meaningful tempo boost for the entire run, and the upgraded Strikes/Defends are slightly more removable-after (their numbers are still bad relative to drafted cards).
+
+**Best For:** Any character. Pure tempo, no commitment to a strategy.
+
+
+### File Holster
+
+**Effect:** Permanent additional potion slot for the entire run
+
+**Why Top Tier:** An entire extra potion slot for the whole run is huge. More potions used on elites = more HP saved = better pathing options downstream. Compounds with potion-generating relics.
+
+**Synergies:** Entropic Brew, Toxic Egg, any potion-density relic. Becomes broken on Silent (Sneko-Eye-style potion-heavy builds).
+
+
+## Tier A Blessings
+
+### Hefty Tablet
+
+**Effect:** Choose one of three Rare cards to add to your starting deck. Take an Injury curse as a downside
+
+**Why Strong:** Rare cards are run-defining. Getting one in your opening deck — and being able to draft AROUND it — is a massive head start.
+
+**Downside Management:** The Injury curse can be removed at the first shop or via events. Some characters (Necrobinder via Ethereal, Ironclad via exhaust) can play around it.
+
+#### Best Picks Per Character
+
+**Ironclad:** Demon Form, Limit Break, Bludgeon, Barricade
+
+**Silent:** Catalyst, Envenom, Wraith Form, Tools of the Trade
+
+**Defect:** Echo Form, Biased Cognition, Capacitor
+
+**Necrobinder:** Any high-Doom enabler
+
+**Regent:** A Star or Forge engine card
+
+
+### Bottle Relic Blessings (Bottled Flame / Lightning / Tornado / etc.)
+
+**Effect:** Innate-lock a card type in your starting deck
+
+**Why Strong:** Innate cards on turn 1 every fight is a massive consistency boost. Bottled Flame guarantees a turn-1 attack; Bottled Lightning a turn-1 skill; etc.
+
+
+## Trade Off Blessings
+
+### Boss-relic-for-curses bonuses
+
+**Pattern:** Trade away ~2 curses or a permanent debuff in exchange for a boss-tier relic immediately
+
+**Evaluation:** Almost always worth it if the relic is run-defining and you can manage the curses. Skip if the relic is conditional (Dead Branch with no exhaust deck, Snecko Eye with no draw).
+
+
+### Max HP trades
+
+**Pattern:** Lose 8-12 max HP in exchange for gold, a relic, or upgrades
+
+**Evaluation:** Take if you have strong healing or block scaling. Avoid on characters with limited sustain or if you're playing high ascension where the HP buffer matters.
+
+
+## Tier B Or Avoid
+
+### Generic gold/HP starters
+
+**Examples:** 100 gold to start, +10 max HP, etc.
+
+**Why Lower Tier:** Linear value with no compounding. Useful when other options are bad, but rarely run-defining.
+
+
+### Locked-character bonuses
+
+**Pattern:** Massive bonus but you must play a specific character
+
+**Evaluation:** Only take if you actually want to play that character. Forcing a character you don't know to chase a blessing is a recipe for a quick loss.
+
+
+## Selection Framework
+
+- 1. Read every option carefully — Ancient blessings have hidden modifiers (locked deck slots, etc.)
+- 2. Prefer compounding effects (Pale's Wing, File Holster) over one-shot bumps (gold, HP)
+- 3. Talisman is the safe default when nothing else jumps out
+- 4. Hefty Tablet is the highest variance — only take if you're confident in playing around the Injury curse
+- 5. Match the blessing to the act 1 boss you can see on the map — if it's an AOE check, prefer blessings that give early AOE
+
+
+---
+
+# Elite Strategies
+
+Specific elite encounter algorithms. Each elite has a 'shape' — a particular mechanic that punishes a particular deck weakness. Knowing the shape lets you path toward elites your deck can handle and AWAY from elites it can't.
+
+## General Elite Principles
+
+- Aim for 2-3 elites in Act 1, 2-3 in Act 2, 1-2 in Act 3 (relic and gold value decreases late)
+- Take elites LATE in the act after farming easy hallway fights for gold/drafts
+- Never engage an elite below 60% HP unless you have a strong burst plan or escape potion
+- Use potions on elites — saving them for the boss is one of the most common mistakes
+- If your deck lost a key card or you haven't found scaling yet, skip elites this act
+
+## Act 1 Elites
+
+### Skullking Colony (Coral Elite)
+
+**Location:** Underdocks act 1
+
+**Exam Type:** Sustained defense check
+
+**Key Mechanic:** Multi-enemy, each one deals consistent damage every turn — tests your TURN-OVER-TURN block, not your burst
+
+#### Build Requirements
+
+- Heavy defensive scaling (Footwork, Metallicize, Frost orbs)
+- Some AOE to thin the wave
+- Block density above 33% specifically helps here
+
+**Trap:** Pure-burst decks die because the wave just keeps coming. You can't burst your way out.
+
+
+### Frog Parasite (Phobia Mode replaces visuals)
+
+**Exam Type:** Status/curse management
+
+**Key Mechanic:** Spawns wriggly minions that apply debuffs or curses
+
+#### Build Requirements
+
+- AOE to kill minions fast
+- Artifact stacks or debuff cleansing
+
+**Phobia Mode Note:** If the wriggly enemy visuals bother you, enable Phobia Mode in settings — replaces with 2D geometric placeholders, no mechanical change.
+
+
+## Act 2 Elites
+
+### Desa Millipede
+
+**Exam Type:** Forced long-fight defense check
+
+**Key Mechanic:** Hard damage cap — takes MAX 15 damage per turn. Has 40-48 HP depending on ascension. Forces a minimum 6-turn combat that culminates in massive 12x2 attacks.
+
+**The Rule:** Pure frontload FAILS here — the damage cap negates your burst. You MUST have an established block engine that holds up for 6+ turns AND survives the 12x2 climax.
+
+#### Build Requirements
+
+- Sustained block (Frost orbs + Focus, Footwork Dexterity, Metallicize)
+- Steady damage (the cap means you don't need more than 15/turn)
+- Block density 33%+ — you need to draw block every single turn
+
+#### Specific Card Picks
+
+- Anything that scales block over time becomes a top pick
+- Intangible (1 turn of 'take 1 damage') trivializes the climax attack
+- Apparition (5 turns of Intangible) is a hard counter if you can get it
+
+
+### Entomancer / Bug Boss elites
+
+**Exam Type:** Multi-target attack + summon
+
+**Key Mechanic:** Summons additional enemies and attacks multiple targets per turn
+
+#### Build Requirements
+
+- AOE damage
+- Weak or Frail debuffs to reduce incoming damage
+- Silent's Piercing Whale (-6 Strength to all) full-blocks this elite on its own
+
+
+## Act 3 Elites
+
+### Generic Act 3 elite notes
+
+**Principle:** Act 3 elites are damage races against time. They scale fast; you must scale faster.
+
+#### Common Threats
+
+- Multi-phase scaling (deals double damage after a threshold)
+- Heavy artifact stacks (resists your debuffs)
+- Removes your buffs or applies massive debuffs
+
+**Rule:** Act 3 elites are HIGH variance. Skip them unless your deck is mid-90s power level — the rewards are great but the HP cost is brutal if you stumble.
+
+
+## Elite Engagement Checklist
+
+- 1. What's the elite's exam type? (Burst race / sustained defense / AOE / multi-phase / debuff)
+- 2. Does my deck pass that exam? (Pillar scores, key cards, scaling state)
+- 3. What's my HP? (60%+ for engage, 40-60% for marginal, <40% for skip unless desperate)
+- 4. What potions can I burn here? (Save SOMETHING for the boss, but use most for the elite)
+- 5. What's the elite's reward likely to be? (Relic pool, possible card archetypes)
+- 6. Path-flexibility: can I take a non-elite path if I lose >25% HP here?
+
+
+---
+
+# Boss Strategies
+
+Boss-specific strategies and threshold algorithms. Every Act 1 and Act 3 boss has a 'final exam' shape — a specific mechanical check your deck must pass. Pathing should always start by identifying the boss (top of the map) and building backward.
+
+## Act 1 Bosses
+
+### Ceremonial Beast
+
+**Exam Type:** Damage + sustain check
+
+#### Key Mechanics
+
+- High HP, moderate scaling
+- Apply early pressure that punishes slow decks
+
+#### Build Requirements
+
+- Frontload damage to threaten kill pressure early
+- At least one scaling source for the back half
+- Block density ~33% — bleeds you out if you skimp
+
+**Preferred Potions:** Block potion, Strength potion, Fire potion
+
+
+### Waterfall Giant
+
+**Exam Type:** Strict damage race
+
+#### Key Mechanics
+
+- Builds 'Steam Eruption' every turn
+- On death, explodes for damage proportional to accumulated Steam
+- If you don't burst him down, the death explosion wipes your HP bar
+
+#### Build Requirements
+
+- Either burst him down before steam stacks become lethal, OR
+- Have enough block to survive the death explosion (Intangible, massive single-turn block, or potions)
+
+**Do Not:** Drag the fight out. Every turn makes the death explosion bigger.
+
+**Preferred Potions:** Fire Potion, Strength Potion, Smoke Bomb as panic-button
+
+
+### Kin Priest
+
+**Exam Type:** Multi-enemy AOE check
+
+#### Key Mechanics
+
+- Multiple enemies, priest buffs the others
+- Killing minions removes the buff source
+- Without AOE you take damage from every minion every turn
+
+#### Build Requirements
+
+- AOE damage card (Cleave, Whirlwind, Thunderclap, Glass Orb evoke)
+- Targeted priest-kill burst, OR sustained AOE to clear the wave
+
+
+### Lagavulin Matriarch
+
+**Exam Type:** Patience + debuff resistance
+
+#### Key Mechanics
+
+- Sleeps for the opening turns, takes massive damage during sleep
+- When awake, stacks debuffs on you
+- Artifact removes one debuff stack (useful counter)
+
+**Strategy:** Burst as much damage as possible while she's sleeping. Save Vulnerable potions and high-damage cards for the sleep window. Wake her up only after dealing 25%+ of her HP.
+
+**Preferred Potions:** Strength + Fire + Liquid Bronze (Artifact stacks)
+
+
+## Act 2 Bosses
+
+### Generic mid-act boss notes
+
+**Principle:** Act 2 bosses test your scaling. If your deck still relies on starter Strikes for damage at the end of Act 2, you will lose. Verify scaling is online before the boss floor.
+
+#### Common Threats
+
+- Heavy single-turn damage spikes (need block)
+- Buff stacking that snowballs (need to interrupt with kill pressure or Weak)
+- Multi-phase or summon mechanics (need AOE)
+
+
+## Act 3 Bosses
+
+### The Queen
+
+**Exam Type:** Pacing check + ordered targeting
+
+#### Turn By Turn
+
+**Turn 1:** Shackles you (reduces strength)
+
+**Turn 2:** Weakens you
+
+**Turn 3:** Begins buffing the Amalgam (torch head) with Strength, gives herself 20 block per turn
+
+**The Rule:** Unless your deck has enough frontloaded damage to smash through 20 block AND deal massive HP damage every turn, you MUST target the Amalgam first. Killing the Amalgam resets her strength buffs.
+
+**The Exploit:** If you kill the Amalgam using delayed Doom damage (Necrobinder), the game skips the Queen's first self-buff phase entirely, granting you massive momentum.
+
+#### Build Requirements
+
+- Burst potential to kill the Amalgam quickly
+- Strength sources that survive the Shackles debuff
+- Block to weather turns 1-3 while the buffs stack
+
+
+### The Doormaker (reworked)
+
+**Exam Type:** Anti-infinite check
+
+**Key Mechanic:** Aura: every card you play drains 1 energy. If your deck relies on playing 20 zero-cost cards to deal damage, you will zero out your energy pool instantly.
+
+**The Rule:** You beat Doormaker by drafting a THICK deck (30+ cards) focused on HIGH-COST, HIGH-IMPACT plays (Bludgeon, Meteor Strike, Reaper, Bombardment). Play 2-3 big cards per turn instead of 10 small cards.
+
+#### What Loses To Doormaker
+
+- 0-cost spam (Claw decks, Anger loops, infinite-draw setups)
+- Cycle-heavy decks that rely on playing many cards per turn
+- Energy-conversion engines that depend on net-positive energy gain per card
+
+#### What Beats Doormaker
+
+- Stars/Forge decks (Regent) — energy isn't the primary resource
+- Doom-stack decks (Necrobinder) — you set up Doom, then play few cards while it ticks
+- Big-card Ironclad (Bludgeon, Demon Form scaling) — quality over quantity
+
+
+### Test Subject
+
+**Exam Type:** Multi-phase damage race
+
+**Tier:** Currently considered the deadliest boss on the beta branch
+
+#### Phases
+
+**Phase 1:** Brutal damage check, scales out of control if you're too slow
+
+**Phase 2:** Strictly increases the number of attacks the boss executes every single turn — must end fast
+
+**Phase 3:** Horrific multi-attack phase where blocks alone won't save you
+
+**The Rule:** Save your burst potions (Duplication, Energy potions, Strength stack) EXCLUSIVELY to bypass Phase 2 quickly. If you enter Phase 3 without a burst plan, you lose.
+
+#### Build Requirements
+
+- Massive burst potential (50+ damage in a single turn)
+- Hoarded potions specifically reserved for this fight
+- Block scaling that survives multi-hit phases (Frost orbs + Focus, Footwork stacking, Metallicize)
+
+
+## Pathing Implication
+
+Pathing decisions should reference the boss. The skill should pull `run.boss` from the live state and reference this knowledge base section.
+
+### Pre Boss Priorities
+
+- Hit a campfire on the floor immediately before the boss (heal or upgrade)
+- Stock potions appropriate to the boss type (AOE for multi-enemy, burst for damage race, block for steam-eruption)
+- Skip card rewards 2-3 floors before the boss unless they specifically counter the boss
+- Do NOT engage elites on the floor immediately before the boss unless your HP is full
+
+**Boss Counter Drafting:** When you see the act boss at run start, every card draft should ask: 'Does this help me beat THIS boss?' A great card that doesn't help vs your specific boss is worth less than a mediocre card that does.
+
+
+---
+
+# Common Mistakes
+
+## Mistakes
+
+### Card Bloat
+
+Taking too many cards, resulting in a bloated deck with inconsistent draws. The player adds cards without considering the impact on cycle time and draw consistency. Deck becomes unfocused — the player has many 'okay' cards but rarely sees their best cards when they need them.
+
+**Severity:** high
+
+**Frequency:** very_common
+
+#### Why It Happens
+
+- New players feel that more cards = more power, when the opposite is often true
+- Fear of skipping — players feel they're 'wasting' a card reward by not taking anything
+- Not understanding cycle time — players don't realize that a 35-card deck sees key cards half as often as a 20-card deck
+- Taking cards 'just in case' without a specific plan for when they'll be useful
+- Evaluating cards in isolation rather than in the context of the whole deck
+- Excitement over seemingly powerful cards without considering if they fit the deck's strategy
+
+#### How To Fix
+
+- Before every card reward, ask: 'Does this card make my deck better, or just bigger?'
+- Track your deck size — aim for 20-25 cards by end of Act 2
+- Skip card rewards more often — skipping 40-60% of rewards in Act 2+ is normal for strong players
+- Prioritize card removal at shops to offset cards you've taken
+- Use the 'Jobs Framework' — only take cards that fill a specific, unfilled role in your deck
+- Review your deck regularly and ask: 'Which cards do I wish I wasn't drawing?'
+
+#### Detection Criteria
+
+##### Deck Size Thresholds
+
+**Act1 Warning:** More than 22 cards by end of Act 1
+
+**Act2 Warning:** More than 28 cards by end of Act 2
+
+**Act3 Warning:** More than 32 cards by end of Act 3
+
+##### Behavioral Signs
+
+- Player takes a card from almost every reward (>80% take rate)
+- Player has multiple cards serving the same role (redundant cards)
+- Player rarely or never skips card rewards
+- Player has cards that were never or rarely played in recent combats
+- Deck has both aggressive and defensive scaling that don't synergize
+
+##### Combat Signs
+
+- Player frequently doesn't draw their key cards when needed
+- Fights take longer than necessary because draws are inconsistent
+- Player has leftover energy but bad cards to play (hand is full of mediocre options)
+
+#### Coaching Response
+
+**Immediate:** Point out the deck size relative to the act. Compare their take rate to recommended rates.
+
+**Educational:** Explain cycle time: 'Your deck has 30 cards. With a 5-card hand, it takes 6 draws (3 turns) to see your whole deck. If your key combo is 3 cards, you might not see it for 4+ turns.'
+
+**Actionable:** Recommend skipping the current card reward unless one card fills a critical need. Suggest card removal at the next shop.
+
+
+### Forcing Archetypes Early
+
+Committing to a specific build (e.g., 'I'm going Poison Silent' or 'I'm doing Strength Ironclad') before seeing what the game offers. This causes players to pass on strong cards that don't fit their preconceived plan and take weak cards that do.
+
+**Severity:** high
+
+**Frequency:** common
+
+#### Why It Happens
+
+- Players watch streamers pilot specific archetypes and want to replicate them
+- Deck-building games encourage 'theme' thinking — players want a cohesive identity early
+- It feels good to have a plan — uncertainty is uncomfortable
+- Players remember their best runs with a specific archetype and try to recreate them
+- Confusion between 'having a direction' (good) and 'forcing an archetype' (bad)
+- Not understanding that strong decks are built from what you're offered, not what you want
+
+#### How To Fix
+
+- Stay flexible through Act 1 — take the best card offered regardless of archetype
+- Let your deck's identity emerge from the cards and relics you find
+- Evaluate each card reward independently: 'Is this the best card for my deck RIGHT NOW?'
+- Don't commit to an archetype until you have 3-4 strong cards in that direction
+- Remember that hybrid decks are often stronger than 'pure' archetype decks
+- Focus on the Four Pillars (damage, cycle, block, upgrades) rather than archetypes
+
+#### Detection Criteria
+
+##### Behavioral Signs
+
+- Player passes on strong general-purpose cards in favor of weak archetype-specific cards
+- Player states their build plan in Act 1 ('I'm going Shiv build')
+- Player takes archetype cards that don't work without other archetype pieces they don't have yet
+- Player ignores the Four Pillars in favor of archetype synergy
+- Player is disappointed by card rewards that don't match their desired archetype
+
+##### Deck Signs
+
+- Deck has archetype-specific cards but lacks the support cards to make them work
+- Deck is missing basic needs (block, frontload damage) because player skipped non-archetype cards
+- Deck has clear archetype identity but performs poorly because key pieces are missing
+
+#### Coaching Response
+
+**Immediate:** Ask the player why they're passing on the strong card. Challenge archetype-based reasoning.
+
+**Educational:** Explain adaptability: 'The best STS2 players build around what the game gives them. If the game offers you 3 strong Poison cards, go Poison. If it offers you 3 strong Shiv cards, go Shiv. Don't decide in advance.'
+
+**Actionable:** Recommend the strongest card in the current reward regardless of archetype. Point out how it fills a job the deck needs.
+
+
+### Ignoring Pathing Strategy
+
+Not planning map routes in advance. The player makes node-by-node decisions instead of planning the entire act's path. This leads to suboptimal routes — missing elites when strong, hitting elites when weak, visiting shops with no gold, or skipping campfires before tough fights.
+
+**Severity:** high
+
+**Frequency:** common
+
+#### Why It Happens
+
+- Players focus on the immediate decision ('left or right?') instead of the big picture
+- Map information feels overwhelming — too many variables to process
+- Players don't realize they can see the full map and plan ahead
+- Reactive play is easier than proactive planning
+- Not understanding which node types are most valuable at different points in the run
+- Lack of awareness of the Look Ahead Method
+
+#### How To Fix
+
+- Use the Look Ahead Method: plan your entire act path from bottom to top before taking your first step
+- Identify the boss first — know what you're building toward
+- Count elites, campfires, shops, and question marks on each possible route
+- Consider your HP, deck state, and gold when choosing between routes
+- Have a backup path if things go wrong (take more damage than expected, etc.)
+- Re-evaluate your path at every decision point — adjust if your situation has changed
+
+#### Detection Criteria
+
+##### Behavioral Signs
+
+- Player doesn't examine the full map before making pathing decisions
+- Player makes pathing decisions quickly without analysis
+- Player hits shops with less than 150 gold
+- Player enters elite fights at low HP (below 40%)
+- Player skips campfires before tough fights when they need healing or upgrades
+- Player doesn't consider the boss when making pathing choices
+
+##### Outcome Signs
+
+- Player arrives at boss with suboptimal HP or deck state
+- Player misses elite opportunities when they were strong enough to fight
+- Player visits shops without enough gold for meaningful purchases
+- Player reaches campfires with no good upgrade targets (already upgraded key cards earlier)
+
+#### Coaching Response
+
+**Immediate:** Before the player moves to the next node, suggest they look at the full map and plan their route.
+
+**Educational:** Explain the Look Ahead Method step by step. Show how planning ahead leads to better outcomes.
+
+**Actionable:** Provide a recommended path for the current act with reasoning for each node.
+
+
+### Playing on Autopilot
+
+Going through the motions without thinking through individual turns. Playing cards in the same order every fight, not considering enemy intent, not doing damage/block math. This leads to suboptimal plays that compound over a run.
+
+**Severity:** medium
+
+**Frequency:** very_common
+
+#### Why It Happens
+
+- Fights become repetitive and players stop thinking critically
+- Players develop habits ('always play Strikes first, then Defends') without evaluating each turn
+- Fatigue during long runs — mental energy decreases as the run progresses
+- Overconfidence in easy fights — players don't bother optimizing 'simple' encounters
+- Not understanding that small optimizations compound over many fights
+- Lack of awareness of enemy intent indicators and how to play around them
+
+#### How To Fix
+
+- Check enemy intent EVERY turn before playing any cards
+- Do the math: calculate exactly how much damage you need to deal and how much block you need
+- Consider card order — some cards benefit from being played before others (Vulnerable before attacks)
+- Ask 'What's the worst that can happen this turn?' before committing to plays
+- Identify lethal threats — know when the enemy can kill you and plan accordingly
+- Take short breaks during long runs to maintain focus
+
+#### Detection Criteria
+
+##### Behavioral Signs
+
+- Player plays cards in the same order every turn regardless of enemy intent
+- Player doesn't check enemy intent indicators
+- Player doesn't calculate damage/block math for the turn
+- Player makes plays quickly without pausing to think
+- Player ends turn with unspent energy and playable cards
+- Player doesn't adjust strategy based on enemy behavior changes
+
+##### Outcome Signs
+
+- Player takes unnecessary damage from predictable enemy attacks
+- Player over-blocks (wastes block) or under-blocks (takes preventable damage)
+- Player kills enemies one turn later than necessary due to suboptimal play order
+- Player misses lethal on enemies, extending fights unnecessarily
+
+#### Coaching Response
+
+**Immediate:** Ask the player to pause and check enemy intent before making plays.
+
+**Educational:** Show specific examples of how play order and math optimization would have saved HP or ended fights faster.
+
+**Actionable:** Provide a step-by-step analysis of the optimal play for the current turn, showing the reasoning.
+
+
+### Hoarding Potions
+
+Saving potions 'for the boss' instead of using them on elites and tough hallway fights. This is one of Baalorlord's most-discussed mistakes. Potions used on elites often save more HP than they would on the boss, and you'll likely find more potions before the boss anyway.
+
+**Severity:** medium
+
+**Frequency:** very_common
+
+#### Why It Happens
+
+- Boss fights feel like the 'big' fight, so players save their best resources for them
+- Fear of not having potions when they 'really' need them
+- Not understanding that elite fights are often harder relative to your deck than boss fights
+- Not tracking potion acquisition — players don't realize how frequently potions drop
+- Overvaluing the potion itself vs the HP it saves — using a potion to save 15 HP from an elite is massive value
+- Treating potions as 'emergency' items rather than 'efficiency' items
+
+#### How To Fix
+
+- Reframe potions as 'free power' — they cost you nothing to use except the opportunity to use them later
+- Use offensive potions on elites to kill them faster and take less damage overall
+- Use defensive potions to prevent big damage spikes that would force you to rest instead of upgrade
+- If you have 3+ potions, use at least 1-2 on the next elite fight
+- Only save potions for the boss if you're 2-3 fights away from it AND your deck needs help
+- Track your potion acquisition — you find ~3-5 potions per act
+
+#### Detection Criteria
+
+##### Behavioral Signs
+
+- Player has full potion slots for extended periods (5+ fights)
+- Player has 3 potions going into an elite fight and uses none
+- Player takes significant damage from elites while holding offensive potions
+- Player states they're 'saving potions for the boss'
+- Player discards potions at fights to make room for new ones (shows they weren't using them)
+- Player has defensive potions while low on HP but doesn't use them preemptively
+
+##### Outcome Signs
+
+- Player arrives at the boss with full potions but has lost significant HP along the way
+- Player had to rest at campfires instead of upgrading because they took too much damage from elites they could have used potions on
+- Player's deck is weaker than it should be because they skipped elites they could have beaten with potion help
+
+#### Coaching Response
+
+**Immediate:** Suggest using a specific potion in the current fight. Explain the HP value it would save.
+
+**Educational:** Show the math: 'If you use this Strength potion on this elite, you kill it 1 turn faster, saving ~15 HP. That's worth more than saving the potion for a boss where it might save 5 HP.'
+
+**Actionable:** Before each elite fight, suggest which potions to use. After elite fights, note how much HP was saved or could have been saved.
+
+
+### Misunderstanding Card Value
+
+Evaluating cards incorrectly — often dismissing 2-cost cards as 'too expensive,' evaluating cards in a vacuum instead of deck context, or overvaluing cards that are flashy but don't fill a needed role. Also includes overvaluing rares and undervaluing strong commons/uncommons.
+
+**Severity:** medium
+
+**Frequency:** common
+
+#### Why It Happens
+
+- Players compare raw numbers without considering action efficiency (2-cost card = 1 draw, 2 one-cost cards = 2 draws)
+- Players evaluate cards in isolation instead of considering deck context and synergies
+- Players gravitate toward 'exciting' cards (rares, flashy effects) over 'boring but effective' cards
+- Unfamiliarity with which cards are actually strong in practice vs theory
+- Not understanding that a card's value depends heavily on what the deck already has
+- Overvaluing card rarity — a strong common is often better than a weak rare
+
+#### How To Fix
+
+- Evaluate 2-cost cards by their total effect AND their draw efficiency (1 card slot instead of 2)
+- Always evaluate cards in the context of your current deck: 'Does my deck need what this card does?'
+- Prefer cards that fill multiple roles (damage + block, damage + draw, block + draw)
+- Don't be swayed by rarity — a Shrug It Off (common) is often better than a mediocre rare
+- Use the Jobs Framework: identify your deck's needs first, then evaluate which card best fills them
+- Consider the card over the entire run — a card you'll play 50 times has 50x its per-play value
+
+#### Detection Criteria
+
+##### Behavioral Signs
+
+- Player consistently skips 2-cost cards in favor of weaker 1-cost alternatives
+- Player takes rare cards that don't fit their deck over strong commons/uncommons that do
+- Player evaluates cards by raw numbers ('this only does 8 damage') without context
+- Player doesn't consider deck needs when choosing cards — takes the 'best card' instead of the 'best card for their deck'
+- Player dismisses cards as 'bad' without considering their upgraded versions or synergies
+
+##### Deck Signs
+
+- Deck has many weak 1-cost cards instead of fewer powerful 2-cost cards
+- Deck has flashy rares that don't synergize with the rest of the deck
+- Deck is missing strong common/uncommon cards that would shore up weaknesses
+
+#### Coaching Response
+
+**Immediate:** When a 2-cost card is offered, show the math: total effect per card slot, draw efficiency, and how it compares to playing two 1-cost cards.
+
+**Educational:** Explain the 'card slot' concept: 'Every card in your hand takes one draw to get there. A 2-cost card that does the work of two 1-cost cards is effectively giving you a free draw.'
+
+**Actionable:** Recommend cards based on deck needs, not card rarity or raw numbers. Show how the recommended card fills a specific job.
+
+
+## Meta Detection
+
+How the coaching engine should prioritize mistake detection and feedback.
+
+### Priority Order
+
+- card_bloat — check deck size against act thresholds and take rate
+- hoarding_potions — check potion slot usage and elite fight behavior
+- ignoring_pathing — check if player is using Look Ahead Method
+- autopilot — check for enemy intent awareness and play optimization
+- forcing_archetypes — check for rigid card selection patterns
+- misunderstanding_card_value — check for 2-cost card avoidance and context-free evaluation
+
+**Feedback Frequency:** Don't overwhelm the player. Focus on 1-2 mistakes per act. Address the most impactful mistake first.
+
+**Feedback Tone:** Constructive and educational, never condescending. Frame feedback as 'here's how to improve' rather than 'you did this wrong.'
+
+**Positive Reinforcement:** When the player makes a correct decision that avoids a common mistake, acknowledge it. 'Good skip — your deck doesn't need another attack card right now.'
+
+
+---
+
 # Character — Ironclad
 
 **Character:** Ironclad
@@ -2076,6 +2905,109 @@ Situational cards. Take only when they specifically fill a gap in your deck.
 **Overreliance On Burning Blood:** 6 HP per fight is nice but won't save you from 30+ damage elite fights. Don't take extra damage just because you have healing.
 
 **Heavy Blade Without Strength:** Heavy Blade is mediocre without Strength. It only becomes powerful with 5+ Strength stacks.
+
+## Advanced Synergies And Reworks
+
+Grandmaster-level Ironclad knowledge: cards reworked in STS2, current top combos, and anti-pattern warnings.
+
+### Stoke The Dead Branch Card
+
+**Card:** Stoke
+
+**Rework:** Exhausts your ENTIRE hand and replaces every card with a random Ironclad card (upgraded versions if Stoke itself is upgraded). Stoke does NOT exhaust itself.
+
+**Why Top Tier:** Functions like the Dead Branch relic baked into a card. Pair with Feel No Pain and Dark Embrace and you generate massive block/draw every time you play it. Self-recurring because Stoke doesn't exhaust.
+
+#### Best Partners
+
+- Feel No Pain
+- Dark Embrace
+- Corruption
+- Second Wind
+
+### Perfected Strike Exhaust Safety
+
+**Card:** Perfected Strike
+
+**Rework:** Now counts Strike cards in your EXHAUST pile, not just your deck.
+
+**Implication:** You can safely exhaust your starter Strikes (via Corruption, True Grit, Headbutt, etc.) WITHOUT losing your late-game Perfected Strike damage scaling. This was the main weakness of Perfected Strike builds in STS1.
+
+**Build Pattern:** Take Perfected Strike + heavy exhaust → exhaust all 5 starter Strikes through combat → Perfected Strike now hits for huge numbers AND your deck is thin
+
+### Pillage Hellraiser Perfected Strike Combo
+
+#### Cards
+
+- Pillage
+- Hellraiser
+- Perfected Strike
+
+**The Combo:** Hellraiser auto-plays any Strike card the moment it's drawn. Pillage draws cards until you hit a non-attack. If you thin your deck of skills/powers, Pillage will draw your entire deck of Perfected Strikes and auto-play all of them via Hellraiser.
+
+**Result:** Game-ending damage in a single play, particularly devastating against single-target bosses
+
+#### Deck Requirements
+
+- Thin skills/powers
+- Multiple Perfected Strikes
+- Hellraiser power online
+- Pillage in hand
+
+### Dominate Strength Scaling
+
+**Card:** Dominate
+
+**Rework:** Now scales your Strength directly based on the enemy's Vulnerable stacks
+
+**Implication:** Dominate is now the premier Strength-generation tool for Ironclad. Pair with Vulnerable-application cards (Bash, Sword Boomerang, Inflame) to ramp Strength faster than any other character
+
+**Synergy:** Bash applies 2 Vulnerable → Dominate grants +2 Strength. Bash+ + Dominate stacks Strength at a brutal rate.
+
+### Cruelty Vulnerable Amplifier
+
+**Card:** Cruelty
+
+**Effect:** Massively multiplies damage dealt to Vulnerable enemies
+
+**Build Pattern:** Vulnerable application + Cruelty + raw attacks = boss-killer combo. Especially strong vs single-target Act 3 bosses.
+
+### Defensive Anchors
+
+#### Colossus
+
+**Effect:** 50% damage reduction from Vulnerable enemies
+
+**Tier:** S-tier defensive monolith
+
+**Synergy:** Compounds with all your Vulnerable application — every Bash, Sword Boomerang, etc. doubles your effective HP for that fight
+
+#### Unmovable
+
+**Effect:** Doubles the FIRST block gained each turn
+
+**Tier:** S-tier defensive monolith
+
+**Best With:** Single big-block cards (Iron Wave, Shrug It Off) rather than many small blocks. Order block cards so the biggest hits first.
+
+### Infinite Loops Are Dead
+
+STS2 deliberately broke most easy Ironclad infinites. Don't try to build the old STS1 loops.
+
+#### Broken Loops
+
+- Expect a Fight — now explicitly prevents gaining additional energy on the turn it's played. No more 0-cost energy infinites.
+- Bloodletting — rebalanced to prevent loop exploits
+- Spite — reworked: now hits multiple times if you LOSE HP, not draws cards (no more draw-loop spite)
+- Forgotten Ritual — exhausts after a single use, no more Power-loop
+
+**What To Build Instead:** Big-card decks with Stoke + exhaust payoffs, Perfected Strike + exhaust scaling, or Demon Form + Limit Break Strength scaling. Quality over quantity.
+
+### Doormaker Counter Archetype
+
+The reworked Doormaker Act 3 boss drains 1 energy per card played. Ironclad's BIG-CARD decks (Bludgeon, Demon Form, high-cost impact plays) are the natural counter.
+
+**Build For Doormaker:** Thicker deck (30+ cards), high-cost impact cards, fewer cards played per turn — exactly the opposite of an infinite loop.
 
 
 ---
@@ -2613,6 +3545,135 @@ Situational. Take only when they fill a specific need.
 **Catalyst Without Poison:** Catalyst is amazing but useless without Poison. Don't take Catalyst if you have no Poison application.
 
 **Ignoring Footwork:** Footwork is one of the best cards in the game. +2/3 Dexterity permanently makes every block card significantly better. Don't skip it.
+
+## Advanced Synergies And Reworks
+
+Grandmaster-level Silent knowledge: the new Sly mechanic, reworked Prepare, Outbreak boss-killing, and the Phantom Blades Shiv combo.
+
+### Sly Mechanic
+
+Sly is a new STS2 keyword. Cards with Sly trigger their effects FOR FREE when discarded — not when played. This unlocks a draw/discard engine archetype.
+
+#### Key Sly Cards
+
+##### Reflex
+
+**Sly Effect:** Draw 2 cards when discarded
+
+
+##### Tactician
+
+**Sly Effect:** Gain 1 energy when discarded
+
+
+**The Engine:** Combine Sly cards with discard-trigger cards. Discarding Reflex draws 2; discarding Tactician gains 1 energy. Stack discard triggers and you generate massive positive energy and draw, enabling near-infinite combo turns.
+
+#### Discard Enablers
+
+- Acrobatics
+- Calculated Gamble
+- Prepare (see rework below)
+
+### Prepare Rework
+
+**Card:** Prepare
+
+**Old Behavior:** Discarded cards for various effects
+
+**New Behavior:** Discard 2 cards. Gain 2 energy next turn (upgraded: 3 energy)
+
+**Synergy:** Pairs PERFECTLY with Sly cards. Discarding Reflex (Sly: draw 2) and Tactician (Sly: gain 1 energy) negates the discard cost entirely AND gives you the Prepare bonus.
+
+**Warning:** Without Sly cards, Prepare is mediocre — you're paying 2 cards for 2-3 energy. Only take Prepare if you have Sly enablers in your deck.
+
+### Corrosive Wave Outbreak Combo
+
+The premier Silent boss-killing combo. Massive AOE poison + AOE damage that scales with draw.
+
+#### Cards
+
+##### Corrosive Wave
+
+**Effect:** Apply 2 Poison (upgraded 3) to ALL enemies every time you draw a card
+
+**Value:** On a turn where you draw 5 cards, you apply 10-15 poison to every enemy
+
+
+##### Outbreak
+
+**Effect:** Power: deal 11 AoE damage every 3rd time poison is applied
+
+**Trigger:** Stacks with Corrosive Wave — drawing a hand of 5 cards triggers AOE poison 5 times, detonating Outbreak 1+ times for board-wipe damage
+
+
+**Boss Killer:** Setup turn: play Corrosive Wave + Outbreak. Subsequent turns: just draw cards (any draw card, even cantrips) and the combo auto-detonates. Trivializes multi-enemy boss phases.
+
+### Piercing Whale The Full Block
+
+**Card:** Piercing Whale
+
+**Effect:** 1-cost exhaust skill that applies -6 Strength to ALL enemies for one turn
+
+**Value:** Effectively full-blocks multi-hit elites and bosses (like the Entomancer) entirely on its own. Single-card answer to many of the worst encounters in the game.
+
+**Best Against:** Multi-hit attackers (Entomancer, Lagavulin Matriarch awake), high-strength bosses (-6 strength can negate damage entirely on small attacks)
+
+### Phantom Blades Shiv Retain
+
+**Card:** Phantom Blades
+
+**Effect:** Gives Shivs Retain AND bonus damage
+
+**Implication:** Transforms the Shiv archetype from a cycle-heavy gimmick into a sustained damage engine. Shivs no longer disappear at end of turn — they hold for big multi-Shiv burst turns.
+
+**Build Pattern:** Blade Dance + Accuracy + Phantom Blades → Shivs scale with Accuracy AND retain across turns → ramping multi-hit damage
+
+### Shadow Meld Doubles Block
+
+**Card:** Shadow Meld
+
+**Effect:** Doubles all Block gained in a turn
+
+**Value:** Lets the Silent multiply her block — unique block-scaling effect. Combined with Footwork's permanent Dexterity, Shadow Meld turns mediocre block cards into massive defensive plays for one turn.
+
+**Use Case:** Save for the elite/boss turn where you face a single huge attack (Lagavulin's awake hit, Waterfall Giant's steam eruption)
+
+### Grand Finale Buff
+
+**Card:** Grand Finale
+
+**Stats:** Deals 60 AoE damage (upgraded 75)
+
+**Skill Check:** Only damages if your draw pile is EMPTY when you play it
+
+**Build Pattern:** Heavy draw + Sly engine to empty the draw pile → play Grand Finale on the same turn for board-wipe damage
+
+**Tier:** Ultimate skill-check card. Win condition for players who can perfectly cycle their deck.
+
+### Poison Priority Cards
+
+The Silent's best boss-killing tools all involve poison.
+
+#### Top Tier
+
+##### Bouncing Flask
+
+**Effect:** Apply poison to enemies repeatedly via bouncing projectile
+
+
+##### Corrosive Wave
+
+**Effect:** AOE poison on every card drawn — see combo above
+
+
+##### Bubble Bubble
+
+**Effect:** Massive poison stack application
+
+
+##### Accelerant
+
+**Effect:** Triggers existing poison multiple times — new Catalyst replacement. Pair with stacked poison sources for instant boss kills.
 
 
 ---
@@ -3215,6 +4276,134 @@ Situational cards. Take only to fill specific gaps.
 
 **Orb Slot Starvation:** 3 orb slots is limiting. Capacitor or Inserter (relic) expands your slots and dramatically increases passive value.
 
+## Advanced Synergies And Reworks
+
+Grandmaster-level Defect knowledge: the new Glass Orb, the Status archetype, Hologram engine recursion, and Voltaic's exponential scaling.
+
+### Glass Orb
+
+New STS2 orb type. Defect's premier AOE option.
+
+**Passive:** Deals 4 damage to all enemies, decreasing by 1 each turn (4 → 3 → 2 → 1 → 0)
+
+**Evoke:** Instantly deals 8 damage to every enemy
+
+**Tier:** S-tier for AOE coverage. Solves Defect's classic weakness vs multi-enemy fights.
+
+**Best Combos:** Capacitor + Glass Orb spam for ramping AOE. All For One to recur the channel cards.
+
+### Status Archetype
+
+STS2 introduces a new Defect archetype that intentionally GENERATES status cards (Voids, Burns) and then exploits them. Status cards used to be pure downside; now they're a resource.
+
+#### Generators
+
+##### Turbo
+
+**Effect:** Generates a Void status, grants energy
+
+
+##### Overclock
+
+**Effect:** Generates a Burn status, draws cards
+
+
+#### Exploiters
+
+##### Iteration
+
+**Effect:** Draw 2 cards the first time you draw a status each turn
+
+
+##### Compact
+
+**Effect:** Converts a status into fuel (block/energy/other)
+
+
+##### Flack Cannon
+
+**Effect:** Weaponizes statuses for massive damage
+
+
+**Build Pattern:** Turbo + Overclock generate statuses → Iteration draws them and triggers bonus draw → Compact converts them to value → Flack Cannon detonates them for damage. Multiple feedback loops on a single turn.
+
+### Hologram Engine
+
+**Card:** Hologram
+
+**Tier:** Best common in Defect's pool
+
+**Upgraded Effect:** Retains the exhaust removal, allowing you to infinitely recur 0-cost cards
+
+**The Engine:** Hologram brings a card back from the discard to your hand. Upgraded Hologram does NOT exhaust itself. Pair with 0-cost cards (Claw, Charge Battery, Modded) and you can play the same card repeatedly each turn.
+
+#### Best Recursion Targets
+
+- Charge Battery (0-cost block + energy refund)
+- Voltaic (exponential scaling, see below)
+- Modded (0-cost, draw, +orb slot, +1 cost next play)
+
+### Modded Card
+
+**Card:** Modded
+
+**Tier:** S-tier 0-cost skill
+
+**Effect:** 0-cost, gain 1 orb slot, draw 1 card (upgraded: draw 2). Increases its OWN cost by 1 for future plays.
+
+**Why Top Tier:** First play is free value (orb slot + draw). Subsequent plays cost more, but Hologram resets the recursion. The orb slot is permanent for the fight — stacking Modded plays gives you 6-8 orb slots.
+
+**Game Breaking Combo:** Modded + Hologram + All For One = effectively infinite orb slots and draw on turn 1
+
+### Voltaic Exponential
+
+**Card:** Voltaic
+
+**Stats:** 3-cost rare. Channels lightning orbs equal to the amount of lightning ALREADY channeled this combat.
+
+**Upgraded:** No longer exhausts (huge upgrade)
+
+**The Math:** Start of combat: channel 3 lightning manually. Play Voltaic: channels 3 more (total 6). Play Voltaic again: channels 6 more (total 12). Play Voltaic third time: channels 12 more (total 24).
+
+**Boss Killer:** One-card boss-killer when combined with Hologram (recur Voltaic). 24+ lightning orbs evoke for massive damage.
+
+### Feral Claw Hologram Loop
+
+Claw is drastically improved in STS2 — base damage and scaling are higher than STS1.
+
+**The Combo:** Feral (new power): the first 0-cost attack played each turn returns to your hand. Combined with Hologram (recurs 0-cost cards from discard), you can play the same Claw repeatedly, growing it each play.
+
+**Result:** Single-card scaling engine. Claw value compounds turn over turn with Feral, and you can play it multiple times per turn with Hologram.
+
+### Defragment Capacitor Focus Scaling
+
+Defect's primary scaling vector: Focus + orb slots.
+
+#### Cards
+
+##### Defragment
+
+**Effect:** Gain 1 Focus permanently. Compounds every turn (Focus adds damage/block/effects to every orb)
+
+
+##### Capacitor
+
+**Effect:** Gain orb slots. More slots = more passive damage/block per turn from orbs
+
+
+##### Biased Cognition
+
+**Effect:** Massive Focus burst (4 Focus), but loses 1 per turn. Win the fight fast or have Artifact
+
+
+### Doormaker Warning
+
+Defect's 0-cost spam archetypes (Claw + Hologram + Modded) are DIRECTLY counter-picked by the reworked Doormaker boss.
+
+**Why:** Doormaker drains 1 energy per card played. A deck that plays 15+ cards per turn loses all its energy to the aura.
+
+**What Still Works Vs Doormaker:** Heavy orb + Focus decks (you channel orbs and end turn, fewer cards played), or pivot to high-cost impact cards (Meteor Strike, Echo Form + big cards)
+
 
 ---
 
@@ -3616,6 +4805,131 @@ Situational. Take only when specifically needed.
 **Forgetting Doom Timing:** Doom checks at the END of the enemy's turn, not the start. This means the enemy gets one more action before Doom kills them. Plan accordingly.
 
 **Neglecting Personal Block:** Osty can't tank every attack. Some enemies always target you directly. Maintain personal block density.
+
+## Advanced Synergies And Reworks
+
+Grandmaster-level Necrobinder knowledge: the Osty fallacy, Borrowed Time enabling, and Doom pacing.
+
+### The Osty Fallacy
+
+Treating Osty (your minion) as a Barricade — i.e., stacking Max HP via Summon cards as your primary defense — is a common trap that loses runs.
+
+**Why Its Wrong:** Summon cards are mathematically energy-inefficient for pure blocking. The energy you spend on Summons could have generated more raw damage prevention via traditional block cards.
+
+**The Correction:** Defend Osty with traditional block cards (Defy, Delay, Grave Warden), then USE Osty as a damage redirect for attacks Osty can soak (single-target attacks that wouldn't kill Osty in one hit).
+
+#### Key Block Cards For Osty
+
+##### Defy
+
+**Effect:** Block + applies Weak. Ethereal (must play turn drawn or it's wasted).
+
+**Value:** Best Necrobinder defensive card — block AND debuff in one
+
+
+##### Delay
+
+**Effect:** Block + next-turn energy
+
+**Value:** Defensive cycle-time enabler. Trades a turn of block for a future big-energy turn.
+
+
+##### Grave Warden
+
+**Effect:** Direct Osty protection
+
+**Value:** Specifically blocks Osty when it would die
+
+
+### Borrowed Time Rework
+
+**Card:** Borrowed Time
+
+**Old Behavior:** Enabled various infinite combos with Capture Spirit
+
+**New Behavior:** Grants 4 energy immediately (upgraded: 6), but ALL CARDS COST 1 MORE for the rest of the turn
+
+**Why Still Strong:** The downside is the feature. Play Borrowed Time, then drop massive high-cost impact cards in a single turn that you couldn't otherwise afford.
+
+#### Best Partners
+
+##### Reap
+
+**Value:** Massive single-card payoff that justifies the +1 cost
+
+
+##### Durge
+
+**Value:** Now exhausts after a single use. The +1 cost still leaves Durge playable, and Borrowed Time enables it.
+
+
+##### Dance Macabre
+
+**Value:** Grants massive block whenever you play a card costing 2 or more. Borrowed Time turns every card into 2+ cost, so Dance Macabre triggers on EVERY play that turn.
+
+
+**Anti Combo:** Borrowed Time + Dance Macabre is the new Necrobinder big-turn pattern: Borrowed Time first, then drop a hand full of cards (now all cost 2+), Dance Macabre triggers stack massive block while you deal heavy damage.
+
+### Doom Mechanic Deep Dive
+
+Doom is the Necrobinder's signature DELAYED, BACKLOADED damage type. Doom checks at the END of the enemy's turn — once their Doom stacks ≥ remaining HP, they instantly die.
+
+#### Key Doom Cards
+
+##### Negative Pulse
+
+**Effect:** Applies AOE Doom + grants Block
+
+**Value:** S-tier early-game card. Provides damage scaling AND defense in one card. Take in Act 1.
+
+
+##### Deathbringer
+
+**Effect:** Applies AOE Doom + Weak
+
+**Value:** Doom for damage, Weak for damage prevention. Premium AOE.
+
+
+**Doom Pacing:** Doom is delayed — the enemy gets ONE more action after Doom reaches lethal threshold (Doom triggers at end of enemy turn). Plan for this; don't assume Doom kills before the enemy's next attack.
+
+**Doom Kills Queen Amalgam:** Pro tip: Using Doom to kill the Queen's Amalgam (Act 3 boss) skips her first self-buff phase entirely due to a known game glitch. Massive momentum swing if you can engineer it.
+
+### Souls Archetype
+
+Souls are 0-cost cards that draw cards but are delayed (don't apply effects immediately). Mass-Souls decks turn into massive card-draw engines.
+
+#### Key Cards
+
+##### Severance
+
+**Effect:** Mass-generates Souls
+
+
+##### Durge
+
+**Effect:** Generates Souls AND deals damage. Now exhausts after one use (rework)
+
+
+**Play Pattern:** Generate Souls early in combat → play them all on a single burst turn → massive draw fuels a big finisher (Reap, Dance Macabre setup, Borrowed Time + impact card)
+
+### Early Game Aoe Priority
+
+Necrobinder Act 1 is HIGH-DANGER without frontloaded AOE. Multi-enemy nodes will kill you.
+
+#### Must Draft
+
+- Negative Pulse — AOE Doom + Block (top priority Act 1 draft)
+- Deathbringer — AOE Doom + Weak (high priority Act 1 draft)
+
+**Without Aoe:** If neither shows up by Act 1 mid-act, you must skip elites entirely and path conservatively until you find AOE.
+
+### Doormaker Compatibility
+
+Necrobinder is NATURALLY ANTI-DOORMAKER thanks to Doom pacing.
+
+**Why:** Doom is set up over 1-2 turns and then ticks WITHOUT requiring you to play more cards. Doormaker drains energy per card; Necrobinder simply plays fewer cards while Doom does the work.
+
+**Build For Doormaker:** Heavy Doom + Borrowed Time (one big-card burst turn) + Souls for setup. Avoid Soul-spam playstyles that play 10+ cards per turn.
 
 
 ---
@@ -4019,4 +5333,102 @@ Situational. Take only when specifically needed.
 **Sovereign Blade Scaling:** Sovereign Blade is the Regent's version of Heavy Blade for Ironclad. It requires setup (Forge instead of Strength) but can deal comparable or higher damage.
 
 **Star Spending Timing:** The best time to spend Stars is when you have a clear advantage — Star spending effects often provide burst power that ends fights or turns the tide.
+
+## Advanced Synergies And Reworks
+
+Grandmaster-level Regent knowledge: the Stars-vs-Forge rule, key card thresholds, and the Pale Blue Dot infinite.
+
+### Never Mix Stars And Forge
+
+THE most important Regent rule. Stars decks and Forge decks should NEVER be mixed in the same run. The resources don't synergize, and split decks underperform either pure archetype.
+
+**Why:** Stars cards consume Stars. Forge cards consume Forge. Cards that generate one resource don't generate the other. A 50/50 split deck has half-resourced cards across both engines and wins fewer fights than a pure 100% Stars or 100% Forge deck.
+
+**Decision Point:** Commit to one archetype by mid-Act 1 based on what the game offers. If you see strong Star generators early, go Stars. If you see early Forge accumulators, go Forge. Don't try to hedge.
+
+### Stars Archetype S Tier
+
+Stars persist across turns AND across combats, allowing massive stockpiling. Stars decks can support 25+ cards comfortably because cycle time matters less when you're patient.
+
+#### Key Cards
+
+##### Big Bang
+
+**Effect:** 0-cost. Generates Stars + cycles your deck efficiently.
+
+**Value:** The Stars deck's bread-and-butter cantrip. Always take.
+
+
+##### Seven Stars
+
+**Effect:** Deals 49 AoE damage for 7 stars
+
+**Value:** Boss-killer finisher. The whole archetype builds toward this card.
+
+
+##### Pale Blue Dot
+
+**Effect:** Power: the 5th card you play each turn is free — ignores both energy AND Star costs
+
+**Value:** Breaks the entire resource limitation. Combine with massive Star-cost cards (Bombardment, Seven Stars) to bypass Star costs entirely. Effectively an infinite if you can reliably play 5+ cards per turn.
+
+
+**Scaling Relics:** Orbit (passive energy scaling — refunds 1 energy for every 4 energy spent). Compounds with Stars-deck's tendency to play many small cards.
+
+### Forge Archetype B Plus Tier
+
+Sovereign Blade is a 'Retained' signature weapon ALWAYS in your hand. Forging at campfires permanently upgrades the blade's damage.
+
+#### Key Cards
+
+##### Sovereign Blade
+
+**Effect:** Permanent hand-card. Damage scales with Forge stacks. Forge bonuses persist across the run.
+
+**Value:** The whole archetype's win condition.
+
+
+#### Build Rules
+
+- Keep the deck EXTREMELY lean (under 20 cards) to ensure you have energy each turn to swing the blade
+- Prioritize Forge campfires over rest/upgrade (each Forge stack is permanent damage on every future Blade swing)
+- Remove Strikes/Defends aggressively — they don't help the Blade strategy
+
+**Anti Pattern:** Forge builds get crushed by the reworked Doormaker (energy drain) unless you've maximized Sovereign Blade damage per swing. A 1-swing Blade boss-kill is doable; multi-card-per-turn Forge play is not.
+
+### Heavenly Drill Threshold
+
+**Card:** Heavenly Drill
+
+**The Rule:** NEVER play Heavenly Drill below 4 Stars
+
+**The Math:** The card pierces enemies by hitting X times. Above 4 Stars, the hit count DOUBLES. At 4 stars, it strikes 8 times for a base of 64 damage. At 3 stars, it strikes only 3 times for ~24 damage.
+
+**Play Decision:** If you have 3 stars and Heavenly Drill in hand, hold it. Generate one more Star (any source) and play it next turn for nearly 3x the damage.
+
+### Minion Sacrifice B Tier
+
+Niche Japanese-meta build. Utilizes colorless cards to summon minions and instantly sacrifice them for burst value.
+
+**Tier:** B-tier — works in specific drafts, not a default plan
+
+**When To Pivot:** Only if you see multiple summon-sacrifice colorless cards in early shops/rewards
+
+### Ripple Basin Synergy
+
+**Relic:** Ripple Basin
+
+**Effect:** Grants block if you play NO attacks during your turn
+
+**Why Strong For Regent:** Regent often has turns where they ONLY generate Stars or pass to scale Sovereign Blade — no attacks played. Ripple Basin gives free block on those turns. Perfect synergy with the 'wait and stockpile' Stars playstyle.
+
+**Take Priority:** Top-tier shop pickup for Regent. Often worth taking over a card.
+
+### Doormaker Compatibility
+
+Regent is one of the best Doormaker counters in the game.
+
+**Why:** Stars decks don't rely on net-positive energy per card. Forge decks play 1-2 cards per turn (Sovereign Blade + a draw card). Both archetypes naturally avoid the Doormaker energy drain.
+
+**Build For Doormaker:** Either archetype works. Stars: focus on Pale Blue Dot. Forge: maximize per-swing damage so 1-2 swings end fights.
 
