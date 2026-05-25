@@ -951,6 +951,102 @@ Potions are free power. The only cost is opportunity (saving for a better moment
 - Draw potions (Cultist, Liquid Memory) — use turn 1 of long fights to set up scaling fast
 - Use a potion if it saves more HP than the next potion you'd find on average (~5-8 HP)
 
+## Fundamental Combat Rules
+
+Core engine rules that are easy to misread because they're not surfaced in card tooltips. Getting these wrong silently corrupts every damage/block calculation you do. Verify against these before doing combat math.
+
+### Rules
+
+#### Enemy intent damage is post-multiplier
+
+**Rule:** The damage number shown on an enemy's intent (e.g. 'Attack for 16 damage') is the FINAL value the player will take, already accounting for the enemy's Strength, the player's Vulnerable, the enemy's Weak, and any other active modifiers. Do NOT re-apply multipliers on top.
+
+**Why It Matters:** If the player is Vulnerable and the intent reads 16, the actual incoming damage is 16 — not 24. Re-applying Vulnerable inflates incoming damage by 50%, leading to wrong block plans, panic potion burns, and 'lethal' false alarms.
+
+**How To Apply:** When summing incoming damage from `battle.enemies[].intents[].label`, treat each label as the final number. Multipliers are only applied manually when computing damage YOU deal to enemies (your Strength, Vulnerable on enemy, Weak on you).
+
+**Exception Note:** The intent label captures buffs/debuffs active at the moment of display. If something changes between display and the enemy's turn (e.g., the enemy gains Strength after the intent is shown, or your Vulnerable expires), the actual damage may differ. But the displayed number is the game's authoritative current calculation — never re-multiply it.
+
+
+#### Unplayed cards discard at end of turn (Retain is the exception)
+
+**Rule:** Every card left in your hand at end of turn is sent to the discard pile automatically. The ONLY way to keep a card across turns is the Retain keyword. There is no 'save this for next turn' by simply not playing it.
+
+**Why It Matters:** Misunderstanding this leads to bad discard choices. When Survivor/Acrobatics/Calculated Gamble asks you to discard one, players often think 'I'll discard the worse card to keep the better one for next turn.' That reasoning is false — both go to discard anyway. The choice only matters for: triggering Sly cards being discarded, feeding discard-count effects (Tactician, etc.), or controlling which cards reshuffle when. It does NOT preserve any card for next turn's hand.
+
+**How To Apply:** When recommending a discard target, the reasons are: (1) trigger a Sly card, (2) feed a discard-count effect, (3) influence reshuffle timing for a specific card. Never 'save it for next turn' — that's not how end-of-turn cleanup works. The 'better' card in hand is just as gone next turn as the 'worse' card.
+
+**Exception Note:** Cards with Retain stay in hand. A few enemy-induced effects and specific powers (Equilibrium, Well-Laid Plans, etc.) can also retain cards. If you're unsure whether a card retains, default to assuming it doesn't.
+
+
+#### Poison ticks at the start of the poisoned creature's turn, then decrements
+
+**Rule:** When a creature is Poisoned, at the start of THAT creature's turn it (1) loses HP equal to its Poison stacks, then (2) reduces Poison by 1. The HP loss happens BEFORE the creature takes any action that turn.
+
+**Why It Matters:** If your player-turn damage drops an enemy low enough that its poison tick kills it at the start of its next turn, the enemy dies BEFORE attacking — that turn's incoming damage is fully prevented. This enables 'set up the lethal poison tick' plays that look like they shouldn't work (enemy still has HP at end of your turn) but actually save you the whole attack.
+
+**How To Apply:** When checking whether an enemy can be 'killed before it acts,' the threshold is: (player damage dealt) + (poison stacks on the enemy) >= enemy's current HP. If yes, the enemy dies during the poison tick at start of its turn and never gets its action. Multi-enemy fights: each enemy's poison ticks on its own turn, so order of operations matters.
+
+**Exception Note:** Some enemies have Artifact and may negate Poison application. Some bosses/relics modify poison timing. Default to standard rules unless you observe otherwise in the run.
+
+
+#### End-of-turn hand discard does NOT trigger Discard effects
+
+**Rule:** When your hand is discarded at the end of your turn (the default cleanup), this does NOT trigger cards or relics that proc on 'discard'. Only ACTIVE discards during your turn (Survivor, Acrobatics, Calculated Gamble, Storm of Steel, Shadow Step, etc.) trigger discard-synergy effects like Sly, Tingsha, Memento Mori, Tough Bandages.
+
+**Why It Matters:** Sly cards in hand at end of turn do NOT auto-play — they go to discard like any other card. Discard-payoff effects only fire from intentional in-turn discards. This means having Sly cards without enough active discard enablers is a dead-card situation.
+
+**How To Apply:** When evaluating Sly-based plans, count only active discard sources (Survivor, Acrobatics, etc.). Don't assume end-of-turn cleanup will trigger Sly. When recommending a Survivor/Acrobatics discard target, the choice DOES matter for Sly: discarding a Sly card during your turn triggers it; leaving it for end-of-turn cleanup does not.
+
+**Exception Note:** Some cards/effects may explicitly proc on end-of-turn discard — read each card's text. Default assumption: end-of-turn discard is silent.
+
+
+#### Unspent energy is lost at end of turn (no carryover by default)
+
+**Rule:** Energy resets to your max (typically 3) at the start of each turn. Any unspent energy at end of turn is wasted — it does NOT carry into the next turn. This is the same as STS1.
+
+**Why It Matters:** Banking energy 'for next turn' by ending early is wrong. If you have leftover energy and any playable card (even a Defend), play it. The block carries to next turn (until your next turn's cleanup), but the energy doesn't.
+
+**How To Apply:** Always spend all energy unless: (1) lethal already secured, (2) playing more cards would actively hurt (Velvet Choker cap, status-card generation from boss like Aeonglass, etc.), or (3) you have a specific relic like Ice Cream that DOES carry energy. The Energy Conservation section above covers when literal save-energy plays apply — those are about choosing NOT to play mediocre cards, not about banking energy.
+
+**Exception Note:** Ice Cream relic: 'You no longer lose unspent energy at the start of each turn.' Pael's Tears relic gives bonus energy next turn if you end with exactly 1 leftover. Without one of these, no carryover.
+
+
+#### Hand size cap is 10 — drawn cards beyond the cap are immediately discarded
+
+**Rule:** Your hand can hold a maximum of 10 cards at any time. Cards drawn beyond 10 (from any source — draw effects, generated cards, Shivs from Blade Dance, statuses from enemies) are sent directly to the discard pile without entering your hand.
+
+**Why It Matters:** On big draw turns (Blade Dance + Acrobatics + Backflip stacking), you can overdraw and lose cards. Same for Shiv-heavy decks playing multiple Shiv generators in a hand that's already near full. The lost cards don't trigger any 'on draw' effects either.
+
+**How To Apply:** Before playing a card that adds many cards to hand (Blade Dance 3 Shivs, Calculated Gamble redraw), check current hand size. If you're at 8 cards and play Blade Dance, only 2 of the 3 Shivs reach your hand. The third is auto-discarded. Play card-spawners EARLY in the turn (when hand has more empty slots from cards you've played) rather than after blocking a bunch of Defends.
+
+**Exception Note:** Some relics or effects may modify hand size cap. Status cards added by enemies (Slimed, Wither) also count toward the 10-cap.
+
+
+#### Block lasts until the start of your NEXT player turn, then discards (Barricade is the exception)
+
+**Rule:** Block gained on your turn (or via end-of-turn passive effects like Metallicize) persists through the enemy's turn — that's its purpose, absorbing incoming damage. At the start of your next player turn, current block resets to 0 unless you have Barricade (Ironclad) or an equivalent effect.
+
+**Why It Matters:** Block is a one-turn shield, not a stockpile. Over-blocking past incoming damage is wasted block — the excess vanishes at start of your next turn. This is the core 'don't overblock' principle.
+
+**How To Apply:** Calculate exactly the incoming damage from intent labels. Block to match, not exceed (except by a small buffer for unknowns). The wasted excess could have been damage or a power play. Dexterity makes this even more important: with +2 Dex, a Defend goes from 5 to 7 block — easier to overshoot on light-damage turns.
+
+**Exception Note:** Barricade keeps your block between turns — completely changes block math, makes Entrench/Body Slam viable. Some 'Next turn, gain X Block' effects (Dodge and Roll, Prolong, Self-Forming Clay) bypass the reset because they grant fresh block at the start of the next turn. Frost Orbs generate fresh block each turn end and are not affected by the reset.
+
+
+#### Dexterity and Frail only modify direct block from cards, not all block sources
+
+**Rule:** Dexterity (+block) and Frail (-25% block) apply ONLY to direct block grants printed on cards (Defend, Iron Wave, Survivor, etc.). They do NOT apply to: (1) block from Relics, (2) block from end-of-turn powers like Metallicize, (3) block generated as a side effect of other powers (Rage, After Image, etc.), or (4) Frost Orb passive block.
+
+**Why It Matters:** Misjudging Dex value: stacking Dex while your block comes mostly from Metallicize or After Image is much weaker than expected. Conversely, Frail looks scary but doesn't gut After Image / Metallicize / orb-based defenses — those characters can play through Frail safely.
+
+**How To Apply:** When evaluating Dex/Frail impact, count only the direct block printed on the card's text. After Image's 'gain 1 block per card played' is not boosted by Dex. A Defect with mostly Frost Orb block barely cares about Frail.
+
+**Exception Note:** Card text is authoritative — if a card says 'gain X Block' (numbered in the card text), Dex/Frail apply. If the block comes from a separate trigger or power proc, they don't.
+
+
+**Discovery Note:** These rules were added after the coach repeatedly tripped on them in live runs. When you find another rule that's commonly misread (something not surfaced in tooltips, a sequencing quirk, an enemy mechanic the wiki contradicts), add it here rather than re-learning it every session.
+
 
 ---
 
