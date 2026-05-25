@@ -29,7 +29,7 @@ Two layers, read-only end-to-end. The mod exposes state; the Skill loads cached 
 1. **Slay the Spire 2** on Steam.
 2. **Python 3.10+** on `PATH` (the Skill scripts use only the standard library — no `pip install`).
 3. **.NET 9 SDK** (only to build the mod from source — if you grab a release binary, skip this).
-4. **A Skills-compatible AI coding agent** for using the Skill. Primary target is [Claude Code](https://docs.anthropic.com/claude/docs/claude-code); also works with Claude Desktop, GitHub Copilot CLI, Gemini CLI / Google Antigravity, OpenAI Codex CLI, and others that load Anthropic-format skills. The Skill assumes the agent has access to `Read` (to load the knowledge bundle) and `Bash` (to run the analysis scripts) — both standard in the agents above. If your agent uses different tool names, you may need to adjust SKILL.md.
+4. **An agent that can load the Skill.** The Skills format (markdown frontmatter + supporting files + Bash execution) is portable. Primary tested target is [Claude Code](https://docs.anthropic.com/claude/docs/claude-code); also works with Claude Desktop, GitHub Copilot CLI, Gemini CLI / Google Antigravity, OpenAI Codex CLI, and others that load Anthropic-format skills. **You can also run this against a local LLM** (Ollama, llama.cpp, vLLM) if you wrap it with an agent loop that (a) reads `SKILL.md` as system instructions, (b) loads `knowledge.md` on first message, (c) runs the `scripts/*.py` via shell. Capable models (Qwen 2.5 Coder 32B, Llama 3.3 70B, DeepSeek distills) handle the ~52K-token knowledge bundle and the structured-JSON tool-use loop fine; smaller models often won't.
 
 ## Install
 

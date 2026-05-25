@@ -46,9 +46,19 @@ The original SLAI shipped a Python MCP server that wrapped the mod's HTTP API an
 | Processes | Just the mod | Mod + MCP server |
 | Tool-list overhead | Each turn the model sees "Bash" once | Each turn the model sees 9–10 MCP tools |
 | Iteration | Edit script, re-run | Edit, reload MCP client, hope it re-registers |
-| Cross-client portability | Any agent that supports the Anthropic Skills format and can run Bash (Claude Code, Claude Desktop, GitHub Copilot CLI, Gemini CLI / Antigravity, OpenAI Codex CLI, etc.) | Anything that speaks MCP — broader on paper, but every client needs separate config |
+| Cross-client portability | Any agent that supports the Anthropic Skills format and can run Bash (Claude Code, Claude Desktop, GitHub Copilot CLI, Gemini CLI / Antigravity, OpenAI Codex CLI, etc.). Also any DIY agent loop wrapping a local LLM (Ollama, llama.cpp, vLLM) — the Skill is just a markdown file + scripts, no proprietary runtime needed. | Anything that speaks MCP — broader on paper, but every client needs separate config |
 
 For SLAI's actual audience (single player, any Skills-compatible coding agent, live coaching), the Skill-only model wins on every axis except "abstract MCP-ecosystem portability," which nobody was using.
+
+### Skill format = portable spec
+
+The Skill format Anthropic published is just:
+
+1. `SKILL.md` with YAML frontmatter (`name`, `description`) and prose instructions for the model
+2. Supporting files in the same folder (in our case: `knowledge.md` + `scripts/*.py`)
+3. A consuming agent that can (a) load `SKILL.md` as system context, (b) read other files when instructed, (c) run shell commands
+
+Anything meeting those three requirements can use the `sts2-coach` skill. There's nothing Claude-specific in it. A 50-line agent loop wrapping Ollama with a system-prompt loader and a tool-use bridge can run this skill against a local model. The commercial Skills-supporting agents (Claude Code, Copilot CLI, Gemini CLI, Codex CLI, etc.) just give you that loop for free.
 
 ## Why scripts and not pure-LLM analysis
 

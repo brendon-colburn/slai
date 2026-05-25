@@ -25,7 +25,7 @@ While you're in a run, you can ask things like:
 SLAI is **two pieces** and you need both:
 
 1. **This mod** (`SLAI.dll` + `SLAI.json`) — runs inside STS2, exposes your game state on `localhost:15526`. **The mod alone does nothing visible.** It's a data source for a coaching client.
-2. **The SLAI coach Skill** for any Skills-compatible AI coding agent — [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) (primary tested target), Claude Desktop, GitHub Copilot CLI, Gemini CLI / Google Antigravity, OpenAI Codex CLI, and other agents that load Anthropic-format skills. Download `sts2-coach-skill.zip` from the [GitHub releases page](https://github.com/brendon-colburn/slai/releases/latest).
+2. **The SLAI coach Skill** for any Skills-compatible AI agent — [Claude Code](https://docs.anthropic.com/claude/docs/claude-code) (primary tested target), Claude Desktop, GitHub Copilot CLI, Gemini CLI / Google Antigravity, OpenAI Codex CLI, and other agents that load Anthropic-format skills. **Also works with local LLMs via Ollama / llama.cpp / vLLM** if you wrap them with a basic agent loop (the Skill format is portable markdown + bash scripts — nothing proprietary). Download `sts2-coach-skill.zip` from the [GitHub releases page](https://github.com/brendon-colburn/slai/releases/latest).
 
 **If you don't use a Skills-compatible AI agent, this mod will not be useful to you on its own.** (Devs: the HTTP API is exposed on `localhost:15526` if you want to build a different client — it's all JSON, fully documented in the source.)
 

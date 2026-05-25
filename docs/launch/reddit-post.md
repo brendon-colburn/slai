@@ -10,7 +10,7 @@ Copy/paste ready. Tested for the subreddit's typical tone (technical, transparen
 
 Hey all — I've been playing too much STS2 and building this in parallel. Hopefully someone else gets use out of it.
 
-**TL;DR:** Mod for STS2 + a Skill that drops into your AI coding agent (Claude Code, Copilot CLI, Gemini CLI / Antigravity, OpenAI Codex, etc — anything that supports the Anthropic Skills format). You're in a run, you ask things like "should I take Setup Strike?" or "is this Desa Millipede worth fighting at 64%?", and you get specific answers grounded in your actual deck and HP. Card grades come from a deterministic 4-Pillar math implementation, not vibes.
+**TL;DR:** Mod for STS2 + a Skill that drops into your AI agent (Claude Code, Copilot CLI, Gemini CLI / Antigravity, OpenAI Codex, etc — anything supporting the Anthropic Skills format, including DIY setups against local Ollama/llama.cpp models if you wrap them with a basic agent loop). You're in a run, you ask things like "should I take Setup Strike?" or "is this Desa Millipede worth fighting at 64%?", and you get specific answers grounded in your actual deck and HP. Card grades come from a deterministic 4-Pillar math implementation, not vibes.
 
 **It does not play the game for you.** The mod's HTTP API is read-only — there's literally no endpoint to play a card. I only built the observation side. Every click is still yours.
 
