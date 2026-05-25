@@ -19,7 +19,9 @@ This skill ships with stdlib-only Python scripts under `scripts/` that talk to t
 
 Always pull fresh state before answering anything situational — never guess at what's happening.
 
-To invoke a script, use `python <skill-dir>/scripts/<name>.py` — substitute the actual absolute path of this skill's folder for `<skill-dir>`. All scripts accept `--host` / `--port` (defaults match the mod) and `--state-file path.json` (for replays/tests).
+Invoke scripts with their path relative to this skill's folder — e.g. `python scripts/get_state.py`. All scripts accept `--host` / `--port` (defaults match the mod) and `--state-file path.json` (for replays/tests).
+
+**Treat the scripts as black boxes.** If you're unsure how one works, run it with `--help` first — don't read the source into your context window. They exist to be called, not ingested. `_lib.py` in particular is large shared infrastructure (HTTP client, deck analyzer, card grader) that you should never need to read.
 
 ## Triage by question type
 
