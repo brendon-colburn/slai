@@ -1,26 +1,19 @@
 # Architecture
 
-SLAI is three layers stacked on a fourth dependency:
+SLAI is two layers stacked on a dependency:
 
 ```
 ┌──────────────────────────────────────────────────────────┐
 │  You (typing in Claude Code / Claude Desktop)            │
 │  + sts2-coach Skill loaded                               │
-└────────────────────────────┬─────────────────────────────┘
-                             │ MCP tool calls
-                             ▼
-┌──────────────────────────────────────────────────────────┐
-│  SLAI MCP Coaching Server  (Python, this repo)           │
-│  • knowledge_engine — loads JSON, retrieves context      │
-│  • deck_analyzer — scores 4 pillars, grades rewards      │
-│  • game_client — HTTP wrapper around STS2MCP             │
-│  • server — exposes 10 MCP tools                         │
+│    ├─ knowledge.md  (cached strategic knowledge)         │
+│    └─ scripts/      (Python, stdlib only)                │
 └────────────────────────────┬─────────────────────────────┘
                              │ HTTP GET (read-only)
                              │ localhost:15526
                              ▼
 ┌──────────────────────────────────────────────────────────┐
-│  STS2MCP mod  (C# DLL, in the game's mods/ folder)       │
+│  SLAI mod  (C# DLL, in the game's mods/ folder)          │
 │  • Lives inside Slay the Spire 2's Godot runtime         │
 │  • Serializes live game state as JSON                    │
 └────────────────────────────┬─────────────────────────────┘
@@ -35,30 +28,44 @@ SLAI is three layers stacked on a fourth dependency:
 
 | Layer | What it does | Owns |
 |---|---|---|
-| Skill | Tells Claude how to coach; triages question type → tool | Prose: the *style* of coaching |
-| MCP server | Pre-digests raw state into pillar scores and warnings | Deterministic numeric analysis |
-| `knowledge/` | Baalorlord's framework encoded as queryable data | Strategy facts |
-| STS2MCP mod | Bridges game internals to HTTP | Game state observation |
+| Skill prose (`SKILL.md`) | Tells Claude how to coach; triages question type → script or cached knowledge | The *style* of coaching |
+| Skill scripts (`scripts/`) | Pre-digest raw state into pillar scores, card grades, mistake warnings | Deterministic numeric analysis |
+| `knowledge.md` (in skill) | Baalorlord's framework + per-character guides + mechanics + mistakes, cached for the session | Strategy facts |
+| `knowledge/` source JSONs | The editable source for `knowledge.md`; rebuilt via `tools/build_knowledge.py` | Strategy facts (source of truth) |
+| SLAI mod | Bridges game internals to HTTP | Game state observation |
 | The game | Runs your run | The truth |
 
-## Why three layers and not two
+## Why a `scripts/` folder instead of an MCP server
 
-You could imagine the Skill talking directly to STS2MCP and doing all reasoning in tokens. We *don't* because:
+The original SLAI shipped a Python MCP server that wrapped the mod's HTTP API and exposed ten MCP tools. That made sense in 2024 when Skills couldn't run code. Skills can now run arbitrary scripts via Bash, which makes the MCP layer redundant:
 
-1. **Token efficiency.** Pillar scoring, card classification, and warning detection are deterministic. Computing them in Python costs ~0 LLM tokens; doing them in Claude costs hundreds of input tokens per query (read raw state, classify each card, sum, score).
+| | Skill + scripts | MCP server |
+|---|---|---|
+| Install steps | Drop the skill folder in place | `pip install` + edit `.mcp.json` + restart client |
+| Processes | Just the mod | Mod + MCP server |
+| Tool-list overhead | Each turn the model sees "Bash" once | Each turn the model sees 9–10 MCP tools |
+| Iteration | Edit script, re-run | Edit, reload MCP client, hope it re-registers |
+| Cross-client portability | Wherever Bash runs (Claude Code, Claude Desktop with the right config) | Anything that speaks MCP — broader, but at the cost above |
+
+For SLAI's actual audience (single player, Claude Code or Claude Desktop, live coaching), the Skill-only model wins on every axis except "abstract MCP-ecosystem portability," which nobody was using.
+
+## Why scripts and not pure-LLM analysis
+
+Within the Skill we still keep pillar scoring, card classification, and mistake detection in Python (not in token-space reasoning). Why:
+
+1. **Token efficiency.** Computing pillar scores in Python costs ~0 LLM tokens; doing them in Claude costs hundreds of input tokens per query (read raw state, classify each card, sum, score).
 2. **Determinism.** A 4-pillar score should be the same for the same input. A pure-LLM implementation drifts.
-3. **Reusability.** The MCP server is useful from any MCP client, not just our Skill. If you want to script a deck-pillar regression test, you can call `analyze_deck` from a CLI.
+3. **Reusability.** The same scripts are testable from a CLI with `--state-file fake.json`, useful for regression tests as the mod's schema evolves.
 
 ## Data flow per question
 
 User asks *"should I take Setup Strike?"*:
 
-1. **Skill** receives the question, triages: "card reward → call `evaluate_card_reward`".
-2. **MCP server**'s `evaluate_card_reward` tool calls **STS2MCP** for current state (`/api/v1/singleplayer`).
-3. STS2MCP returns JSON with `player.master_deck`, `card_reward.cards`, `run.floor`, etc.
-4. MCP server runs `deck_analyzer.get_card_reward_evaluation()`: classifies each offered card, scores it against current deck composition, assigns S/A/B/C/D/F grade.
-5. MCP server returns structured grades + reasoning to the Skill.
-6. **Claude** integrates the grades with knowledge-base context ("Strength scaling needed because…") and answers in natural language.
+1. **Skill** receives the question, triages: *card reward → run `scripts/evaluate_card_reward.py`*.
+2. The script HTTP-GETs `/api/v1/singleplayer` on `localhost:15526` to fetch live state.
+3. The mod returns JSON with `player.master_deck`, `card_rewards`, `run.floor`, etc.
+4. `evaluate_card_reward.py` classifies each offered card, scores it against current deck composition, assigns S/A/B/C/D/F grade, and prints structured JSON to stdout.
+5. **Claude** parses the JSON, integrates the grades with cached knowledge-base context ("Strength scaling needed because…"), and answers in natural language.
 
 The structured grades survive across calls; the natural-language framing is generated fresh each time.
 
@@ -89,15 +96,9 @@ The strategic knowledge base (~37K tokens, the encoded Baalorlord framework + pe
 
 For a corpus this small, RAG would be over-engineering — pay more, get less reasoning, gain nothing. The threshold where RAG starts winning is when the corpus genuinely won't fit in the context window. We're nowhere near that.
 
-**What about the Python knowledge_engine?**
-
-The Python MCP server's knowledge-retrieval tools (`explain_mechanic`, `get_character_guide`, `get_coaching_tip`) predate the CAG bundle. They're now **deprecated for Skill use** — the agent answers those questions directly from cached `knowledge.md` instead. The tools are kept around (with `[DEPRECATED]` markers in their descriptions) for non-Skill MCP clients that might want one-shot lookups, but no new code should call them from a Skill.
-
-The MCP server's **analysis** tools (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) are unaffected — they compute deterministic things from live state (pillar scores, card grades, mistake patterns), which is computation, not retrieval. Those are exactly where Python wins over LLM tokens.
-
 ## What we depend on upstream
 
-- STS2MCP's `master_deck` exposure on every screen (contributed as a PR; until merged, users may need a fork).
-- STS2MCP's `/api/v1/singleplayer` and `/api/v1/multiplayer` endpoints (v0.4.0+).
+- The SLAI mod's `master_deck` exposure on every screen (a SLAI-specific addition over the original STS2MCP fork).
+- The SLAI mod's `/api/v1/singleplayer` and `/api/v1/multiplayer` endpoints (STS2MCP v0.4.0+ surface).
 
-If STS2MCP makes breaking API changes, we pin to a known version in the MCP server's connection check and surface a clear "unsupported version" error to the user.
+If the mod's HTTP schema changes, we surface a clear connection error from `scripts/check_connection.py` and ask the user to update.

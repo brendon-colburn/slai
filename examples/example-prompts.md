@@ -1,6 +1,6 @@
 # Example Prompts
 
-Once you have SLAI installed and `/sts2-coach` loaded in Claude Code, here's what you can ask. The Skill picks the right MCP tool automatically — you just talk to it.
+Once you have SLAI installed and `/sts2-coach` loaded in Claude Code, here's what you can ask. The Skill picks the right script automatically — you just talk to it.
 
 ## Mid-run, asked naturally
 
@@ -36,6 +36,6 @@ Once you have SLAI installed and `/sts2-coach` loaded in Claude Code, here's wha
 
 ## What SLAI won't do
 
-- **Play the game for you.** The MCP server is deliberately read-only — no `combat_play_card` equivalent. STS2MCP's own MCP wrapper exposes those tools if you want them, but they're not in SLAI's surface.
-- **Reveal information you shouldn't see.** SLAI only sees what STS2MCP exposes to you. No "what's behind the unknown room" or "what cards will the next reward offer."
+- **Play the game for you.** The Skill is deliberately read-only — the SLAI mod exposes no `combat_play_card` equivalent. STS2MCP's own MCP wrapper exposes those tools if you want them, but they're not in SLAI's surface.
+- **Reveal information you shouldn't see.** SLAI only sees what the mod exposes to you. No "what's behind the unknown room" or "what cards will the next reward offer."
 - **Replace watching Baalorlord.** The knowledge base is a paraphrase. His streams will always teach more than our JSON files.

@@ -56,4 +56,4 @@ The `evaluate_card_reward` tool uses these scores to grade reward options: a car
 
 - [`knowledge/general_strategy.json`](../knowledge/general_strategy.json) — full encoding of the 4 Pillars
 - [`knowledge/common_mistakes.json`](../knowledge/common_mistakes.json) — what happens when you ignore the pillars
-- [`mcp-server/deck_analyzer.py`](../mcp-server/deck_analyzer.py) — the scoring implementation
+- [`skills/sts2-coach/scripts/_lib.py`](../skills/sts2-coach/scripts/_lib.py) — the scoring implementation
