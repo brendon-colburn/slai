@@ -7,7 +7,7 @@ place; no `pip install` needed".
 
 ## Requirements
 
-- Python 3.10+ on `PATH` (the Skill calls them as `python <script>.py`).
+- Python 3.10+ on `PATH` (the Skill calls them as `python <skill-dir>/scripts/<name>.py`, where `<skill-dir>` is the absolute path of `skills/sts2-coach/`).
 - The SLAI mod running inside Slay the Spire 2 on `localhost:15526`.
 
 No third-party packages. Everything uses `urllib`, `json`, and `argparse` from
