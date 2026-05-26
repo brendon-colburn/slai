@@ -24,3 +24,7 @@ release-staging/
 # Local config that shouldn't be shared
 .claude/settings.local.json
 .claude/skills/
+
+# Run journals — personal coaching context, regenerated per run
+.run-state/current-run.md
+.run-state/runs/

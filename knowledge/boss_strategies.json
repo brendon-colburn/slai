@@ -64,6 +64,45 @@
 
   "act_2_bosses": [
     {
+      "name": "Knowledge Demon",
+      "id": "KNOWLEDGE_DEMON_BOSS",
+      "exam_type": "Forced damage race vs healing + Curse-pollution scaling",
+      "key_mechanics": [
+        "Fixed 4-turn loop: Curse of Knowledge → Slap → Knowledge Overwhelming → Ponder",
+        "Self-heals each cycle (cannot be outlasted with block alone)",
+        "Permanently gains +2 Strength each cycle (scaling threat compounds)",
+        "Opens with a 3-hit barrage ~24 damage total",
+        "On 'Curse of Knowledge' turns, forces you to choose 1 of 2 Curse cards to add to your deck. Three choices total across the fight, escalating each cycle"
+      ],
+      "curse_choices": {
+        "set_1": "Disintegration (deals 6 damage to you at start of each turn) OR Mind Rot (draw 1 fewer card per turn)",
+        "set_2": "Disintegration (deals 7 damage to you at start of each turn) OR Sloth (max 3 cards played per turn)",
+        "set_3": "Disintegration (deals 8 damage to you at start of each turn) OR Waste Away (-1 energy per turn)",
+        "note": "Disintegration stacks if chosen multiple times: by Set 3 you'd be taking 6+7+8 = 21 HP/turn passive damage. Choose at most one Disintegration unless your deck has a real burst kill plan."
+      },
+      "the_rule": "You CANNOT outlast Knowledge Demon — its heal + Str scaling guarantees you lose any long fight. You must build damage that bypasses defense and survives across multiple cycles.",
+      "build_requirements": [
+        "Damage source that bypasses block AND heals — Poison is the textbook answer (Silent's Noxious Fumes, Deadly Poison, Catalyst, Envenom). Doom (Necrobinder) also works.",
+        "Block density to survive the 24-damage opening barrage and subsequent Slap turns",
+        "Energy/draw stability — avoid Sloth and Waste Away curses; they cripple your engine"
+      ],
+      "curse_choice_strategy": [
+        "Best pick almost always: Mind Rot (-1 draw). Easy to play around with any draw engine (Acrobatics, Backflip, Predator). Doesn't compound or pressure HP.",
+        "Avoid Sloth UNLESS your deck plays few cards per turn (big-card decks, Forge Regent, Doom Necrobinder).",
+        "Avoid Waste Away UNLESS you have energy-generating relics (Ice Cream, Cursed Key, etc.).",
+        "Disintegration is acceptable for 1 choice (especially Set 1's 6 dmg version) if you have strong burst — but stacking it kills you to passive HP loss before the heals matter."
+      ],
+      "character_strategies": {
+        "silent": "Premier matchup. Stack Noxious Fumes (especially +) early. Layer Deadly Poison. Catalyst finishes the race. Poison ignores Knowledge Demon's heal entirely — 40 stacks of poison mathematically outpaces all of its healing combined. Use defensive turns to apply more poison, not just block.",
+        "ironclad": "Burst-Strength or Exhaust-Strength wins. Demon Form + Limit Break + Heavy Blade lethals before scaling. Avoid block-piling Body Slam builds — Knowledge Demon heals through them.",
+        "defect": "Frost stacking for the heavy hits + Dark orb burst to bypass heal. Status archetype (Iteration / Compact) is also fine because the Curses become fuel.",
+        "necrobinder": "Doom + direct damage is perfect — Doom doesn't care about heal. Drop Doom early, push HP below threshold during a single big turn.",
+        "regent": "Stars race (Pale Blue Dot + Seven Stars) or Forge burst (max-Forge Sovereign Blade). Both end the fight before Curse stacking matters."
+      },
+      "preferred_potions": "Block potions for the 3-hit barrage. Weak potions to reduce the buffed attacks. Avoid stockpiling for boss alone — burn aggressively to enable the kill before Curses pile up.",
+      "do_not": "Do NOT take Disintegration twice. Do NOT play a defensive long-fight strategy here — every turn the boss gets stronger AND you get a new Curse."
+    },
+    {
       "name": "Generic mid-act boss notes",
       "principle": "Act 2 bosses test your scaling. If your deck still relies on starter Strikes for damage at the end of Act 2, you will lose. Verify scaling is online before the boss floor.",
       "common_threats": [

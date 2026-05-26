@@ -2056,6 +2056,60 @@ Boss-specific strategies and threshold algorithms. Every Act 1 and Act 3 boss ha
 
 ## Act 2 Bosses
 
+### Knowledge Demon
+
+**Exam Type:** Forced damage race vs healing + Curse-pollution scaling
+
+#### Key Mechanics
+
+- Fixed 4-turn loop: Curse of Knowledge → Slap → Knowledge Overwhelming → Ponder
+- Self-heals each cycle (cannot be outlasted with block alone)
+- Permanently gains +2 Strength each cycle (scaling threat compounds)
+- Opens with a 3-hit barrage ~24 damage total
+- On 'Curse of Knowledge' turns, forces you to choose 1 of 2 Curse cards to add to your deck. Three choices total across the fight, escalating each cycle
+
+#### Curse Choices
+
+**Set 1:** Disintegration (deals 6 damage to you at start of each turn) OR Mind Rot (draw 1 fewer card per turn)
+
+**Set 2:** Disintegration (deals 7 damage to you at start of each turn) OR Sloth (max 3 cards played per turn)
+
+**Set 3:** Disintegration (deals 8 damage to you at start of each turn) OR Waste Away (-1 energy per turn)
+
+**Note:** Disintegration stacks if chosen multiple times: by Set 3 you'd be taking 6+7+8 = 21 HP/turn passive damage. Choose at most one Disintegration unless your deck has a real burst kill plan.
+
+**The Rule:** You CANNOT outlast Knowledge Demon — its heal + Str scaling guarantees you lose any long fight. You must build damage that bypasses defense and survives across multiple cycles.
+
+#### Build Requirements
+
+- Damage source that bypasses block AND heals — Poison is the textbook answer (Silent's Noxious Fumes, Deadly Poison, Catalyst, Envenom). Doom (Necrobinder) also works.
+- Block density to survive the 24-damage opening barrage and subsequent Slap turns
+- Energy/draw stability — avoid Sloth and Waste Away curses; they cripple your engine
+
+#### Curse Choice Strategy
+
+- Best pick almost always: Mind Rot (-1 draw). Easy to play around with any draw engine (Acrobatics, Backflip, Predator). Doesn't compound or pressure HP.
+- Avoid Sloth UNLESS your deck plays few cards per turn (big-card decks, Forge Regent, Doom Necrobinder).
+- Avoid Waste Away UNLESS you have energy-generating relics (Ice Cream, Cursed Key, etc.).
+- Disintegration is acceptable for 1 choice (especially Set 1's 6 dmg version) if you have strong burst — but stacking it kills you to passive HP loss before the heals matter.
+
+#### Character Strategies
+
+**Silent:** Premier matchup. Stack Noxious Fumes (especially +) early. Layer Deadly Poison. Catalyst finishes the race. Poison ignores Knowledge Demon's heal entirely — 40 stacks of poison mathematically outpaces all of its healing combined. Use defensive turns to apply more poison, not just block.
+
+**Ironclad:** Burst-Strength or Exhaust-Strength wins. Demon Form + Limit Break + Heavy Blade lethals before scaling. Avoid block-piling Body Slam builds — Knowledge Demon heals through them.
+
+**Defect:** Frost stacking for the heavy hits + Dark orb burst to bypass heal. Status archetype (Iteration / Compact) is also fine because the Curses become fuel.
+
+**Necrobinder:** Doom + direct damage is perfect — Doom doesn't care about heal. Drop Doom early, push HP below threshold during a single big turn.
+
+**Regent:** Stars race (Pale Blue Dot + Seven Stars) or Forge burst (max-Forge Sovereign Blade). Both end the fight before Curse stacking matters.
+
+**Preferred Potions:** Block potions for the 3-hit barrage. Weak potions to reduce the buffed attacks. Avoid stockpiling for boss alone — burn aggressively to enable the kill before Curses pile up.
+
+**Do Not:** Do NOT take Disintegration twice. Do NOT play a defensive long-fight strategy here — every turn the boss gets stronger AND you get a new Curse.
+
+
 ### Generic mid-act boss notes
 
 **Principle:** Act 2 bosses test your scaling. If your deck still relies on starter Strikes for damage at the end of Act 2, you will lose. Verify scaling is online before the boss floor.
