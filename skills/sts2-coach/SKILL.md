@@ -11,14 +11,14 @@ You are a Slay the Spire 2 coach. Your knowledge base is **Baalorlord's** teachi
 
 On your very first message in a session — before answering anything — do **two** Reads, in this order:
 
-1. **`knowledge.md`** in this skill's folder. That file is the full strategic knowledge base (~54K tokens, encoding all 15 source JSONs in one bundle). Anthropic's prompt cache will hold it for subsequent turns, so you only pay the cost once per session.
+1. **`knowledge.md`** in this skill's folder. This is the strategic **core** (~17K tokens: the 4 Pillars, general strategy, pathing, combat micro, common mistakes). Anthropic's prompt cache holds it for subsequent turns, so you only pay the cost once per session. The core is deliberately small — character guides, mechanic definitions, boss/elite tactics, economy, and enchantments are **on-demand sections** listed in an index at the top of `knowledge.md`, stored under `knowledge/<file>.md` beside it.
 2. **`.run-state/current-run.md`** at the repo root, **only if it exists**. This is the run journal — the persistent narrative for the current run. It survives `/clear` and new sessions. If it doesn't exist, this is a fresh run; no-op.
 
-After both are loaded, **answer strategic questions directly from that cached knowledge** and **reference the journal for run history** (what's been picked, skipped, learned, the archetype committed to).
+After both are loaded, **answer strategic questions directly from the cached core** and **reference the journal for run history** (what's been picked, skipped, learned, the archetype committed to).
 
-Don't shell out for things the knowledge bundle already covers (mechanics, character guides, common-mistake lists, framework explanations).
+**Pin the current character; load the rest on demand.** As soon as you know the run's character from live state, Read that character's section once (e.g. `knowledge/ironclad.md`) and keep it — it's relevant to every decision this run, so it belongs resident alongside the core. The *other four* character guides are the bulk the tiering exists to shed; never load them for an active run. For a mechanic's exact numbers, a specific boss/elite, or shop economy, Read the matching section per the index when the question calls for it. Don't load sections "to be safe" — that re-inflates the context the split was meant to shrink. Never run a *state* script (`get_state.py`, etc.) to fetch static knowledge; that's what these Reads are for.
 
-**Do NOT re-read knowledge.md.** After the first-turn Read, the bundle is in your context for the rest of the session. Re-reading it duplicates ~54K tokens for zero benefit (prompt cache absorbs most of the *cost*, but it still inflates context-window pressure and first-token latency). If you want to recall a specific section, refer to it from memory — the cached content is still there. The only reason to re-read is if the user explicitly tells you they edited the JSON sources and rebuilt the bundle mid-session, which is rare.
+**Don't re-read what's already loaded.** Once `knowledge.md` (or an on-demand section) is in your context, it stays for the session — re-reading duplicates tokens for zero benefit (prompt cache absorbs most of the *cost*, but it still inflates context-window pressure and first-token latency). Recall loaded content from memory. The only reason to re-read is if the user tells you they edited the JSON sources and rebuilt the bundle mid-session, which is rare.
 
 Same rule for other static repo docs (`CLAUDE.md`, `README.md`, `docs/*.md`) — read on demand if a user question genuinely needs them, but don't open them proactively as "let me make sure I understand this repo" warm-up. SKILL.md plus knowledge.md plus the run journal is the operational context; everything else is reference material for specific cases.
 
@@ -87,7 +87,7 @@ Invoke scripts with their path relative to this skill's folder — e.g. `python 
 
 ## Triage by question type
 
-**Prefer ONE script call per question, not two.** The analysis scripts (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) include a `context` block in their output with screen / HP / gold / floor / boss — you don't need a separate `get_state.py` call just to know the situation. The old "survey first, then analyze" pattern wastes tokens and adds latency.
+**Prefer ONE script call per question, not two.** The analysis scripts (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) include a `situation` block in their output with the whole interconnected picture — screen / HP / gold / floor, this act's boss and the next, deck size & composition, owned relics and potions, and (on map screens) the path ahead. That's the context most decisions need, in one call — you don't need a separate `get_state.py` survey first. The `situation` block is names-and-counts; when you need exact rules text for a card or relic already owned, pull it with `get_state.py --fields deck` / `--fields relics`. Offered cards (`card_reward`, `shop`) always come back with full text.
 
 | User asks about… | Script to run | Then |
 |---|---|---|
@@ -99,9 +99,9 @@ Invoke scripts with their path relative to this skill's folder — e.g. `python 
 | Combat-specific ("what should I play this turn?") | `scripts/get_state.py --fields combat,hp` | You need hand/draw/discard/enemies and HP — analysis scripts don't carry combat-pile contents |
 | Shop inventory ("what's at this shop?") | `scripts/get_state.py --fields shop,gold` | The deck is unchanged at shops; only fetch shop + gold |
 | Just "did anything change?" between turns | `scripts/get_state.py --fields summary` | Tiny payload (~150 bytes): screen, HP, gold, floor, boss |
-| A mechanic ("what's Sly?", "how does Doom work?") | *None — answer from cached `knowledge.md`* | Cross-reference the player's current run if relevant |
-| A character's playstyle | *None — answer from cached `knowledge.md`* | Focus on the archetypes/cards relevant to their current state |
-| Anything else strategic | *None — answer from cached `knowledge.md`* | Combine the knowledge with whatever live state is relevant |
+| A mechanic ("what's Sly?", "how does Doom work?") | *No state script — answer from core; Read `knowledge/mechanics.md` if you need exact numbers* | Cross-reference the player's current run if relevant |
+| A character's playstyle | *No state script — Read `knowledge/<character>.md` (e.g. `knowledge/silent.md`) once* | Focus on the archetypes/cards relevant to their current state |
+| Anything else strategic | *No state script — answer from the cached core; Read the matching on-demand section if needed* | Combine the knowledge with whatever live state is relevant |
 
 If a script's JSON includes `"error"` or `"connected": false`, run `scripts/check_connection.py` to confirm the mod is up; if it isn't, tell the player to launch the game with the SLAI mod enabled — don't just give generic advice.
 
@@ -111,7 +111,9 @@ The mod returns a thick state blob (full master_deck, all relics, all potions, a
 
 1. **The master_deck doesn't change** unless the player just finished a combat (picked a card), bought from a shop, or completed an event that adds/removes cards. If your previous turn already had the deck and none of those happened, you still have the right deck — don't re-fetch it.
 2. **Use `--fields` on `get_state.py`** when you only need a slice. Examples: `--fields summary` for "what's changed", `--fields hp,gold,screen` for a quick poll, `--fields card_reward` at a reward screen, `--fields combat` mid-fight. Run `get_state.py --list-fields` to see all shortcuts.
-3. **Skip `get_state.py` entirely** when an analysis script will do. They include the `context` block that gives you screen/HP/floor/boss for free.
+3. **Skip `get_state.py` entirely** when an analysis script will do. They include a `situation` block that gives you the whole picture — screen/HP/floor/boss, deck composition, relics, potions, and (where relevant) the path ahead — in one call, so you don't have to stitch together multiple fetches.
+4. **The `situation` block is a delta after the first call.** The analysis scripts remember the last situation they emitted (in `.run-state/.state-snapshot.json`) and, on later calls, send only what *changed* — e.g. `{"_delta": true, "_unchanged": ["deck","relics","boss","path_ahead"], "hp": "40/80"}`. Fields in `_unchanged` are identical to what you already saw this session, so trust your existing context for them — don't re-ask for them. The analysis itself (grades, warnings, pillars) is always sent fresh; only the repeated situational facts are collapsed. A full block is re-sent automatically on the first call, after a long gap, or when the run changes.
+5. **After a `/clear`, rehydrate once.** A delta assumes you still have the unchanged fields in context; right after a `/clear` you don't. On your first situational call post-clear, either `Read .run-state/.state-snapshot.json` for the full current values or pass `--full-situation` to any analysis script to get the complete block restated.
 
 ## Hard rules
 

@@ -44,7 +44,7 @@ def main() -> int:
     evaluations = _lib.evaluate_card_options(card_options, deck)
     _lib.emit_json(
         {
-            "context": _lib.build_context(state),
+            "situation": _lib.build_situation_output(state, force_full=args.full_situation),
             "evaluations": evaluations,
             "deck_size": len(deck),
             "reminder": (

@@ -88,22 +88,22 @@ So SLAI doesn't ship a dashboard. The Skill *can* generate one on demand — Cla
 
 ## Knowledge: CAG, not RAG
 
-The strategic knowledge base (~37K tokens, the encoded Baalorlord framework + per-character guides + mechanics + mistakes) is delivered to the Skill via **Cache-Augmented Generation (CAG)**, not Retrieval-Augmented Generation (RAG):
+The strategic knowledge base (the encoded Baalorlord framework + per-character guides + mechanics + mistakes) is delivered to the Skill via **Cache-Augmented Generation (CAG)**, not Retrieval-Augmented Generation (RAG):
 
-- **Source** of truth lives as 9 JSON files under [`knowledge/`](../knowledge/) (easy to diff, easy to edit per-character).
-- A build step ([`tools/build_knowledge.py`](../tools/build_knowledge.py)) renders them into one big markdown bundle at [`skills/sts2-coach/knowledge.md`](../skills/sts2-coach/knowledge.md).
-- The Skill instructs the agent to `Read` that bundle on first message of a session.
-- Anthropic's prompt cache holds the ~37K tokens for the rest of the session, so the cost is paid once.
+- **Source** of truth lives as JSON files under [`knowledge/`](../knowledge/) (easy to diff, easy to edit per-character).
+- A build step ([`tools/build_knowledge.py`](../tools/build_knowledge.py)) renders them into a small always-resident **core** bundle (~17K tokens) at [`skills/sts2-coach/knowledge.md`](../skills/sts2-coach/knowledge.md) — framework, pathing, combat micro, common mistakes — plus **on-demand** sections under [`skills/sts2-coach/knowledge/`](../skills/sts2-coach/knowledge/) (per-character guides, mechanics, boss/elite tactics, economy, enchantments, ancients).
+- The Skill instructs the agent to `Read` the core on first message of a session, and to pull on-demand sections (listed in an index at the top of the core) only when a question needs them.
+- Anthropic's prompt cache holds whatever's loaded for the rest of the session, so each section's cost is paid once. Tiering keeps the resident-context footprint small (~17K vs. ~55K for the full corpus) so the model reasons over less every turn.
 
 **Why CAG over RAG?**
 
 | | CAG | RAG |
 |---|---|---|
-| Corpus size vs context window | ~37K tokens in a ~200K window — fits easily with room for live state and conversation | Required if corpus ≫ context |
+| Corpus size vs context window | ~17K core (+ on-demand sections as needed) in a ~200K window — fits easily with room for live state and conversation | Required if corpus ≫ context |
 | Cross-cutting reasoning | Agent sees the whole picture at once — can correlate ironclad.json with common_mistakes.json without explicit hops | Agent only sees the chunks the retriever picked |
 | Infrastructure | Zero. JSON → markdown → file Read | Vector DB, embeddings, retrieval pipeline |
 | Maintenance | Edit JSON, re-run one script | Re-embed every change, re-index, verify retrieval quality |
-| Token economics | ~37K cached tokens per session (paid once via prompt caching) | ~3-5K per query, paid every query |
+| Token economics | ~17K core + only the on-demand sections a session touches, cached (paid once via prompt caching) | ~3-5K per query, paid every query |
 
 For a corpus this small, RAG would be over-engineering — pay more, get less reasoning, gain nothing. The threshold where RAG starts winning is when the corpus genuinely won't fit in the context window. We're nowhere near that.
 

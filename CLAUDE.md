@@ -26,7 +26,9 @@ cd mod
 
 # Rebuild the Skill's knowledge bundle after editing any knowledge/*.json
 python tools/build_knowledge.py
-# Renders all 9 knowledge JSONs + 5 character JSONs into skills/sts2-coach/knowledge.md.
+# Renders the core framework into skills/sts2-coach/knowledge.md (~17K tokens) and
+# the remaining sections (characters, mechanics, boss/elite, economy, enchantments,
+# ancients) into skills/sts2-coach/knowledge/*.md as on-demand reads.
 
 # Smoke-test the mod is live
 curl http://localhost:15526/
@@ -41,7 +43,7 @@ No test suite, no linter, no CI. Scripts are stdlib-only — no `pip install` st
 
 ## Architecture notes that aren't obvious from file listing
 
-**Knowledge is CAG, not RAG.** The 14 JSON files under `knowledge/` are the *source of truth*; `tools/build_knowledge.py` renders them into a single ~37K-token markdown bundle at `skills/sts2-coach/knowledge.md`. The Skill instructs the agent to `Read` that bundle on the first turn, and Anthropic's prompt cache keeps it for the rest of the session. **Never edit `knowledge.md` by hand** — your edits will be wiped the next time the bundle is rebuilt. Edit the JSONs, then run `python tools/build_knowledge.py`.
+**Knowledge is CAG, not RAG.** The JSON files under `knowledge/` are the *source of truth*; `tools/build_knowledge.py` renders them into a small always-resident **core** bundle (`skills/sts2-coach/knowledge.md`, ~17K tokens: framework, pathing, combat micro, common mistakes) plus **on-demand** sections (`skills/sts2-coach/knowledge/*.md`: per-character guides, mechanics, boss/elite tactics, economy, enchantments, ancients). The core carries an index of the on-demand sections. The Skill `Read`s the core on the first turn and pulls on-demand sections only when a question needs them; Anthropic's prompt cache keeps whatever's loaded for the rest of the session. **Never edit `knowledge.md` or `knowledge/*.md` by hand** — your edits will be wiped the next time the bundle is rebuilt. Edit the JSONs, then run `python tools/build_knowledge.py`.
 
 **The C# mod is split into partial classes by responsibility.** All `mod/McpMod.*.cs` files extend `partial class McpMod`:
 - `McpMod.cs` — HTTP scaffolding, request routing, port config (refuses POST by design).

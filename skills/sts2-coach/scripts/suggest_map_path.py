@@ -43,7 +43,7 @@ def main() -> int:
 
     _lib.emit_json(
         {
-            "context": _lib.build_context(state),
+            "situation": _lib.build_situation_output(state, force_full=args.full_situation),
             "act": act,
             "floor": floor,
             "current_hp": hp,

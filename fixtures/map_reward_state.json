@@ -1,0 +1,49 @@
+{
+  "state_type": "card_reward",
+  "run": {"act": 1, "floor": 6, "ascension": 0, "boss": {"name": "Hexaghost"}, "boss_2": {"name": "The Champ"}},
+  "player": {
+    "character": "Ironclad",
+    "hp": 52, "max_hp": 80, "gold": 145,
+    "master_deck": [
+      {"name": "Strike", "type": "Attack", "cost": 1, "is_upgraded": false, "description": "Deal 6 damage."},
+      {"name": "Strike", "type": "Attack", "cost": 1, "is_upgraded": false, "description": "Deal 6 damage."},
+      {"name": "Bash", "type": "Attack", "cost": 2, "is_upgraded": true, "description": "Deal 10 damage. Apply 3 Vulnerable."},
+      {"name": "Defend", "type": "Skill", "cost": 1, "is_upgraded": false, "description": "Gain 5 Block."},
+      {"name": "Defend", "type": "Skill", "cost": 1, "is_upgraded": false, "description": "Gain 5 Block."},
+      {"name": "Inflame", "type": "Power", "cost": 1, "is_upgraded": false, "description": "Gain 2 Strength."},
+      {"name": "Regret", "type": "Curse", "cost": 0, "is_upgraded": false, "description": "Unplayable. Lose 1 HP per card in hand at end of turn."}
+    ],
+    "master_deck_count": 7,
+    "relics": [
+      {"name": "Burning Blood", "description": "Heal 6 HP after combat."},
+      {"name": "Anchor", "description": "Start each combat with 10 Block."}
+    ],
+    "potions": [
+      {"name": "Block Potion", "description": "Gain 12 Block."},
+      {"name": "Fire Potion", "description": "Deal 20 damage."}
+    ],
+    "max_potion_slots": 3
+  },
+  "card_reward": {
+    "cards": [
+      {"name": "Pommel Strike", "type": "Attack", "cost": 1, "is_upgraded": false, "description": "Deal 9 damage. Draw 1 card.", "upgrade_preview": {"description": "Deal 10 damage. Draw 2 cards."}, "keywords": [{"name": "Draw", "description": "Add cards to your hand."}]},
+      {"name": "Demon Form", "type": "Power", "cost": 3, "is_upgraded": false, "description": "At the start of each turn, gain 2 Strength.", "upgrade_preview": {"description": "Gain 3 Strength."}, "keywords": [{"name": "Strength", "description": "Adds damage to attacks."}]}
+    ]
+  },
+  "map": {
+    "current_position": {"col": 3, "row": 5, "type": "Monster"},
+    "next_options": [
+      {"index": 0, "col": 2, "row": 6, "type": "RestSite", "leads_to": [{"col": 2, "row": 7, "type": "Elite"}]},
+      {"index": 1, "col": 4, "row": 6, "type": "Monster", "leads_to": [{"col": 4, "row": 7, "type": "Shop"}]}
+    ],
+    "nodes": [
+      {"col": 3, "row": 5, "type": "Monster", "children": [[2, 6], [4, 6]]},
+      {"col": 2, "row": 6, "type": "RestSite", "children": [[2, 7]]},
+      {"col": 4, "row": 6, "type": "Monster", "children": [[4, 7]]},
+      {"col": 2, "row": 7, "type": "Elite", "children": [[3, 8]]},
+      {"col": 4, "row": 7, "type": "Shop", "children": [[3, 8]]},
+      {"col": 3, "row": 8, "type": "Boss", "children": []}
+    ],
+    "boss": {"col": 3, "row": 8, "name": "Hexaghost"}
+  }
+}

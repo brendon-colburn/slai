@@ -8,7 +8,7 @@ You ask the questions, you make every click. SLAI just makes you better at makin
 
 - **SLAI mod** (C#, `mod/`) — a read-only HTTP observer that runs inside Slay the Spire 2 and exposes live game state on `localhost:15526`. Cannot send game inputs by design.
 - **`/sts2-coach` Skill** (`skills/sts2-coach/`) — drops into any agent that supports the Anthropic Skills format (built and tested with **Claude Code**; should also work with **Claude Desktop**, **GitHub Copilot CLI**, **Gemini CLI** / **Google Antigravity**, **OpenAI Codex CLI**, and other Skills-compatible agents). Triages questions, shells out to bundled stdlib-only Python scripts for deterministic analysis (4-pillar scoring, card-reward grading S/A/B/C/D/F, mistake detection, pathing context), and generates inline visual artifacts on demand.
-- **Knowledge base** (~2,600 lines, `knowledge/`) — encodes Baalorlord's 4 Pillars framework, character strategies for all 5 characters, common mistakes, pathing philosophy, and STS2 mechanics. Built into a single `knowledge.md` bundle that the Skill loads once per session (CAG, not RAG).
+- **Knowledge base** (~2,600 lines, `knowledge/`) — encodes Baalorlord's 4 Pillars framework, character strategies for all 5 characters, common mistakes, pathing philosophy, and STS2 mechanics. Built into a small always-resident `knowledge.md` core plus on-demand `knowledge/*.md` sections that the Skill loads as needed (CAG, not RAG).
 
 ## Architecture
 
@@ -81,8 +81,8 @@ See [`examples/example-prompts.md`](examples/example-prompts.md) for more.
 | Card reward | `evaluate_card_reward.py` | Per-card S/A/B/C/D/F with reasoning |
 | Pathing | `suggest_map_path.py` | HP-aware context, combined with cached pathing knowledge |
 | Mistakes | `check_mistakes.py` | Active warnings (bloat, low block, no upgrades, curses, etc.) |
-| Mechanic ("what's Doom?") | *None — answered from cached `knowledge.md`* | Knowledge-base lookup |
-| Character guide | *None — answered from cached `knowledge.md`* | Full strategy for ironclad / silent / defect / necrobinder / regent |
+| Mechanic ("what's Doom?") | *None — core, or `knowledge/mechanics.md` for exact numbers* | Knowledge-base lookup |
+| Character guide | *None — `knowledge/<character>.md` on demand* | Full strategy for ironclad / silent / defect / necrobinder / regent |
 | Connection | `check_connection.py` | Is the mod reachable? |
 
 ## Visual breakdowns

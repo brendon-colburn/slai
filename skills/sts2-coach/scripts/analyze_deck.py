@@ -25,9 +25,11 @@ def main() -> int:
         return 1
 
     out = _lib.analyze(state)
-    # Embed a tiny situational context so the agent doesn't need a
-    # separate get_state.py call just to know what screen/HP/boss it's on.
-    out["context"] = _lib.build_context(state)
+    # Embed the situational picture (screen/HP/boss + deck composition, relics,
+    # potions, path ahead) as a delta vs the previous call, so repeated turns
+    # don't pile up identical copies of unchanged state. --full-situation forces
+    # the complete block (e.g. after a /clear).
+    out["situation"] = _lib.build_situation_output(state, force_full=args.full_situation)
     _lib.emit_json(out)
     return 0
 

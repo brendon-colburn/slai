@@ -28,3 +28,5 @@ release-staging/
 # Run journals — personal coaching context, regenerated per run
 .run-state/current-run.md
 .run-state/runs/
+# State snapshot — last-emitted situation, for cross-turn delta output
+.run-state/.state-snapshot.json
