@@ -16,7 +16,7 @@ On your very first message in a session — before answering anything — do **t
 
 After both are loaded, **answer strategic questions directly from the cached core** and **reference the journal for run history** (what's been picked, skipped, learned, the archetype committed to).
 
-**Load on-demand sections only when a question needs them.** When you learn the run's character from live state, Read that character's section once (e.g. `knowledge/ironclad.md`) — it then stays cached. For a mechanic's exact numbers, a specific boss/elite, or shop economy, Read the matching section per the index. Don't load on-demand sections preemptively or "to be safe" — that re-inflates the context the core split was meant to shrink. Never run a *state* script (`get_state.py`, etc.) to fetch static knowledge; that's what these Reads are for.
+**Pin the current character; load the rest on demand.** As soon as you know the run's character from live state, Read that character's section once (e.g. `knowledge/ironclad.md`) and keep it — it's relevant to every decision this run, so it belongs resident alongside the core. The *other four* character guides are the bulk the tiering exists to shed; never load them for an active run. For a mechanic's exact numbers, a specific boss/elite, or shop economy, Read the matching section per the index when the question calls for it. Don't load sections "to be safe" — that re-inflates the context the split was meant to shrink. Never run a *state* script (`get_state.py`, etc.) to fetch static knowledge; that's what these Reads are for.
 
 **Don't re-read what's already loaded.** Once `knowledge.md` (or an on-demand section) is in your context, it stays for the session — re-reading duplicates tokens for zero benefit (prompt cache absorbs most of the *cost*, but it still inflates context-window pressure and first-token latency). Recall loaded content from memory. The only reason to re-read is if the user tells you they edited the JSON sources and rebuilt the bundle mid-session, which is rare.
 
@@ -87,7 +87,7 @@ Invoke scripts with their path relative to this skill's folder — e.g. `python 
 
 ## Triage by question type
 
-**Prefer ONE script call per question, not two.** The analysis scripts (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) include a `context` block in their output with screen / HP / gold / floor / boss — you don't need a separate `get_state.py` call just to know the situation. The old "survey first, then analyze" pattern wastes tokens and adds latency.
+**Prefer ONE script call per question, not two.** The analysis scripts (`analyze_deck`, `evaluate_card_reward`, `check_mistakes`, `suggest_map_path`) include a `situation` block in their output with the whole interconnected picture — screen / HP / gold / floor, this act's boss and the next, deck size & composition, owned relics and potions, and (on map screens) the path ahead. That's the context most decisions need, in one call — you don't need a separate `get_state.py` survey first. The `situation` block is names-and-counts; when you need exact rules text for a card or relic already owned, pull it with `get_state.py --fields deck` / `--fields relics`. Offered cards (`card_reward`, `shop`) always come back with full text.
 
 | User asks about… | Script to run | Then |
 |---|---|---|
@@ -111,8 +111,7 @@ The mod returns a thick state blob (full master_deck, all relics, all potions, a
 
 1. **The master_deck doesn't change** unless the player just finished a combat (picked a card), bought from a shop, or completed an event that adds/removes cards. If your previous turn already had the deck and none of those happened, you still have the right deck — don't re-fetch it.
 2. **Use `--fields` on `get_state.py`** when you only need a slice. Examples: `--fields summary` for "what's changed", `--fields hp,gold,screen` for a quick poll, `--fields card_reward` at a reward screen, `--fields combat` mid-fight. Run `get_state.py --list-fields` to see all shortcuts.
-3. **Skip `get_state.py` entirely** when an analysis script will do. They include the `context` block that gives you screen/HP/floor/boss for free.
-4. **Cards come back compact by default.** `get_state.py` trims the master deck and combat piles to `name`/`type`/`cost`/`upgraded` — that's all you need to reason about deck composition and play sequencing. Offered cards (`card_reward`, `shop`, `rewards`, `event`) always keep full `description`/`upgrade_preview`/`keywords`, so you can still grade them and quote exact text without a web search. Pass `--full-cards` only when you genuinely need exact rules text for cards already in the deck (rare).
+3. **Skip `get_state.py` entirely** when an analysis script will do. They include a `situation` block that gives you the whole picture — screen/HP/floor/boss, deck composition, relics, potions, and (where relevant) the path ahead — in one call, so you don't have to stitch together multiple fetches.
 
 ## Hard rules
 

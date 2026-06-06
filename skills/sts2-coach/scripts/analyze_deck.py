@@ -25,9 +25,10 @@ def main() -> int:
         return 1
 
     out = _lib.analyze(state)
-    # Embed a tiny situational context so the agent doesn't need a
-    # separate get_state.py call just to know what screen/HP/boss it's on.
-    out["context"] = _lib.build_context(state)
+    # Embed the full situational picture (screen/HP/boss + deck composition,
+    # relics, potions, path ahead) so the agent can reason holistically
+    # without stitching together separate get_state.py calls.
+    out["situation"] = _lib.build_situation(state)
     _lib.emit_json(out)
     return 0
 

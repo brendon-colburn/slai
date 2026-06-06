@@ -599,56 +599,6 @@ def _run_field(state: dict[str, Any], *keys: str) -> dict[str, Any]:
     return {k: run[k] for k in keys if k in run}
 
 
-# Bulk card-list fields on the player. These are the big token sinks: the
-# 20-card master deck and the combat piles, each card carrying full rules
-# text, an upgrade preview, and keyword hover tips. The cards a coach
-# actually reasons about turn-to-turn — reward/shop/event offers — live under
-# *top-level* keys (card_reward/shop/rewards/event), NOT here, so compacting
-# these lists never strips the offered cards' descriptions (see SKILL.md:
-# "use the description/upgrade_preview/keywords fields directly … do not
-# web-search cards the player already has").
-_BULK_CARD_KEYS = ("master_deck", "hand", "draw_pile", "discard_pile", "exhaust_pile")
-
-
-def compact_card(card: Any) -> Any:
-    """Reduce a full card object to what coaching logic needs at a glance:
-    name, type, cost, and whether it's upgraded. Drops description,
-    upgrade_preview, keywords, rarity, star_cost — ~85% of per-card tokens.
-    Non-dict inputs pass through unchanged."""
-    if not isinstance(card, dict):
-        return card
-    out: dict[str, Any] = {
-        "name": card.get("name"),
-        "type": card.get("type"),
-        "cost": card.get("cost", card.get("energy_cost")),
-    }
-    if card.get("is_upgraded") or card.get("upgraded") or card.get("upgrade_count", 0) > 0:
-        out["upgraded"] = True
-    return {k: v for k, v in out.items() if v is not None}
-
-
-def compact_bulk_cards_in_state(state: dict[str, Any]) -> dict[str, Any]:
-    """Return a copy of `state` with the player's bulk card lists (master_deck
-    + combat piles) compacted via compact_card(). Offered-card lists
-    (card_reward/shop/rewards/event) are left fully intact. Does not mutate
-    the input — analysis scripts run on the raw state and stay unaffected."""
-    player = state.get("player")
-    if not isinstance(player, dict):
-        return state
-    new_player = dict(player)
-    changed = False
-    for key in _BULK_CARD_KEYS:
-        cards = new_player.get(key)
-        if isinstance(cards, list):
-            new_player[key] = [compact_card(c) for c in cards]
-            changed = True
-    if not changed:
-        return state
-    new_state = dict(state)
-    new_state["player"] = new_player
-    return new_state
-
-
 # Map of field-shortcut → (player_keys, run_keys, top_level_keys)
 # Each tuple says what part of the source state contributes to the projection.
 _FIELD_MAP: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {
@@ -779,4 +729,101 @@ def build_context(state: dict[str, Any]) -> dict[str, Any]:
 
     # Drop nulls so the agent doesn't see noise
     return {k: v for k, v in ctx.items() if v is not None}
-    sys.stdout.write("\n")
+
+
+def summarize_path(state: dict[str, Any]) -> dict[str, Any] | None:
+    """Compact path-ahead summary from state['map'], when a map is exposed.
+
+    Returns the rooms the player can travel to right now (each with a 1-step
+    lookahead of what it leads to) plus a tally of room types still ahead, so
+    the agent can apply the Look Ahead Method without a separate map fetch.
+    Returns None on screens with no map (most combat/event/shop screens).
+    """
+    m = state.get("map")
+    if not isinstance(m, dict):
+        return None
+
+    out: dict[str, Any] = {}
+
+    cur = m.get("current_position")
+    cur_row = cur.get("row") if isinstance(cur, dict) else None
+
+    # Rooms the player chooses between right now (with 1-step lookahead).
+    options: list[dict[str, Any]] = []
+    for opt in m.get("next_options") or []:
+        if not isinstance(opt, dict):
+            continue
+        entry: dict[str, Any] = {"type": opt.get("type")}
+        leads = [c.get("type") for c in (opt.get("leads_to") or []) if isinstance(c, dict)]
+        if leads:
+            entry["leads_to"] = leads
+        options.append(entry)
+    if options:
+        out["next_options"] = options
+
+    # Tally of room types in the rows still ahead — fuel for look-ahead planning
+    # (e.g. "two campfires and an elite between here and the boss").
+    nodes = m.get("nodes")
+    if isinstance(nodes, list) and isinstance(cur_row, (int, float)):
+        ahead: dict[str, int] = {}
+        for n in nodes:
+            if not isinstance(n, dict):
+                continue
+            row = n.get("row")
+            if isinstance(row, (int, float)) and row > cur_row:
+                t = n.get("type")
+                if t:
+                    ahead[str(t)] = ahead.get(str(t), 0) + 1
+        if ahead:
+            out["rooms_ahead"] = ahead
+
+    return out or None
+
+
+def build_situation(state: dict[str, Any]) -> dict[str, Any]:
+    """Richer situational summary embedded in analysis-script output.
+
+    Builds on build_context() to give the agent the whole interconnected
+    picture in one block — screen/HP/gold/floor, this act's boss and the next,
+    deck size & composition, owned relics and potions, and (on map screens)
+    the path ahead. The point is holistic reasoning from a single call:
+    synergies, deck needs, and pathing all draw on the same facts without
+    stitching together multiple get_state.py fetches.
+
+    Names-and-counts only — exact card/relic rules text still lives in the full
+    state (get_state.py) and in the reward/shop offers, which stay verbatim.
+    """
+    sit = build_context(state)
+
+    deck = _extract_deck(state)
+    if deck:
+        s = calculate_deck_stats(deck)
+        sit["deck"] = {
+            "size": s["total_cards"],
+            "attacks": s["attacks"],
+            "skills": s["skills"],
+            "powers": s["powers"],
+            "curses": s["curses"],
+            "statuses": s["statuses"],
+        }
+
+    relics = _extract_relics(state)
+    if relics:
+        relic_names = [r.get("name") for r in relics if isinstance(r, dict) and r.get("name")]
+        if relic_names:
+            sit["relics"] = relic_names
+
+    player = state.get("player") if isinstance(state.get("player"), dict) else {}
+    potions = player.get("potions")
+    if not isinstance(potions, list):
+        potions = state.get("potions")
+    if isinstance(potions, list):
+        potion_names = [p.get("name") for p in potions if isinstance(p, dict) and p.get("name")]
+        if potion_names:
+            sit["potions"] = potion_names
+
+    path = summarize_path(state)
+    if path:
+        sit["path_ahead"] = path
+
+    return sit
