@@ -599,6 +599,56 @@ def _run_field(state: dict[str, Any], *keys: str) -> dict[str, Any]:
     return {k: run[k] for k in keys if k in run}
 
 
+# Bulk card-list fields on the player. These are the big token sinks: the
+# 20-card master deck and the combat piles, each card carrying full rules
+# text, an upgrade preview, and keyword hover tips. The cards a coach
+# actually reasons about turn-to-turn — reward/shop/event offers — live under
+# *top-level* keys (card_reward/shop/rewards/event), NOT here, so compacting
+# these lists never strips the offered cards' descriptions (see SKILL.md:
+# "use the description/upgrade_preview/keywords fields directly … do not
+# web-search cards the player already has").
+_BULK_CARD_KEYS = ("master_deck", "hand", "draw_pile", "discard_pile", "exhaust_pile")
+
+
+def compact_card(card: Any) -> Any:
+    """Reduce a full card object to what coaching logic needs at a glance:
+    name, type, cost, and whether it's upgraded. Drops description,
+    upgrade_preview, keywords, rarity, star_cost — ~85% of per-card tokens.
+    Non-dict inputs pass through unchanged."""
+    if not isinstance(card, dict):
+        return card
+    out: dict[str, Any] = {
+        "name": card.get("name"),
+        "type": card.get("type"),
+        "cost": card.get("cost", card.get("energy_cost")),
+    }
+    if card.get("is_upgraded") or card.get("upgraded") or card.get("upgrade_count", 0) > 0:
+        out["upgraded"] = True
+    return {k: v for k, v in out.items() if v is not None}
+
+
+def compact_bulk_cards_in_state(state: dict[str, Any]) -> dict[str, Any]:
+    """Return a copy of `state` with the player's bulk card lists (master_deck
+    + combat piles) compacted via compact_card(). Offered-card lists
+    (card_reward/shop/rewards/event) are left fully intact. Does not mutate
+    the input — analysis scripts run on the raw state and stay unaffected."""
+    player = state.get("player")
+    if not isinstance(player, dict):
+        return state
+    new_player = dict(player)
+    changed = False
+    for key in _BULK_CARD_KEYS:
+        cards = new_player.get(key)
+        if isinstance(cards, list):
+            new_player[key] = [compact_card(c) for c in cards]
+            changed = True
+    if not changed:
+        return state
+    new_state = dict(state)
+    new_state["player"] = new_player
+    return new_state
+
+
 # Map of field-shortcut → (player_keys, run_keys, top_level_keys)
 # Each tuple says what part of the source state contributes to the projection.
 _FIELD_MAP: dict[str, tuple[tuple[str, ...], tuple[str, ...], tuple[str, ...]]] = {

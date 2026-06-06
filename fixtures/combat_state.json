@@ -1,0 +1,33 @@
+{
+  "state_type": "combat",
+  "run": {"act": 1, "floor": 5, "ascension": 0, "boss": {"name": "Hexaghost"}},
+  "player": {
+    "character": "Ironclad",
+    "hp": 60, "max_hp": 80, "gold": 99, "block": 0,
+    "energy": 3, "max_energy": 3,
+    "master_deck": [
+      {"id": "Strike", "name": "Strike", "type": "Attack", "cost": 1, "star_cost": 0, "rarity": "Basic", "is_upgraded": false, "description": "Deal 6 damage.", "upgrade_preview": {"description": "Deal 9 damage."}, "keywords": [{"name": "damage", "description": "Reduces HP."}]},
+      {"id": "Bash", "name": "Bash", "type": "Attack", "cost": 2, "star_cost": 0, "rarity": "Basic", "is_upgraded": true, "description": "Deal 10 damage. Apply 3 Vulnerable.", "upgrade_preview": null, "keywords": [{"name": "Vulnerable", "description": "Takes 50% more damage."}]},
+      {"id": "Defend", "name": "Defend", "type": "Skill", "cost": 1, "star_cost": 0, "rarity": "Basic", "is_upgraded": false, "description": "Gain 5 Block.", "upgrade_preview": {"description": "Gain 8 Block."}, "keywords": [{"name": "Block", "description": "Prevents damage."}]}
+    ],
+    "master_deck_count": 3,
+    "hand": [
+      {"id": "Strike", "name": "Strike", "type": "Attack", "cost": 1, "description": "Deal 6 damage.", "upgrade_preview": {"description": "Deal 9 damage."}, "keywords": [{"name": "damage", "description": "Reduces HP."}]}
+    ],
+    "draw_pile": [
+      {"id": "Defend", "name": "Defend", "type": "Skill", "cost": 1, "description": "Gain 5 Block.", "keywords": [{"name": "Block", "description": "Prevents damage."}]}
+    ],
+    "discard_pile": [],
+    "exhaust_pile": [],
+    "draw_pile_count": 1,
+    "discard_pile_count": 0,
+    "exhaust_pile_count": 0,
+    "relics": [{"name": "Burning Blood", "description": "Heal 6 HP after combat."}]
+  },
+  "battle": {"enemies": [{"name": "Cultist", "hp": 48, "intents": [{"type": "buff"}]}]},
+  "card_reward": {
+    "cards": [
+      {"id": "Inflame", "name": "Inflame", "type": "Power", "cost": 1, "is_upgraded": false, "description": "Gain 2 Strength.", "upgrade_preview": {"description": "Gain 3 Strength."}, "keywords": [{"name": "Strength", "description": "Adds damage to attacks."}]}
+    ]
+  }
+}

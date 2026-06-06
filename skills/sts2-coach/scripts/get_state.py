@@ -54,6 +54,17 @@ def main() -> int:
         action="store_true",
         help="Print available field shortcuts and exit.",
     )
+    parser.add_argument(
+        "--full-cards",
+        action="store_true",
+        help=(
+            "Keep full per-card detail (description, upgrade_preview, keywords) "
+            "for the master deck and combat piles. By default these bulk card "
+            "lists are compacted to name/type/cost/upgraded to save context "
+            "tokens. Offered cards (card_reward/shop) are always full. Use this "
+            "only when you need exact rules text for every card in the deck."
+        ),
+    )
     args = parser.parse_args()
 
     if args.list_fields:
@@ -72,6 +83,13 @@ def main() -> int:
         if not state["markdown"].endswith("\n"):
             sys.stdout.write("\n")
         return 0
+
+    # Compact the bulk card lists (master deck + combat piles) unless the
+    # caller explicitly wants full per-card detail. Done before projection so
+    # both the "all" path and --fields slices benefit; offered cards are
+    # untouched (they live under top-level keys, not player card lists).
+    if "error" not in state and not args.full_cards:
+        state = _lib.compact_bulk_cards_in_state(state)
 
     # Filter to requested fields (preserves errors so the agent still sees them)
     if "error" in state or not args.fields or args.fields.lower() == "all":
