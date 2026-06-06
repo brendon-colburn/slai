@@ -180,7 +180,11 @@ def calculate_deck_stats(deck: list[dict[str, Any]]) -> dict[str, Any]:
         card_type = str(card.get("type", "")).lower()
         card_name = str(card.get("name", "")).lower()
         card_desc = str(card.get("description", "")).lower()
-        is_upgraded = card.get("upgraded", False) or card.get("upgrade_count", 0) > 0
+        is_upgraded = (
+            card.get("is_upgraded", False)  # the field the mod actually emits
+            or card.get("upgraded", False)
+            or card.get("upgrade_count", 0) > 0
+        )
 
         if card_type == "attack":
             attacks += 1
@@ -904,7 +908,12 @@ def build_situation_output(state: dict[str, Any], force_full: bool = False) -> d
         return current
 
     prev = snap.get("situation") if isinstance(snap.get("situation"), dict) else {}
-    stale = (time.time() - float(snap.get("saved_at", 0))) > SNAPSHOT_STALE_SEC
+    # A malformed/non-numeric saved_at counts as stale ⇒ emit full, never crash.
+    try:
+        saved_at = float(snap.get("saved_at", 0))
+    except (TypeError, ValueError):
+        saved_at = 0.0
+    stale = (time.time() - saved_at) > SNAPSHOT_STALE_SEC
     new_run = current.get("character") != prev.get("character")
     if not prev or stale or new_run:
         return current
