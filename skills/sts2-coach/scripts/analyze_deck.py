@@ -25,10 +25,11 @@ def main() -> int:
         return 1
 
     out = _lib.analyze(state)
-    # Embed the full situational picture (screen/HP/boss + deck composition,
-    # relics, potions, path ahead) so the agent can reason holistically
-    # without stitching together separate get_state.py calls.
-    out["situation"] = _lib.build_situation(state)
+    # Embed the situational picture (screen/HP/boss + deck composition, relics,
+    # potions, path ahead) as a delta vs the previous call, so repeated turns
+    # don't pile up identical copies of unchanged state. --full-situation forces
+    # the complete block (e.g. after a /clear).
+    out["situation"] = _lib.build_situation_output(state, force_full=args.full_situation)
     _lib.emit_json(out)
     return 0
 

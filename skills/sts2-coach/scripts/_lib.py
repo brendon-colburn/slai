@@ -13,10 +13,13 @@ No third-party dependencies on purpose: drop the folder into
 from __future__ import annotations
 
 import json
+import os
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from pathlib import Path
 from typing import Any
 
 # ─── Defaults ────────────────────────────────────────────────────────────────
@@ -554,6 +557,15 @@ def add_common_args(parser) -> None:
         default=None,
         help="Read state from a JSON file instead of the live mod (for testing).",
     )
+    parser.add_argument(
+        "--full-situation",
+        action="store_true",
+        help=(
+            "Emit the full situation block instead of a delta against the last "
+            "call. Use after a /clear (when you've lost the in-context baseline) "
+            "or whenever you want the complete current picture re-stated."
+        ),
+    )
 
 
 def load_state(args) -> dict[str, Any]:
@@ -827,3 +839,96 @@ def build_situation(state: dict[str, Any]) -> dict[str, Any]:
         sit["path_ahead"] = path
 
     return sit
+
+
+# ─── Cross-turn delta output ─────────────────────────────────────────────────
+#
+# Tool results stay in the conversation for the whole session, so re-emitting
+# the full situation every call piles up near-identical copies of the deck,
+# relics, boss, and path the model already has. build_situation_output() emits
+# only what changed since the previous call, backed by a snapshot file holding
+# the last-emitted situation. The full picture is always one Read away
+# (.run-state/.state-snapshot.json), so a freshly /cleared model — which has no
+# in-context baseline — can rehydrate instead of trusting a misleading
+# "unchanged". A stale snapshot or a different character (new run) falls back
+# to a full emit automatically.
+
+# Repo root = the directory holding .run-state/ (scripts live three levels down).
+_REPO_ROOT = Path(__file__).resolve().parent.parent.parent.parent
+SNAPSHOT_PATH = Path(
+    os.environ.get("SLAI_STATE_SNAPSHOT", str(_REPO_ROOT / ".run-state" / ".state-snapshot.json"))
+)
+# A snapshot older than this is treated as a previous session ⇒ emit full.
+SNAPSHOT_STALE_SEC = 6 * 3600
+
+
+def _snapshot_display_path() -> str:
+    try:
+        return str(SNAPSHOT_PATH.relative_to(_REPO_ROOT))
+    except ValueError:
+        return str(SNAPSHOT_PATH)
+
+
+def _load_snapshot() -> dict[str, Any] | None:
+    try:
+        with open(SNAPSHOT_PATH, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        return data if isinstance(data, dict) else None
+    except (OSError, ValueError):
+        return None
+
+
+def _save_snapshot(situation: dict[str, Any]) -> None:
+    # Best-effort — never let snapshot I/O break a coaching call.
+    try:
+        SNAPSHOT_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(SNAPSHOT_PATH, "w", encoding="utf-8") as f:
+            json.dump({"saved_at": time.time(), "situation": situation}, f)
+    except OSError:
+        pass
+
+
+def build_situation_output(state: dict[str, Any], force_full: bool = False) -> dict[str, Any]:
+    """Return the block to emit under "situation".
+
+    Full when there's no fresh baseline (first call, stale snapshot, new run,
+    or force_full); otherwise a delta listing only changed fields plus the
+    names of the unchanged ones and a pointer to the snapshot for rehydration.
+    Always rewrites the snapshot with the current situation.
+    """
+    current = build_situation(state)
+    snap = None if force_full else _load_snapshot()
+    _save_snapshot(current)
+
+    if not snap:
+        return current
+
+    prev = snap.get("situation") if isinstance(snap.get("situation"), dict) else {}
+    stale = (time.time() - float(snap.get("saved_at", 0))) > SNAPSHOT_STALE_SEC
+    new_run = current.get("character") != prev.get("character")
+    if not prev or stale or new_run:
+        return current
+
+    changed = {k: v for k, v in current.items() if prev.get(k) != v}
+    # If essentially everything changed, a full block is clearer than a delta.
+    if len(changed) >= max(1, len(current) - 1):
+        return current
+
+    unchanged = [k for k in current if k not in changed]
+    removed = [k for k in prev if k not in current]
+
+    out: dict[str, Any] = {
+        "_delta": True,
+        "_unchanged": unchanged,
+        "_snapshot": _snapshot_display_path(),
+        "_note": (
+            "Only changed situation fields are shown; _unchanged fields match what "
+            "you already saw this session. If you don't have them in context (e.g. "
+            "after /clear), Read _snapshot for the full current values, or re-run "
+            "with --full-situation."
+        ),
+    }
+    if removed:
+        out["_removed"] = removed
+    out.update(changed)
+    return out
