@@ -1,13 +1,8 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Text.Json;
-using Godot;
-using MegaCrit.Sts2.Core.Nodes.Screens.MainMenu;
-using MegaCrit.Sts2.Core.Nodes.Screens.ProfileScreen;
-using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves;
 using MegaCrit.Sts2.Core.Saves.Managers;
 
@@ -38,45 +33,6 @@ public static partial class McpMod
         catch (Exception ex)
         {
             SendError(response, 500, $"Failed to get profiles: {ex.Message}");
-        }
-    }
-
-    private static void HandlePostProfiles(HttpListenerRequest request, HttpListenerResponse response)
-    {
-        string body;
-        using (var reader = new StreamReader(request.InputStream, request.ContentEncoding))
-            body = reader.ReadToEnd();
-
-        Dictionary<string, JsonElement>? parsed;
-        try
-        {
-            parsed = JsonSerializer.Deserialize<Dictionary<string, JsonElement>>(body);
-        }
-        catch
-        {
-            SendError(response, 400, "Invalid JSON");
-            return;
-        }
-
-        if (parsed == null || !parsed.TryGetValue("action", out var actionElem))
-        {
-            SendError(response, 400, "Missing 'action' field. Use: switch, delete");
-            return;
-        }
-
-        string action = actionElem.GetString() ?? "";
-        int profileId = parsed.TryGetValue("profile_id", out var idElem) && idElem.ValueKind == JsonValueKind.Number
-            ? idElem.GetInt32()
-            : 0;
-
-        try
-        {
-            var resultTask = RunOnMainThread(() => ExecuteProfileAction(action, profileId));
-            SendJson(response, resultTask.GetAwaiter().GetResult());
-        }
-        catch (Exception ex)
-        {
-            SendError(response, 500, $"Profile action failed: {ex.Message}");
         }
     }
 
@@ -116,100 +72,6 @@ public static partial class McpMod
             ["current_profile_id"] = sm.CurrentProfileId,
             ["profiles"] = profiles
         };
-    }
-
-    private static Dictionary<string, object?> ExecuteProfileAction(string action, int profileId)
-    {
-        var sm = SaveManager.Instance;
-        if (sm == null)
-            return Error("Save manager is not available");
-        if (profileId is < 1 or > 3)
-            return Error("profile_id must be 1-3");
-
-        var normalizedAction = action.Trim().ToLowerInvariant();
-
-        if (normalizedAction == "switch")
-        {
-            if (RunManager.Instance?.IsInProgress == true)
-                return Error("Cannot switch profiles during a run");
-
-            var tree = Engine.GetMainLoop() as SceneTree;
-            if (tree?.Root != null)
-            {
-                if (TrySwitchProfileViaOpenScreen(tree.Root, profileId))
-                {
-                    return new Dictionary<string, object?>
-                    {
-                        ["status"] = "ok",
-                        ["message"] = $"Switch requested for profile {profileId} (via UI)",
-                        ["target_profile_id"] = profileId,
-                        ["current_profile_id"] = sm.CurrentProfileId
-                    };
-                }
-
-                var mainMenu = FindFirst<NMainMenu>(tree.Root);
-                if (mainMenu != null && IsNodeVisible(mainMenu))
-                {
-                    mainMenu.OpenProfileScreen();
-                    return new Dictionary<string, object?>
-                    {
-                        ["status"] = "ok",
-                        ["message"] = "Opened profile screen. Send switch again to select profile."
-                    };
-                }
-            }
-
-            sm.SwitchProfileId(profileId);
-            return new Dictionary<string, object?>
-            {
-                ["status"] = "ok",
-                ["message"] = $"Switched to profile {profileId} (requires restart)",
-                ["current_profile_id"] = sm.CurrentProfileId
-            };
-        }
-
-        if (normalizedAction == "delete")
-        {
-            if (profileId == sm.CurrentProfileId)
-                return Error("Cannot delete the active profile");
-
-            sm.DeleteProfile(profileId);
-            return new Dictionary<string, object?>
-            {
-                ["status"] = "ok",
-                ["message"] = $"Deleted profile {profileId}"
-            };
-        }
-
-        return Error($"Unknown action: {action}. Use: switch, delete");
-    }
-
-    private static bool TrySwitchProfileViaOpenScreen(Node root, int profileId)
-    {
-        var profileScreen = FindFirst<NProfileScreen>(root);
-        if (profileScreen == null || !IsNodeVisible(profileScreen))
-            return false;
-
-        var buttons = GetInstanceFieldValue(profileScreen, "_profileButtons") as System.Collections.IEnumerable;
-        if (buttons == null)
-            return false;
-
-        foreach (var btn in buttons)
-        {
-            var btnId = GetInstanceFieldValue(btn, "_profileId");
-            if (btnId is not int id || id != profileId)
-                continue;
-
-            var switchMethod = btn.GetType().GetMethod(
-                "SwitchToThisProfile",
-                System.Reflection.BindingFlags.Public |
-                System.Reflection.BindingFlags.NonPublic |
-                System.Reflection.BindingFlags.Instance);
-            switchMethod?.Invoke(btn, null);
-            return switchMethod != null;
-        }
-
-        return false;
     }
 
     internal static object BuildProfile()
